@@ -1,0 +1,12 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* Prevent vertical and horizontal scrolling */
+  touch-action: none; /* Prevent touch action such as scrolling */
+}
+
+canvas {
+  display: block;
+  width: 100%;
+  height: 100vh; /* Or adjust the height as needed */
+}
