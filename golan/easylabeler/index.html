@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Simple Media Annotator</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <header class="app-header">
+      <div>
+        <h1>Simple Media Annotator</h1>
+        <p>Make point, bbox, and shape labels for videos and images.</p>
+      </div>
+      <div class="open-controls">
+        <label class="file-picker">
+          <span>Open Media Folder</span>
+          <input id="mediaFolder" type="file" accept="video/*,image/*,application/json,.json" webkitdirectory directory multiple>
+        </label>
+        <button id="exportJson" class="header-button" type="button">Export JSON</button>
+      </div>
+    </header>
+
+    <main class="app-layout">
+      <section class="stage-panel" aria-label="Video annotation stage">
+        <div id="stage" class="stage">
+          <video id="video" class="media-frame" playsinline muted></video>
+          <img id="imageFrame" class="media-frame" alt="">
+          <canvas id="overlay"></canvas>
+          <div id="emptyState" class="empty-state">Open an MP4 file or image folder to start annotating.</div>
+        </div>
+
+        <div class="transport" aria-label="Timeline controls">
+          <label>
+            Frame
+            <input id="frameInput" type="number" min="0" step="1" value="0">
+          </label>
+          <output id="timeDisplay">0.000 s</output>
+          <button id="jumpStart" type="button" title="Jump to beginning">|&lt;</button>
+          <button id="deckPlay" type="button" title="Play or pause">Play</button>
+          <button id="deckPrevFrame" type="button" title="Previous frame">&lt;</button>
+          <button id="deckNextFrame" type="button" title="Next frame">&gt;</button>
+          <button id="copyNextFrame" type="button" title="Copy to next frame">+&gt;</button>
+          <button id="jumpEnd" type="button" title="Jump to end">&gt;|</button>
+        </div>
+      </section>
+
+      <aside class="side-panel" aria-label="Annotation controls">
+        <div class="control-group">
+          <span class="field-label">Annotation Mode</span>
+          <div id="modeRadios" class="radio-group" role="radiogroup" aria-label="Annotation mode">
+            <label>
+              <input type="radio" name="mode" value="point" checked>
+              (P) Point
+            </label>
+            <label>
+              <input type="radio" name="mode" value="bbox">
+              (B) Bounding Box
+            </label>
+            <label>
+              <input type="radio" name="mode" value="shape">
+              (S) Shape
+            </label>
+            <label>
+              <input type="radio" name="mode" value="select">
+              (E) Edit
+            </label>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <label for="labelInput">Label Name</label>
+          <input id="labelInput" type="text" value="point" autocomplete="off">
+        </div>
+
+        <div class="control-group">
+          <label class="checkbox-label">
+            <input id="onionEnabled" type="checkbox">
+            Onion skin
+          </label>
+        </div>
+
+        <div class="button-row">
+          <button id="clearFrame" type="button">Clear frame</button>
+          <button id="clearAll" type="button" class="danger">Clear all frames</button>
+        </div>
+
+        <section class="annotation-section">
+          <h2>Current frame annotations</h2>
+          <ul id="annotationList" class="annotation-list"></ul>
+        </section>
+      </aside>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,381 @@
+:root {
+  --bg: #f5f6f8;
+  --panel: #ffffff;
+  --text: #1f2933;
+  --muted: #667085;
+  --line: #d8dee8;
+  --accent: #0f766e;
+  --accent-strong: #115e59;
+  --danger: #b42318;
+  --shadow: 0 12px 32px rgba(31, 41, 51, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  line-height: 1.4;
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+button {
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #ffffff;
+  color: var(--text);
+  cursor: pointer;
+  min-height: 36px;
+  padding: 0.45rem 0.7rem;
+}
+
+button:hover,
+button:focus-visible {
+  border-color: var(--accent);
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+button.danger {
+  color: var(--danger);
+}
+
+input,
+select {
+  width: 100%;
+  min-height: 36px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #ffffff;
+  color: var(--text);
+  padding: 0.4rem 0.55rem;
+}
+
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem clamp(1rem, 3vw, 2rem);
+  border-bottom: 1px solid var(--line);
+  background: #ffffff;
+}
+
+.app-header h1 {
+  margin: 0;
+  font-size: clamp(1.25rem, 2.2vw, 1.7rem);
+  letter-spacing: 0;
+}
+
+.app-header p {
+  margin: 0.2rem 0 0;
+  color: var(--muted);
+}
+
+.open-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  justify-content: flex-end;
+}
+
+.file-picker,
+.header-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 38px;
+  padding: 0.5rem 0.8rem;
+  border-radius: 6px;
+  background: var(--accent);
+  color: #ffffff;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.file-picker:hover,
+.header-button:hover {
+  background: var(--accent-strong);
+  border-color: var(--accent-strong);
+}
+
+.file-picker input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+.hidden-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+.app-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 360px);
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.stage-panel,
+.side-panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+}
+
+.stage-panel {
+  min-width: 0;
+  padding: 1rem;
+}
+
+.stage {
+  position: relative;
+  display: block;
+  width: 100%;
+  min-height: 320px;
+  overflow: hidden;
+  border-radius: 6px;
+  background: #101418;
+}
+
+.media-frame,
+canvas {
+  display: block;
+  width: 100%;
+}
+
+.media-frame {
+  display: none;
+  height: auto;
+}
+
+.stage.video-mode video,
+.stage.image-mode img {
+  display: block;
+}
+
+canvas {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='17' height='17' viewBox='0 0 17 17'%3E%3Cg stroke='%2314b8a6' stroke-opacity='.62' stroke-width='1'%3E%3Cpath d='M8.5 0v5.5M8.5 11.5V17M0 8.5h5.5M11.5 8.5H17'/%3E%3C/g%3E%3C/svg%3E") 8 8, crosshair;
+  touch-action: none;
+}
+
+.empty-state {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  color: #e5e7eb;
+  text-align: center;
+}
+
+.stage.has-video {
+  min-height: 0;
+}
+
+.stage.has-video .empty-state {
+  display: none;
+}
+
+.transport {
+  display: grid;
+  grid-template-columns: minmax(90px, 120px) auto repeat(6, minmax(44px, 72px));
+  align-items: end;
+  gap: 0.65rem;
+  margin-top: 0.8rem;
+}
+
+.transport button {
+  min-width: 44px;
+  padding-inline: 0.45rem;
+}
+
+.transport label,
+.control-group label,
+.control-row label,
+.field-label {
+  display: grid;
+  gap: 0.25rem;
+  color: var(--muted);
+  font-size: 0.86rem;
+}
+
+output {
+  min-height: 36px;
+  display: inline-flex;
+  align-items: center;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.side-panel {
+  padding: 1rem;
+}
+
+.control-group,
+.control-row,
+.button-row {
+  margin-bottom: 0.9rem;
+}
+
+.control-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 96px;
+  gap: 0.7rem;
+  align-items: end;
+}
+
+.radio-group {
+  display: grid;
+  gap: 0.35rem;
+  margin-top: 0.3rem;
+}
+
+.radio-group label {
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  color: var(--text);
+}
+
+.radio-group input {
+  width: auto;
+  min-height: auto;
+}
+
+.radio-group.disabled {
+  opacity: 0.45;
+}
+
+.radio-group.disabled label {
+  cursor: not-allowed;
+}
+
+.checkbox-label {
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  color: var(--text) !important;
+}
+
+.checkbox-label input {
+  width: auto;
+  min-height: auto;
+}
+
+.button-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.55rem;
+}
+
+.annotation-section {
+  border-top: 1px solid var(--line);
+  padding-top: 0.9rem;
+}
+
+.annotation-section h2 {
+  margin: 0 0 0.65rem;
+  font-size: 1rem;
+  letter-spacing: 0;
+}
+
+.annotation-list {
+  display: grid;
+  gap: 0.5rem;
+  max-height: 42vh;
+  margin: 0;
+  padding: 0;
+  overflow: auto;
+  list-style: none;
+}
+
+.annotation-list li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.5rem;
+  align-items: start;
+  padding: 0.55rem;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #fbfcfd;
+}
+
+.annotation-list li.selected {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(15, 118, 110, 0.14);
+}
+
+.annotation-list strong,
+.annotation-list span {
+  display: block;
+  overflow-wrap: anywhere;
+}
+
+.annotation-list span {
+  color: var(--muted);
+  font-size: 0.84rem;
+}
+
+.annotation-list .delete-ann {
+  min-height: 30px;
+  padding: 0.2rem 0.5rem;
+}
+
+.empty-list {
+  color: var(--muted);
+}
+
+@media (max-width: 860px) {
+  .app-header,
+  .app-layout {
+    padding: 0.75rem;
+  }
+
+  .app-header {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .open-controls {
+    justify-content: stretch;
+  }
+
+  .file-picker,
+  .header-button {
+    flex: 1 1 180px;
+  }
+
+  .app-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .transport {
+    grid-template-columns: minmax(90px, 1fr) auto repeat(6, minmax(42px, 1fr));
+  }
+
+  .transport {
+    overflow-x: auto;
+  }
+}

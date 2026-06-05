@@ -1,0 +1,334 @@
+{
+  "metadata": {
+    "source_filename": "bellybutton",
+    "source_video_path": "bellybutton",
+    "media_type": "images",
+    "image_folder": "bellybutton",
+    "image_count": 16,
+    "media_width": 1280,
+    "media_height": 720,
+    "created_with": "minimal-media-annotator"
+  },
+  "images": [
+    {
+      "frame": 0,
+      "filename": "bellybutton_00000.jpg",
+      "path": "bellybutton/bellybutton_00000.jpg",
+      "width": 1280,
+      "height": 720,
+      "annotations": [
+        {
+          "id": "ann_000002",
+          "type": "point",
+          "label": "navel",
+          "frame": 0,
+          "time": 0,
+          "x": 652.34,
+          "y": 407.08,
+          "nx": 0.509641,
+          "ny": 0.565389
+        }
+      ]
+    },
+    {
+      "frame": 1,
+      "filename": "bellybutton_00001.jpg",
+      "path": "bellybutton/bellybutton_00001.jpg",
+      "width": 1280,
+      "height": 720,
+      "annotations": [
+        {
+          "id": "ann_000003",
+          "type": "point",
+          "label": "navel",
+          "frame": 1,
+          "time": 0.03333333333333333,
+          "x": 657.24,
+          "y": 377.19,
+          "nx": 0.513469,
+          "ny": 0.523875
+        }
+      ]
+    },
+    {
+      "frame": 2,
+      "filename": "bellybutton_00002.jpg",
+      "path": "bellybutton/bellybutton_00002.jpg",
+      "width": 1280,
+      "height": 720,
+      "annotations": [
+        {
+          "id": "ann_000004",
+          "type": "point",
+          "label": "navel",
+          "frame": 2,
+          "time": 0.06666666666666667,
+          "x": 657.04,
+          "y": 375.41,
+          "nx": 0.513312,
+          "ny": 0.521403
+        }
+      ]
+    },
+    {
+      "frame": 3,
+      "filename": "bellybutton_00003.jpg",
+      "path": "bellybutton/bellybutton_00003.jpg",
+      "width": 1280,
+      "height": 720,
+      "annotations": [
+        {
+          "id": "ann_000005",
+          "type": "point",
+          "label": "navel",
+          "frame": 3,
+          "time": 0.1,
+          "x": 652.15,
+          "y": 373.29,
+          "nx": 0.509492,
+          "ny": 0.518458
+        }
+      ]
+    },
+    {
+      "frame": 4,
+      "filename": "bellybutton_00004.jpg",
+      "path": "bellybutton/bellybutton_00004.jpg",
+      "width": 1280,
+      "height": 720,
+      "annotations": [
+        {
+          "id": "ann_000006",
+          "type": "point",
+          "label": "navel",
+          "frame": 4,
+          "time": 0.13333333333333333,
+          "x": 649.27,
+          "y": 368.49,
+          "nx": 0.507242,
+          "ny": 0.511792
+        }
+      ]
+    },
+    {
+      "frame": 5,
+      "filename": "bellybutton_00005.jpg",
+      "path": "bellybutton/bellybutton_00005.jpg",
+      "width": 1280,
+      "height": 720,
+      "annotations": [
+        {
+          "id": "ann_000007",
+          "type": "point",
+          "label": "navel",
+          "frame": 5,
+          "time": 0.16666666666666666,
+          "x": 649.68,
+          "y": 413.56,
+          "nx": 0.507562,
+          "ny": 0.574389
+        }
+      ]
+    },
+    {
+      "frame": 6,
+      "filename": "bellybutton_00006.jpg",
+      "path": "bellybutton/bellybutton_00006.jpg",
+      "width": 1280,
+      "height": 720,
+      "annotations": [
+        {
+          "id": "ann_000008",
+          "type": "point",
+          "label": "navel",
+          "frame": 6,
+          "time": 0.2,
+          "x": 647.66,
+          "y": 406.37,
+          "nx": 0.505984,
+          "ny": 0.564403
+        }
+      ]
+    },
+    {
+      "frame": 7,
+      "filename": "bellybutton_00007.jpg",
+      "path": "bellybutton/bellybutton_00007.jpg",
+      "width": 1280,
+      "height": 720,
+      "annotations": [
+        {
+          "id": "ann_000009",
+          "type": "point",
+          "label": "navel",
+          "frame": 7,
+          "time": 0.23333333333333334,
+          "x": 646.04,
+          "y": 403.43,
+          "nx": 0.504719,
+          "ny": 0.560319
+        }
+      ]
+    },
+    {
+      "frame": 8,
+      "filename": "bellybutton_00008.jpg",
+      "path": "bellybutton/bellybutton_00008.jpg",
+      "width": 1280,
+      "height": 720,
+      "annotations": [
+        {
+          "id": "ann_000010",
+          "type": "point",
+          "label": "navel",
+          "frame": 8,
+          "time": 0.26666666666666666,
+          "x": 589.22,
+          "y": 331.59,
+          "nx": 0.460328,
+          "ny": 0.460542
+        }
+      ]
+    },
+    {
+      "frame": 9,
+      "filename": "bellybutton_00009.jpg",
+      "path": "bellybutton/bellybutton_00009.jpg",
+      "width": 1280,
+      "height": 720,
+      "annotations": [
+        {
+          "id": "ann_000011",
+          "type": "point",
+          "label": "navel",
+          "frame": 9,
+          "time": 0.3,
+          "x": 593.3,
+          "y": 342.71,
+          "nx": 0.463516,
+          "ny": 0.475986
+        }
+      ]
+    },
+    {
+      "frame": 10,
+      "filename": "bellybutton_00010.jpg",
+      "path": "bellybutton/bellybutton_00010.jpg",
+      "width": 1280,
+      "height": 720,
+      "annotations": [
+        {
+          "id": "ann_000012",
+          "type": "point",
+          "label": "navel",
+          "frame": 10,
+          "time": 0.3333333333333333,
+          "x": 602.15,
+          "y": 350.06,
+          "nx": 0.47043,
+          "ny": 0.486194
+        }
+      ]
+    },
+    {
+      "frame": 11,
+      "filename": "bellybutton_00011.jpg",
+      "path": "bellybutton/bellybutton_00011.jpg",
+      "width": 1280,
+      "height": 720,
+      "annotations": [
+        {
+          "id": "ann_000013",
+          "type": "point",
+          "label": "navel",
+          "frame": 11,
+          "time": 0.36666666666666664,
+          "x": 614.07,
+          "y": 351.99,
+          "nx": 0.479742,
+          "ny": 0.488875
+        }
+      ]
+    },
+    {
+      "frame": 12,
+      "filename": "bellybutton_00012.jpg",
+      "path": "bellybutton/bellybutton_00012.jpg",
+      "width": 1280,
+      "height": 720,
+      "annotations": [
+        {
+          "id": "ann_000014",
+          "type": "point",
+          "label": "navel",
+          "frame": 12,
+          "time": 0.4,
+          "x": 694.8,
+          "y": 143.35,
+          "nx": 0.542812,
+          "ny": 0.199097
+        }
+      ]
+    },
+    {
+      "frame": 13,
+      "filename": "bellybutton_00013.jpg",
+      "path": "bellybutton/bellybutton_00013.jpg",
+      "width": 1280,
+      "height": 720,
+      "annotations": [
+        {
+          "id": "ann_000015",
+          "type": "point",
+          "label": "navel",
+          "frame": 13,
+          "time": 0.43333333333333335,
+          "x": 663.05,
+          "y": 108.11,
+          "nx": 0.518008,
+          "ny": 0.150153
+        }
+      ]
+    },
+    {
+      "frame": 14,
+      "filename": "bellybutton_00014.jpg",
+      "path": "bellybutton/bellybutton_00014.jpg",
+      "width": 1280,
+      "height": 720,
+      "annotations": [
+        {
+          "id": "ann_000016",
+          "type": "point",
+          "label": "navel",
+          "frame": 14,
+          "time": 0.4666666666666667,
+          "x": 584.44,
+          "y": 110.52,
+          "nx": 0.456594,
+          "ny": 0.1535
+        }
+      ]
+    },
+    {
+      "frame": 15,
+      "filename": "bellybutton_00015.jpg",
+      "path": "bellybutton/bellybutton_00015.jpg",
+      "width": 1280,
+      "height": 720,
+      "annotations": [
+        {
+          "id": "ann_000017",
+          "type": "point",
+          "label": "navel",
+          "frame": 15,
+          "time": 0.5,
+          "x": 535.13,
+          "y": 118.58,
+          "nx": 0.41807,
+          "ny": 0.164694
+        }
+      ]
+    }
+  ]
+}
