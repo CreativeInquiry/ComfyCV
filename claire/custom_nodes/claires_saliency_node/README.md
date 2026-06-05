@@ -2,6 +2,7 @@
 
 I created a custom node for [ComfyUI](https://github.com/comfyanonymous/ComfyUI), a local node-based interface for building AI pipelines. The node lets you point a pretrained image classifier at a photo and visualize what it's actually paying attention to when it makes a decision.
 
+*CHECK OUT THE SALIENCY NODE DOCUMENTATION FILE IN THE DOCUMENTATION FOLDER FOR THE ACTUAL INFO!!!*
 ---
 
 ## What is ComfyUI?
