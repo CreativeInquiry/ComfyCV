@@ -29,6 +29,18 @@
           <canvas id="overlay"></canvas>
           <div id="emptyState" class="empty-state">Open an MP4 file or image folder to start annotating.</div>
         </div>
+        <div
+          id="frameProgress"
+          class="frame-progress"
+          role="progressbar"
+          aria-label="Current frame"
+          aria-valuemin="0"
+          aria-valuemax="0"
+          aria-valuenow="0"
+        >
+          <div id="frameProgressFill" class="frame-progress-fill"></div>
+          <div id="frameProgressMarker" class="frame-progress-marker"></div>
+        </div>
 
         <div class="transport" aria-label="Timeline controls">
           <label>

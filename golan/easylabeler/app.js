@@ -13,6 +13,9 @@ const deckNextFrameButton = document.getElementById("deckNextFrame");
 const jumpEndButton = document.getElementById("jumpEnd");
 const frameInput = document.getElementById("frameInput");
 const timeDisplay = document.getElementById("timeDisplay");
+const frameProgress = document.getElementById("frameProgress");
+const frameProgressFill = document.getElementById("frameProgressFill");
+const frameProgressMarker = document.getElementById("frameProgressMarker");
 const modeInputs = Array.from(document.querySelectorAll('input[name="mode"]'));
 const labelInput = document.getElementById("labelInput");
 const onionEnabledInput = document.getElementById("onionEnabled");
@@ -1278,11 +1281,21 @@ function stopAllPlaybackLoops() {
 }
 
 function updateDisplays() {
-  frameInput.max = String(getMaxFrame());
+  const frame = getCurrentFrame();
+  const maxFrame = getMaxFrame();
+  frameInput.max = String(maxFrame);
   if (document.activeElement !== frameInput) {
-    frameInput.value = String(getCurrentFrame());
+    frameInput.value = String(frame);
   }
   timeDisplay.textContent = `${getCurrentMediaTime().toFixed(3)} s`;
+
+  const progress = maxFrame > 0 ? clamp(frame / maxFrame, 0, 1) : 0;
+  const progressPercent = `${(progress * 100).toFixed(3)}%`;
+  frameProgressFill.style.width = progressPercent;
+  frameProgressMarker.style.left = progressPercent;
+  frameProgress.setAttribute("aria-valuemax", String(maxFrame));
+  frameProgress.setAttribute("aria-valuenow", String(frame));
+  frameProgress.setAttribute("aria-valuetext", `Frame ${frame} of ${maxFrame}`);
 }
 
 function setPlayButtonLabels(isPlaying) {
