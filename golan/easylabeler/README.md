@@ -39,9 +39,11 @@ The JSON acts like a project file: choose the media folder that contains both th
 - **Edit mode:** click an annotation to select it. Drag points to move them. Drag deep inside boxes or inside shapes to move them. Drag box corners or shape vertices to resize/edit them.
 - Press **P**, **B**, **S**, or **E** to switch between Point, Bounding Box, Shape, and Edit modes unless an input field is focused.
 
-Use the label field before creating an annotation. Point, Bounding Box, and Shape modes default to `point`, `bbox`, and `shape`. Multiple labels and multiple annotations per frame are allowed.
+Use **Class Name** for the object/category and **Label Name** for the part or annotation name before creating an annotation. Class Name defaults to `myCategory`. Point, Bounding Box, and Shape label names default to `myPoint`, `myBoundingBox`, and `myShape`. Multiple classes, labels, and annotations per frame are allowed.
 
-The annotation list shows only annotations on the current frame. Use **Delete** in the list, or select an annotation and press Backspace/Delete.
+In Edit mode, selecting an annotation fills Class Name and Label Name with that annotation's values. Change either field and press Enter or leave the field to rename the selected annotation.
+
+The annotation list shows only annotations on the current frame. Use **(X) Exclude** or press **X** to mark the current frame as corrupt, glitched, irrelevant, or otherwise unsuitable for training; excluded frames draw a thin red X over the media. Use **Delete** in the list, or select an annotation and press Backspace/Delete.
 
 Press **Z** to undo the most recent annotation change, including accidental point, box, or shape additions.
 
@@ -53,10 +55,11 @@ Press **Z** to undo the most recent annotation change, including accidental poin
 - **Play:** advances through frames using the same frame-step path as the next-frame button, at the project FPS.
 - **+>:** copies all annotations on the current frame to the next frame with fresh IDs, then jumps to that next frame.
 - **Spacebar:** pause or resume playback, unless an input field is focused.
-- **Left / Right arrow keys:** previous frame and next frame, unless an input field is focused.
+- **Left / Right arrow keys:** previous frame and next frame, unless an input field is focused. Next frame wraps from the final frame to frame 0.
 - **Shift + Right Arrow:** copy annotations to the next frame, unless an input field is focused.
 - Playback loops automatically while video or image sequences are playing.
 - For videos, the app tracks the requested frame number directly and seeks to the middle of that frame's time span. For image folders, each image is one frame. The FPS value is stored in exported project JSON.
+- Annotation mode and clear-frame controls are disabled during playback.
 
 ## Onion-Skinning
 
@@ -85,6 +88,7 @@ Video projects use a flat annotation list:
     "fps": 30,
     "created_with": "minimal-media-annotator"
   },
+  "excluded_frames": [42, 87, 113],
   "annotations": []
 }
 ```
@@ -102,6 +106,7 @@ Image-folder projects group annotations by image:
     "fps": 30,
     "created_with": "minimal-media-annotator"
   },
+  "excluded_frames": [3, 9],
   "images": [
     {
       "frame": 0,
@@ -115,7 +120,29 @@ Image-folder projects group annotations by image:
 }
 ```
 
-Point annotations include `x`, `y`, `nx`, and `ny`. Bounding boxes include `x`, `y`, `width`, `height`, `nx`, `ny`, `nwidth`, and `nheight`. Shape annotations include `points`, with each point storing `x`, `y`, `nx`, and `ny`.
+All annotations include `class` and `label`. Use `class` for the object/category, such as `dirt_pile`, and `label` for a part or annotation name, such as `peak`.
+
+Example point annotation:
+
+```json
+{
+  "type": "point",
+  "class": "dirt_pile",
+  "label": "peak",
+  "track_id": null,
+  "confidence": 1.0,
+  "visibility": "visible",
+  "source": "manual"
+}
+```
+
+Project JSON includes a top-level `excluded_frames` array containing zero-based frame indices to omit from model-training datasets.
+
+All exported annotations include training-oriented metadata: `track_id`, `confidence`, `visibility`, and `source`. Manually created annotations default to `track_id: null`, `confidence: 1.0`, `visibility: "visible"`, and `source: "manual"`.
+
+Point annotations include `x`, `y`, `nx`, and `ny`.
+
+Bounding boxes include `x`, `y`, `width`, `height`, `nx`, `ny`, `nwidth`, and `nheight`. Shape annotations include `points`, with each point storing `x`, `y`, `nx`, and `ny`.
 
 Video annotations include `time`. Image-batch annotations do not include `time`.
 
@@ -161,7 +188,8 @@ By default, it reads `media/video/piles_test/piles_test.mp4` and `media/video/pi
 
 - This is intentionally a no-build, local-first app. Avoid adding a framework, backend, bundler, cloud dependency, or package manager unless the user explicitly changes that constraint.
 - Main UI files are `index.html`, `style.css`, and `app.js`. The Python code in `test/` is only for verification exports and should not be required to run the browser annotator.
-- `app.js` keeps all annotations in one array. Video projects export a flat `annotations` array; image projects export grouped `images[]` entries with each image filename and that frame's annotations.
+- `app.js` keeps all annotations in one array and excluded frames in an `excludedFrames` set. Video projects export a flat `annotations` array; image projects export grouped `images[]` entries with each image filename and that frame's annotations. Both formats export top-level `excluded_frames`.
+- Export backfills `class` and model-training metadata (`track_id`, `confidence`, `visibility`, `source`) on all annotations while preserving any existing imported values for those fields.
 - Annotation coordinates are intrinsic media pixels, not CSS pixels. Use `canvasToVideo()` and `videoToCanvas()` for coordinate transforms; do not derive annotation coordinates from displayed element sizes directly.
 - Video frame state is logical and explicit: `currentVideoFrameIndex` is the source of truth for the current frame. The video element is seeked to the midpoint of the frame interval with `getSeekTimeForFrame()` to avoid browser boundary-seek ambiguity.
 - `getMaxFrame()` returns the largest valid zero-based frame index. For a 41-frame video, valid frames are `0..40`; do not change this back to `duration * fps`.
