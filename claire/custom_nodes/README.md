@@ -5,10 +5,6 @@
 
 This tutorial is adapted from [this reddit post](https://www.reddit.com/r/comfyui/comments/18wp6oj/tutorial_create_a_custom_node_in_5_minutes/), plus my own suffering. Cheers!
 
-> My friend, the panda will never fulfill his destiny, nor you yours, until you let go of the illusion of control.
-> 
-> — Master Oogway, Kung Fu Panda
-
 ---
 
 ## Table of Contents
@@ -28,7 +24,7 @@ This tutorial is adapted from [this reddit post](https://www.reddit.com/r/comfyu
 
 ## What Even Is a Custom Node?
 
-ComfyUI's entire interface is made of **nodes**, boxes you connect together with noooooodles. Every single one of them, from `Load Image` to `KSampler`, is just a Python class underneath the GUI.
+ComfyUI's entire interface is made of **nodes**, boxes you connect together with noodles. Every single one of them, from `Load Image` to `KSampler`, is just a Python class underneath the GUI.
 
 That means *you* can make one, and it'll look and feel exactly like the built-in ones!
 
@@ -45,7 +41,7 @@ Let's break down what a node is made of:
 
 ## Your First Node: Hello World
 
-Let's build the simplest possible node: it takes a text input and passes it straight through. 
+Let's build the simplest possible node: it possess a textbox where the user can input a name. Connect it to a text/string display node, and you will find a friendly message!  
 
 ### Step 1: Create the folder structure
 
@@ -75,7 +71,7 @@ class HelloWorldNode:
     def INPUT_TYPES(cls):
         return {
             "required": {
-                "your_name": ("STRING", {"default": "world"}),
+                "your_name": ("STRING", {"default": "Golan"}),
             }
         }
 
@@ -100,30 +96,17 @@ NODE_DISPLAY_NAME_MAPPINGS = {
 }
 ```
 
-
 ---
 
 ### Step 3: Write the `__init__.py`
 
-This file just re-exports the mappings so ComfyUI can find them:
+The init file is super small, just two lines! It just re-exports the mappings so ComfyUI can find them:
 
 ```python
 from .hello_node import NODE_CLASS_MAPPINGS, NODE_DISPLAY_NAME_MAPPINGS
 
 __all__ = ["NODE_CLASS_MAPPINGS", "NODE_DISPLAY_NAME_MAPPINGS"]
 ```
-
-
----
-### Step 4: Restart ComfyUI
- 
-**Restart the server**.
- 
-Then **hard refresh** your browser: `Cmd+Shift+R` (Mac) or `Ctrl+Shift+R` (Windows/Linux).
- 
-Double-click the canvas and search for **"Hello World"**. Your node should appear!
-
-
 
 ---
  
@@ -140,27 +123,36 @@ def INPUT_TYPES(cls):
         }
     }
 ```
- 
-This method tells ComfyUI what inputs to draw on the node. The key (`your_name`) becomes the label. The first value in the tuple is the **type** (`STRING`), and the dict sets UI behavior like default values, min/max for numbers, etc.
+
+This is where you tell ComfyUI what goes into your node. Each entry has three things:
+
+The name (`your_name`): becomes the label on the node
+The type (`STRING`): what kind of data it accepts
+The options (`{"default": "world"}`): a dictionary form of extra settings like a default value, or min/max for numbers
  
 ```python
 RETURN_TYPES = ("STRING",)
 RETURN_NAMES = ("greeting",)
 ```
  
-The outputs. `RETURN_TYPES` controls the wire color and what it can connect to. `RETURN_NAMES` is the label shown on the node. Note: even for a single output, you need the trailing comma — `("STRING",)` (classic python making everyone's life hard).
+This outputs are what come out of your node. `RETURN_TYPES` sets the data type (which also controls the wire color, since strings are one color, images are another...). `RETURN_NAMES` is just the label you'll see on the output dot.
+
+
+Note: even for a single output, you need the trailing comma `("STRING",)` (classic python making everyone's life hard).
+
+
  
 ```python
 FUNCTION = "greet"
 ```
  
-The name of the method ComfyUI calls when the node executes. It must exactly match the method name below.
+This tells ComfyUI which method to run when the node executes. It must exactly match the method name below.
  
 ```python
 CATEGORY = "tutorials/hello-world"
 ```
  
-Where the node lives in the right-click context menu. Slashes create subfolders.
+This is the file path, of where your node shows up in the right-click menu. The slash creates a subfolder, so this would appear under tutorials → hello-world
  
 ```python
 def greet(self, your_name):
@@ -168,7 +160,7 @@ def greet(self, your_name):
     return (message,)
 ```
  
-The actual logic. The parameter names must match the keys in `INPUT_TYPES`. The return value must be a tuple matching `RETURN_TYPES`.
+This is the function that actually does something. The parameter names have to match what you defined in INPUT_TYPES. Don't forget that trailing comma!
  
 ---
  
@@ -199,7 +191,7 @@ Here's what the types look like for common widgets:
  
 ## Inputs: Making Dot Connectors
  
-Sometimes you want a **dot on the side of the node** that another node can wire into. This is how you pass images, latents, models, and other complex data between nodes.
+Sometimes you want an actual input, so you can hook up other nodes as inputs to your node. 
  
 To turn any input into a dot connector instead of a widget, add `"forceInput": True`:
  
@@ -242,8 +234,7 @@ def run(self, ...):
     return (my_image, my_label, my_count)
 ```
  
-Types are always written in ALL CAPS. The wire colors are automatic. Images are blue, latents are pink, conditioning is orange, and so on.
- 
+Types are always written in ALL CAPS. 
 ---
  
 ## Naming Your Node
@@ -329,8 +320,8 @@ This is the friendliest option for beginners.
 3. Click **Install via Git URL**
 ![node image](./images/manager.png)
 4. Paste your GitHub repo link (e.g. `https://github.com/yourusername/your-node-repo`)
-![node image](./images/github-link.png)
 ![node image](./images/github.png)
+![node image](./images/github-link.png)
 5. Click **Install**
 6. When it finishes, click **Restart**
 ![alt text](./images/restart.png)
@@ -345,7 +336,7 @@ To verify it works, wire it to a **Display Any** node (or **Show Text**) and que
  
 ### Method 2: Terminal (for advanced use)
  
-If you prefer the terminal or your node isn't in the Manager registry, RunComfy gives you a restricted terminal from the instance dashboard.
+If you prefer the terminal, RunComfy gives you a restricted terminal from the instance dashboard.
  
 ```bash
 cd /workspace/ComfyUI/custom_nodes
@@ -368,7 +359,7 @@ Then restart the ComfyUI server from the RunComfy dashboard, and hard refresh yo
  
 ## Debugging on RunComfy
  
-When a node doesn't show up, don't panic. Here's the debugging playbook — this is exactly what I had to work through to get my own node running.
+When a node doesn't show up, don't panic!!!!
  
 ### Step 1: Check the startup log
  
@@ -378,12 +369,12 @@ In RunComfy, click **View Log** in the top menu.
 
 Look for your node's folder name in the imports section of the log.
  
-- **It's there but the node doesn't appear** → hard refresh your browser first (`Cmd/Ctrl+Shift+R`). This was the culprit for me!
+- **It's there but the node doesn't appear** → hard refresh your browser first (`Cmd/Ctrl+Shift+R`). 
 - **It's not there at all** → there's a silent import error. Go to Step 2.
 
 ### Step 2: Add debug output to `__init__.py`
  
-ComfyUI swallows import errors silently so one bad node doesn't crash the whole app. 
+ComfyUI sometimes hides the import errors so one bad node doesn't crash the whole app. 
  
 Edit your `__init__.py` with vim:
  
@@ -443,9 +434,8 @@ pip show package-name
  
 - [ComfyUI Custom Node How-To Wiki](https://github.com/chrisgoringe/Comfy-Custom-Node-How-To/wiki) — community-written, incomplete but useful
 - [ComfyUI Registry](https://docs.comfy.org/registry/publishing) — how to publish your node publicly
-- [PAIR Saliency Tutorial](https://github.com/PAIR-code/saliency/blob/master/Examples_pytorch.ipynb) — inspiration for image processing nodes
 - [ComfyUI JS Extensions](https://docs.comfy.org/custom-nodes/js/javascript_overview) — for adding custom UI to your nodes
-- [Original Reddit Tutorial](https://www.reddit.com/r/comfyui/comments/18wp6oj/tutorial_create_a_custom_node_in_5_minutes/) — the post that started it all
+- [Original Reddit Tutorial](https://www.reddit.com/r/comfyui/comments/18wp6oj/tutorial_create_a_custom_node_in_5_minutes/)
 ---
  
 *Made with frustration, perseverance, and a lot of terminal typos. Good luck!*
