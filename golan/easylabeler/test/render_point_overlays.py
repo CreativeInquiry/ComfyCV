@@ -2,7 +2,7 @@
 """Render point annotations onto decoded video frames.
 
 Default usage from this folder:
-    venv/bin/python render_point_overlays.py
+    venv/bin/python test/render_point_overlays.py
 """
 
 from __future__ import annotations
@@ -43,6 +43,7 @@ def parse_args() -> argparse.Namespace:
 
 
 def load_point_annotations(json_path: Path) -> dict[int, list[dict]]:
+    """Return point annotations grouped by zero-based frame number."""
     with json_path.open("r", encoding="utf-8") as handle:
         payload = json.load(handle)
 
@@ -59,6 +60,7 @@ def load_point_annotations(json_path: Path) -> dict[int, list[dict]]:
 
 
 def draw_points(frame_image, annotations: list[dict], radius: int, thickness: int, draw_labels: bool) -> None:
+    """Draw all point annotations for one decoded OpenCV frame in place."""
     for ann in annotations:
         x = int(round(float(ann["x"])))
         y = int(round(float(ann["y"])))
@@ -82,6 +84,7 @@ def draw_points(frame_image, annotations: list[dict], radius: int, thickness: in
 
 
 def render_frames(video_path: Path, annotations_by_frame: dict[int, list[dict]], output_dir: Path, radius: int, thickness: int, draw_labels: bool) -> int:
+    """Decode only annotated frames, draw points, and save PNG outputs."""
     capture = cv2.VideoCapture(str(video_path))
     if not capture.isOpened():
         raise RuntimeError(f"Could not open video: {video_path}")

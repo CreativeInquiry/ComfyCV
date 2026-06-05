@@ -24,14 +24,31 @@ const exportButton = document.getElementById("exportJson");
 const clearFrameButton = document.getElementById("clearFrame");
 const clearAllButton = document.getElementById("clearAll");
 
+/**
+ * @typedef {Object} Annotation
+ * @property {string} id
+ * @property {"point"|"bbox"|"shape"} type
+ * @property {string} label
+ * @property {number} frame
+ * @property {number=} time Present for video annotations, omitted for image batches.
+ * @property {number=} x Point/box x coordinate in intrinsic media pixels.
+ * @property {number=} y Point/box y coordinate in intrinsic media pixels.
+ * @property {number=} width Box width in intrinsic media pixels.
+ * @property {number=} height Box height in intrinsic media pixels.
+ * @property {{x:number,y:number,nx:number,ny:number}[]=} points Shape vertices.
+ */
+
 let sourceFilename = "";
 let sourceUrl = "";
 let sourceVideoPath = "";
 let sourceImageFolder = "";
+/** @type {"none"|"video"|"images"} */
 let mediaMode = "none";
 let imageFrames = [];
 let imageFrameIndex = 0;
+// Videos are seeked by time, but the app's annotation state uses frame numbers.
 let currentVideoFrameIndex = 0;
+/** @type {Annotation[]} */
 let annotations = [];
 let nextAnnotationNumber = 1;
 let selectedAnnotationId = null;
@@ -54,18 +71,24 @@ function getFPS() {
   return projectFPS;
 }
 
+/**
+ * Returns the app's logical frame index, not the browser's raw video time.
+ * This keeps annotation frame numbers stable while MP4 seeking settles.
+ */
 function getCurrentFrame() {
   if (mediaMode === "images") return imageFrameIndex;
   if (mediaMode === "video") return currentVideoFrameIndex;
   return 0;
 }
 
+/** Returns the annotation/export timestamp for the current logical frame. */
 function getCurrentMediaTime() {
   if (mediaMode === "images") return imageFrameIndex / getFPS();
   if (mediaMode === "video") return currentVideoFrameIndex / getFPS();
   return 0;
 }
 
+/** Returns the largest valid zero-based frame index for the loaded media. */
 function getMaxFrame() {
   if (mediaMode === "images") return Math.max(0, imageFrames.length - 1);
   if (!Number.isFinite(video.duration)) return 0;
@@ -76,6 +99,11 @@ function getCurrentTimeForFrame(frame) {
   return frame / getFPS();
 }
 
+/**
+ * Browser video seeks are time-based and can be ambiguous at exact frame
+ * boundaries. Seeking to the middle of the desired frame makes frame stepping
+ * match the decoded-frame tests much more reliably.
+ */
 function getSeekTimeForFrame(frame) {
   const fps = getFPS();
   const midpointTime = (frame + 0.5) / fps;
@@ -98,6 +126,7 @@ function getMediaHeight() {
   return video.videoHeight || 0;
 }
 
+/** Loads one browser-selected video file and resets per-project UI state. */
 function loadVideo(file) {
   if (!file) return;
   stopAllPlaybackLoops();
@@ -122,6 +151,7 @@ function loadVideo(file) {
   draftBox = null;
   draftPoint = null;
   draftShape = null;
+  setMode("select");
   preserveAnnotationsOnNextVideoOpen = false;
 
   imageFrame.removeAttribute("src");
@@ -134,6 +164,10 @@ function loadVideo(file) {
   renderAnnotationList();
 }
 
+/**
+ * Loads a folder containing one or more videos and optional JSON project files.
+ * If possible, the JSON metadata chooses which video belongs to the project.
+ */
 async function loadVideoFolder(fileList) {
   const allFiles = Array.from(fileList || []);
   const videoFiles = allFiles
@@ -166,6 +200,7 @@ async function loadVideoFolder(fileList) {
   }
 }
 
+/** Chooses video mode or image-sequence mode from a selected folder. */
 async function loadMediaFolder(fileList) {
   const allFiles = Array.from(fileList || []);
   const videoFiles = allFiles.filter(isVideoFile);
@@ -200,6 +235,10 @@ function waitForVideoMetadata() {
   });
 }
 
+/**
+ * Loads a flat directory of images as sequential frames, sorted naturally by
+ * file path, and restores compatible image-batch JSON when present.
+ */
 async function loadImageFolder(fileList) {
   const allFiles = Array.from(fileList || []);
   const files = allFiles
@@ -238,6 +277,7 @@ async function loadImageFolder(fileList) {
   draftPoint = null;
   draftShape = null;
   imageFrameIndex = 0;
+  setMode("select");
   preserveAnnotationsOnNextImageFolderOpen = false;
 
   try {
@@ -509,6 +549,10 @@ function basename(path) {
   return String(path).split("/").pop();
 }
 
+/**
+ * Converts intrinsic media pixels to displayed canvas CSS pixels.
+ * Annotation data is always stored in intrinsic media coordinates.
+ */
 function videoToCanvas(point) {
   const rect = canvas.getBoundingClientRect();
   const width = getMediaWidth();
@@ -519,6 +563,10 @@ function videoToCanvas(point) {
   };
 }
 
+/**
+ * Converts a pointer event on the displayed canvas into intrinsic video/image
+ * coordinates, clamped to the visible media bounds.
+ */
 function canvasToVideo(event) {
   const rect = canvas.getBoundingClientRect();
   const width = getMediaWidth();
@@ -531,6 +579,7 @@ function canvasToVideo(event) {
   };
 }
 
+/** Adds a point annotation on the current frame at intrinsic media coordinates. */
 function addPoint(x, y) {
   pushUndoState();
   const frame = getCurrentFrame();
@@ -553,6 +602,7 @@ function addPoint(x, y) {
   renderAnnotationList();
 }
 
+/** Adds a bounding box annotation, normalizing drag direction into x/y/width/height. */
 function addBox(x, y, width, height) {
   if (Math.abs(width) < 3 || Math.abs(height) < 3) return;
 
@@ -585,6 +635,7 @@ function addBox(x, y, width, height) {
   renderAnnotationList();
 }
 
+/** Adds a closed polyline shape annotation from the current draft vertices. */
 function addShape(points) {
   if (!points || points.length < 3) return;
 
@@ -617,6 +668,7 @@ function normalizeShapePoint(point) {
   };
 }
 
+/** Adds a shape vertex, or closes the draft if the click is near the first vertex. */
 function handleShapeClick(point) {
   const frame = getCurrentFrame();
   if (!draftShape || draftShape.frame !== frame) {
@@ -635,6 +687,7 @@ function handleShapeClick(point) {
   draw();
 }
 
+/** Duplicates all current-frame annotations onto the next frame with fresh IDs. */
 function copyCurrentAnnotationsToNextFrame() {
   if (!getMediaWidth()) return;
   const frame = getCurrentFrame();
@@ -650,6 +703,7 @@ function copyCurrentAnnotationsToNextFrame() {
   renderAnnotationList();
 }
 
+/** Redraws all visible annotations and drafts for the current logical frame. */
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   if (!getMediaWidth() || !getMediaHeight()) return;
@@ -815,6 +869,7 @@ function drawLabel(label, x, y) {
   ctx.restore();
 }
 
+/** Selects the topmost current-frame annotation hit by an intrinsic media point. */
 function selectAnnotation(point) {
   const hits = currentFrameAnnotations().filter((ann) => hitTest(ann, point));
   selectedAnnotationId = hits.length ? hits[hits.length - 1].id : null;
@@ -832,6 +887,7 @@ function deleteAnnotation(id = selectedAnnotationId) {
   renderAnnotationList();
 }
 
+/** Saves a compact snapshot before a mutating annotation operation. */
 function pushUndoState() {
   undoStack.push({
     annotations: annotations.map(cloneAnnotation),
@@ -843,6 +899,7 @@ function pushUndoState() {
   }
 }
 
+/** Restores the most recent annotation snapshot. */
 function undoLastAction() {
   const state = undoStack.pop();
   if (!state) return;
@@ -893,6 +950,7 @@ function refreshNormalizedCoordinates() {
   });
 }
 
+/** Rebuilds the side-panel list for annotations on the current frame only. */
 function renderAnnotationList() {
   lastAnnotationListFrame = getCurrentFrame();
   annotationList.innerHTML = "";
@@ -932,6 +990,7 @@ function renderAnnotationList() {
   });
 }
 
+/** Exports the current project as downloadable JSON. */
 function exportJSON() {
   const payload = {
     metadata: {
@@ -967,6 +1026,7 @@ function exportJSON() {
   URL.revokeObjectURL(url);
 }
 
+/** Builds image-batch JSON with filenames grouped beside each frame's annotations. */
 function buildImageExportEntries() {
   return imageFrames.map((image) => ({
     frame: image.index,
@@ -986,6 +1046,7 @@ function getSortedAnnotations() {
     .sort((a, b) => a.frame - b.frame || a.id.localeCompare(b.id));
 }
 
+/** Removes UI-only fields and rounds geometry before writing JSON. */
 function cleanAnnotationForExport(ann) {
   const copy = cloneAnnotation(ann);
   delete copy.image_filename;
@@ -993,12 +1054,14 @@ function cleanAnnotationForExport(ann) {
   return copy;
 }
 
+/** Image annotations do not carry video timestamps. */
 function cleanImageAnnotationForExport(ann) {
   const copy = cleanAnnotationForExport(ann);
   delete copy.time;
   return copy;
 }
 
+/** Applies a standalone project JSON file when called by an import path. */
 async function openJSONFile(file) {
   if (!file) return;
 
@@ -1149,6 +1212,7 @@ function warnIfVideoMetadataDiffers(metadata) {
   );
 }
 
+/** Seeks to a logical frame and updates UI state without relying on native playback. */
 function seekToFrame(frame, options = {}) {
   const keepPlaying = options.keepPlaying === true;
   if (mediaMode === "images") {
@@ -1208,6 +1272,10 @@ function scheduleDraw() {
   });
 }
 
+/**
+ * Plays videos by repeatedly using the same frame-step seek path as the Next
+ * button. This keeps displayed annotations synchronized with stepped frames.
+ */
 function startVideoFramePlaybackLoop() {
   stopVideoFramePlaybackLoop();
   video.pause();
@@ -1242,6 +1310,7 @@ function stopVideoFramePlaybackLoop(updateButtons = false) {
   updateAnnotationModeDisabled();
 }
 
+/** Plays image sequences by advancing the current image index at project FPS. */
 function startImagePlaybackLoop() {
   stopImagePlaybackLoop();
   setPlayButtonLabels(true);
@@ -1280,6 +1349,7 @@ function stopAllPlaybackLoops() {
   stopImagePlaybackLoop(true);
 }
 
+/** Updates frame/time readouts, progress bar, and accessible progress metadata. */
 function updateDisplays() {
   const frame = getCurrentFrame();
   const maxFrame = getMaxFrame();
@@ -1316,6 +1386,7 @@ function updateAnnotationModeDisabled() {
   document.getElementById("modeRadios")?.classList.toggle("disabled", disabled);
 }
 
+/** Returns true when an intrinsic media point is close enough to edit an annotation. */
 function hitTest(ann, point) {
   if (ann.type === "point") {
     return distance(point, ann) <= 12;
@@ -1338,6 +1409,7 @@ function getShapeVertexHandle(ann, point) {
   return index >= 0 ? index : null;
 }
 
+/** Standard ray-casting point-in-polygon test for selecting filled shapes. */
 function pointInPolygon(point, polygon = []) {
   let inside = false;
   for (let i = 0, j = polygon.length - 1; i < polygon.length; j = i++) {
@@ -1400,7 +1472,7 @@ function getSelectedAnnotation() {
 }
 
 function getMode() {
-  return modeInputs.find((input) => input.checked)?.value || "point";
+  return modeInputs.find((input) => input.checked)?.value || "select";
 }
 
 function setMode(mode) {
@@ -1743,6 +1815,9 @@ window.addEventListener("keydown", (event) => {
   } else if ((modeKey === "p" || modeKey === "b" || modeKey === "s" || modeKey === "e") && !isPlaybackActive()) {
     event.preventDefault();
     setMode({ p: "point", b: "bbox", s: "shape", e: "select" }[modeKey]);
+  } else if (event.key === " ") {
+    event.preventDefault();
+    togglePlayback();
   } else if (event.key === "ArrowLeft") {
     event.preventDefault();
     seekToFrame(getCurrentFrame() - 1);
