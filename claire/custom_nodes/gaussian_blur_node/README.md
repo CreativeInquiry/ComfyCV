@@ -7,7 +7,7 @@
 
 ---
 
-## 📖 Table of Contents
+## Table of Contents
 
 1. [What Are We Building?](#what-are-we-building)
 2. [What Is a Gaussian Blur, Actually?](#what-is-a-gaussian-blur-actually)
@@ -29,10 +29,10 @@ Now that we've made a very simple Comfy node, we want to *LEVEL UP* and make a C
 
 It'll have two controls you can play with:
 - **Kernel size**: basically, how blurry. Bigger number = blurrier.
-<img src="./custom_nodes/gaussian_blur_node/assets/kernel.webp" alt="Description" width="300" height="200">
+<img src="../assets/kernel.webp" alt="Description" width="300" height="200">
 
 - **Sigma**: fine-tunes the blur shape. Leave it at 0 and OpenCV figures it out for you.
-<img src="./custom_nodes/gaussian_blur_node/assets/sigma.jpg" alt="Description" width="300" height="200">
+<img src="../sigma.jpg" alt="Description" width="300" height="200">
 
 TODO: ADD SCREENSHOT OF NODE IN CANVAS HERE
 
