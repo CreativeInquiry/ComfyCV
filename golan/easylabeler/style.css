@@ -83,6 +83,8 @@ select {
 .app-header p {
   margin: 0.2rem 0 0;
   color: var(--muted);
+  font-size: 0.6rem;
+  line-height: 1.25;
 }
 
 .open-controls {
@@ -131,6 +133,7 @@ select {
 .app-layout {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(280px, 360px);
+  align-items: start;
   gap: 1rem;
   padding: 1rem;
 }

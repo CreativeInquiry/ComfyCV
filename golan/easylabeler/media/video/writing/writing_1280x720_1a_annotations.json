@@ -22,7 +22,12 @@
       "x": 594.31,
       "y": 550.49,
       "nx": 0.464305,
-      "ny": 0.764569
+      "ny": 0.764569,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000005",
@@ -33,7 +38,12 @@
       "x": 593.31,
       "y": 546.28,
       "nx": 0.463523,
-      "ny": 0.758722
+      "ny": 0.758722,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000006",
@@ -44,7 +54,12 @@
       "x": 593.04,
       "y": 543.24,
       "nx": 0.463312,
-      "ny": 0.7545
+      "ny": 0.7545,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000007",
@@ -55,7 +70,12 @@
       "x": 581.87,
       "y": 536.96,
       "nx": 0.454586,
-      "ny": 0.745778
+      "ny": 0.745778,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000008",
@@ -66,7 +86,12 @@
       "x": 574.58,
       "y": 547.5,
       "nx": 0.448891,
-      "ny": 0.760417
+      "ny": 0.760417,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000009",
@@ -77,7 +102,12 @@
       "x": 571.39,
       "y": 562.29,
       "nx": 0.446398,
-      "ny": 0.780958
+      "ny": 0.780958,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000010",
@@ -88,7 +118,12 @@
       "x": 573.12,
       "y": 567.98,
       "nx": 0.44775,
-      "ny": 0.788861
+      "ny": 0.788861,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000011",
@@ -99,7 +134,12 @@
       "x": 574.14,
       "y": 567.85,
       "nx": 0.448547,
-      "ny": 0.788681
+      "ny": 0.788681,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000012",
@@ -110,7 +150,12 @@
       "x": 572.2,
       "y": 568.7,
       "nx": 0.447031,
-      "ny": 0.789861
+      "ny": 0.789861,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000013",
@@ -121,7 +166,12 @@
       "x": 557.64,
       "y": 564.8,
       "nx": 0.435656,
-      "ny": 0.784444
+      "ny": 0.784444,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000014",
@@ -132,7 +182,12 @@
       "x": 541.06,
       "y": 569.14,
       "nx": 0.422703,
-      "ny": 0.790472
+      "ny": 0.790472,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000015",
@@ -143,7 +198,12 @@
       "x": 529.04,
       "y": 574.2,
       "nx": 0.413313,
-      "ny": 0.7975
+      "ny": 0.7975,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000016",
@@ -154,7 +214,12 @@
       "x": 527.77,
       "y": 571.94,
       "nx": 0.41232,
-      "ny": 0.794361
+      "ny": 0.794361,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000017",
@@ -165,7 +230,12 @@
       "x": 529.63,
       "y": 596.54,
       "nx": 0.413773,
-      "ny": 0.828528
+      "ny": 0.828528,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000018",
@@ -176,7 +246,12 @@
       "x": 530.7,
       "y": 599.34,
       "nx": 0.414609,
-      "ny": 0.832417
+      "ny": 0.832417,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000019",
@@ -187,7 +262,12 @@
       "x": 533.7,
       "y": 588.33,
       "nx": 0.416953,
-      "ny": 0.817125
+      "ny": 0.817125,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000020",
@@ -198,7 +278,12 @@
       "x": 530.76,
       "y": 590.99,
       "nx": 0.414656,
-      "ny": 0.820819
+      "ny": 0.820819,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000021",
@@ -209,7 +294,12 @@
       "x": 531.71,
       "y": 589.85,
       "nx": 0.415398,
-      "ny": 0.819236
+      "ny": 0.819236,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000022",
@@ -220,7 +310,12 @@
       "x": 510.18,
       "y": 584.6,
       "nx": 0.398578,
-      "ny": 0.811944
+      "ny": 0.811944,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000023",
@@ -231,7 +326,12 @@
       "x": 482.73,
       "y": 577.91,
       "nx": 0.377133,
-      "ny": 0.802653
+      "ny": 0.802653,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000024",
@@ -242,7 +342,12 @@
       "x": 468.4,
       "y": 577.16,
       "nx": 0.365938,
-      "ny": 0.801611
+      "ny": 0.801611,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000025",
@@ -253,7 +358,12 @@
       "x": 469.35,
       "y": 573.85,
       "nx": 0.36668,
-      "ny": 0.797014
+      "ny": 0.797014,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000026",
@@ -264,7 +374,12 @@
       "x": 486.55,
       "y": 591.57,
       "nx": 0.380117,
-      "ny": 0.821625
+      "ny": 0.821625,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000027",
@@ -275,7 +390,12 @@
       "x": 484.36,
       "y": 590.37,
       "nx": 0.378406,
-      "ny": 0.819958
+      "ny": 0.819958,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000028",
@@ -286,7 +406,12 @@
       "x": 479.78,
       "y": 593.78,
       "nx": 0.374828,
-      "ny": 0.824694
+      "ny": 0.824694,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000029",
@@ -297,7 +422,12 @@
       "x": 471.7,
       "y": 597.91,
       "nx": 0.368516,
-      "ny": 0.830431
+      "ny": 0.830431,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000030",
@@ -308,7 +438,12 @@
       "x": 470.62,
       "y": 594.63,
       "nx": 0.367672,
-      "ny": 0.825875
+      "ny": 0.825875,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000031",
@@ -319,7 +454,12 @@
       "x": 470.01,
       "y": 597.17,
       "nx": 0.367195,
-      "ny": 0.829403
+      "ny": 0.829403,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000032",
@@ -330,7 +470,12 @@
       "x": 480.2,
       "y": 588.3,
       "nx": 0.375156,
-      "ny": 0.817083
+      "ny": 0.817083,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000033",
@@ -341,7 +486,12 @@
       "x": 478.67,
       "y": 580.68,
       "nx": 0.373961,
-      "ny": 0.8065
+      "ny": 0.8065,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000034",
@@ -352,7 +502,12 @@
       "x": 479.29,
       "y": 576.04,
       "nx": 0.374445,
-      "ny": 0.800056
+      "ny": 0.800056,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000035",
@@ -363,7 +518,12 @@
       "x": 479.29,
       "y": 576.04,
       "nx": 0.374445,
-      "ny": 0.800056
+      "ny": 0.800056,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000036",
@@ -374,7 +534,12 @@
       "x": 479.94,
       "y": 576.04,
       "nx": 0.374953,
-      "ny": 0.800056
+      "ny": 0.800056,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000037",
@@ -385,7 +550,12 @@
       "x": 479.94,
       "y": 576.04,
       "nx": 0.374953,
-      "ny": 0.800056
+      "ny": 0.800056,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000038",
@@ -396,7 +566,12 @@
       "x": 481.03,
       "y": 574.93,
       "nx": 0.375805,
-      "ny": 0.798514
+      "ny": 0.798514,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000039",
@@ -407,7 +582,12 @@
       "x": 483.12,
       "y": 564.07,
       "nx": 0.377438,
-      "ny": 0.783431
+      "ny": 0.783431,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000041",
@@ -418,7 +598,12 @@
       "x": 481.9,
       "y": 553.03,
       "nx": 0.376484,
-      "ny": 0.768097
+      "ny": 0.768097,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000042",
@@ -429,7 +614,12 @@
       "x": 479.79,
       "y": 548.94,
       "nx": 0.374836,
-      "ny": 0.762417
+      "ny": 0.762417,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000043",
@@ -440,7 +630,12 @@
       "x": 479.54,
       "y": 544.98,
       "nx": 0.374641,
-      "ny": 0.756917
+      "ny": 0.756917,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000044",
@@ -451,7 +646,12 @@
       "x": 483.44,
       "y": 549.5,
       "nx": 0.377688,
-      "ny": 0.763194
+      "ny": 0.763194,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000045",
@@ -462,7 +662,12 @@
       "x": 483.85,
       "y": 556.52,
       "nx": 0.378008,
-      "ny": 0.772944
+      "ny": 0.772944,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000046",
@@ -473,7 +678,12 @@
       "x": 484.48,
       "y": 555.66,
       "nx": 0.3785,
-      "ny": 0.77175
+      "ny": 0.77175,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000047",
@@ -484,7 +694,12 @@
       "x": 482.92,
       "y": 558.65,
       "nx": 0.377281,
-      "ny": 0.775903
+      "ny": 0.775903,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000048",
@@ -495,7 +710,12 @@
       "x": 479.34,
       "y": 555.9,
       "nx": 0.374484,
-      "ny": 0.772083
+      "ny": 0.772083,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000049",
@@ -506,7 +726,12 @@
       "x": 481.94,
       "y": 556.33,
       "nx": 0.376516,
-      "ny": 0.772681
+      "ny": 0.772681,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000050",
@@ -517,7 +742,12 @@
       "x": 478.42,
       "y": 555.01,
       "nx": 0.373766,
-      "ny": 0.770847
+      "ny": 0.770847,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000051",
@@ -528,7 +758,12 @@
       "x": 480.36,
       "y": 555.49,
       "nx": 0.375281,
-      "ny": 0.771514
+      "ny": 0.771514,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000052",
@@ -539,7 +774,12 @@
       "x": 480.27,
       "y": 555,
       "nx": 0.375211,
-      "ny": 0.770833
+      "ny": 0.770833,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000053",
@@ -550,7 +790,12 @@
       "x": 485.08,
       "y": 557.22,
       "nx": 0.378969,
-      "ny": 0.773917
+      "ny": 0.773917,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000054",
@@ -561,7 +806,12 @@
       "x": 487.83,
       "y": 564.73,
       "nx": 0.381117,
-      "ny": 0.784347
+      "ny": 0.784347,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000055",
@@ -572,7 +822,12 @@
       "x": 488.95,
       "y": 571.88,
       "nx": 0.381992,
-      "ny": 0.794278
+      "ny": 0.794278,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000056",
@@ -583,7 +838,12 @@
       "x": 489.23,
       "y": 574.1,
       "nx": 0.382211,
-      "ny": 0.797361
+      "ny": 0.797361,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000057",
@@ -594,7 +854,12 @@
       "x": 486.12,
       "y": 577.98,
       "nx": 0.379781,
-      "ny": 0.80275
+      "ny": 0.80275,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000058",
@@ -605,7 +870,12 @@
       "x": 484.1,
       "y": 578.75,
       "nx": 0.378203,
-      "ny": 0.803819
+      "ny": 0.803819,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000059",
@@ -616,7 +886,12 @@
       "x": 480.8,
       "y": 584.39,
       "nx": 0.375625,
-      "ny": 0.811653
+      "ny": 0.811653,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000060",
@@ -627,7 +902,12 @@
       "x": 477.55,
       "y": 593.54,
       "nx": 0.373086,
-      "ny": 0.824361
+      "ny": 0.824361,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000061",
@@ -638,7 +918,12 @@
       "x": 479.19,
       "y": 598.86,
       "nx": 0.374367,
-      "ny": 0.83175
+      "ny": 0.83175,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000062",
@@ -649,7 +934,12 @@
       "x": 479.58,
       "y": 595.66,
       "nx": 0.374672,
-      "ny": 0.827306
+      "ny": 0.827306,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000063",
@@ -660,7 +950,12 @@
       "x": 479.58,
       "y": 595.66,
       "nx": 0.374672,
-      "ny": 0.827306
+      "ny": 0.827306,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000064",
@@ -671,7 +966,12 @@
       "x": 477.64,
       "y": 583.3,
       "nx": 0.373156,
-      "ny": 0.810139
+      "ny": 0.810139,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000065",
@@ -682,7 +982,12 @@
       "x": 468.3,
       "y": 562.33,
       "nx": 0.365859,
-      "ny": 0.781014
+      "ny": 0.781014,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000066",
@@ -693,7 +998,12 @@
       "x": 457.42,
       "y": 543.96,
       "nx": 0.357359,
-      "ny": 0.7555
+      "ny": 0.7555,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000067",
@@ -704,7 +1014,12 @@
       "x": 455.46,
       "y": 543.22,
       "nx": 0.355828,
-      "ny": 0.754472
+      "ny": 0.754472,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000068",
@@ -715,7 +1030,12 @@
       "x": 450.45,
       "y": 527.77,
       "nx": 0.351914,
-      "ny": 0.733014
+      "ny": 0.733014,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000069",
@@ -726,7 +1046,12 @@
       "x": 449.27,
       "y": 524.52,
       "nx": 0.350992,
-      "ny": 0.7285
+      "ny": 0.7285,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000070",
@@ -737,7 +1062,12 @@
       "x": 447.37,
       "y": 523.11,
       "nx": 0.349508,
-      "ny": 0.726542
+      "ny": 0.726542,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000071",
@@ -748,7 +1078,12 @@
       "x": 443.59,
       "y": 521.85,
       "nx": 0.346555,
-      "ny": 0.724792
+      "ny": 0.724792,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000072",
@@ -759,7 +1094,12 @@
       "x": 444.28,
       "y": 520.73,
       "nx": 0.347094,
-      "ny": 0.723236
+      "ny": 0.723236,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000073",
@@ -770,7 +1110,12 @@
       "x": 444.28,
       "y": 520.73,
       "nx": 0.347094,
-      "ny": 0.723236
+      "ny": 0.723236,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000074",
@@ -781,7 +1126,12 @@
       "x": 444.28,
       "y": 520.73,
       "nx": 0.347094,
-      "ny": 0.723236
+      "ny": 0.723236,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000075",
@@ -792,7 +1142,12 @@
       "x": 446.46,
       "y": 519.99,
       "nx": 0.348797,
-      "ny": 0.722208
+      "ny": 0.722208,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000076",
@@ -803,7 +1158,12 @@
       "x": 446.46,
       "y": 521.16,
       "nx": 0.348797,
-      "ny": 0.723833
+      "ny": 0.723833,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000077",
@@ -814,7 +1174,12 @@
       "x": 446.46,
       "y": 519.44,
       "nx": 0.348797,
-      "ny": 0.721444
+      "ny": 0.721444,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000078",
@@ -825,7 +1190,12 @@
       "x": 446.46,
       "y": 519.44,
       "nx": 0.348797,
-      "ny": 0.721444
+      "ny": 0.721444,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000079",
@@ -836,7 +1206,12 @@
       "x": 447.98,
       "y": 519.66,
       "nx": 0.349984,
-      "ny": 0.72175
+      "ny": 0.72175,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000080",
@@ -847,7 +1222,12 @@
       "x": 448.35,
       "y": 517.72,
       "nx": 0.350273,
-      "ny": 0.719056
+      "ny": 0.719056,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000081",
@@ -858,7 +1238,12 @@
       "x": 449.8,
       "y": 517.96,
       "nx": 0.351406,
-      "ny": 0.719389
+      "ny": 0.719389,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000082",
@@ -869,7 +1254,12 @@
       "x": 450.28,
       "y": 517.96,
       "nx": 0.351781,
-      "ny": 0.719389
+      "ny": 0.719389,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000083",
@@ -880,7 +1270,12 @@
       "x": 450.96,
       "y": 518.16,
       "nx": 0.352313,
-      "ny": 0.719667
+      "ny": 0.719667,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000084",
@@ -891,7 +1286,12 @@
       "x": 453.84,
       "y": 514.46,
       "nx": 0.354563,
-      "ny": 0.714528
+      "ny": 0.714528,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000085",
@@ -902,7 +1302,12 @@
       "x": 458.58,
       "y": 511.38,
       "nx": 0.358266,
-      "ny": 0.71025
+      "ny": 0.71025,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000086",
@@ -913,7 +1318,12 @@
       "x": 465.74,
       "y": 503.02,
       "nx": 0.363859,
-      "ny": 0.698639
+      "ny": 0.698639,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000087",
@@ -924,7 +1334,12 @@
       "x": 472.34,
       "y": 492.52,
       "nx": 0.369016,
-      "ny": 0.684056
+      "ny": 0.684056,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000088",
@@ -935,7 +1350,12 @@
       "x": 471.81,
       "y": 492.29,
       "nx": 0.368602,
-      "ny": 0.683736
+      "ny": 0.683736,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000089",
@@ -946,7 +1366,12 @@
       "x": 475.14,
       "y": 481.24,
       "nx": 0.371203,
-      "ny": 0.668389
+      "ny": 0.668389,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000090",
@@ -957,7 +1382,12 @@
       "x": 479.33,
       "y": 468.8,
       "nx": 0.374477,
-      "ny": 0.651111
+      "ny": 0.651111,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000091",
@@ -968,7 +1398,12 @@
       "x": 486.56,
       "y": 453.45,
       "nx": 0.380125,
-      "ny": 0.629792
+      "ny": 0.629792,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000092",
@@ -979,7 +1414,12 @@
       "x": 484.77,
       "y": 454.65,
       "nx": 0.378727,
-      "ny": 0.631458
+      "ny": 0.631458,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000093",
@@ -990,7 +1430,12 @@
       "x": 503.08,
       "y": 435.25,
       "nx": 0.393031,
-      "ny": 0.604514
+      "ny": 0.604514,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000094",
@@ -1001,7 +1446,12 @@
       "x": 513.3,
       "y": 429.6,
       "nx": 0.401016,
-      "ny": 0.596667
+      "ny": 0.596667,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000095",
@@ -1012,7 +1462,12 @@
       "x": 515.16,
       "y": 418.38,
       "nx": 0.402469,
-      "ny": 0.581083
+      "ny": 0.581083,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000096",
@@ -1023,7 +1478,12 @@
       "x": 514.7,
       "y": 409.93,
       "nx": 0.402109,
-      "ny": 0.569347
+      "ny": 0.569347,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000097",
@@ -1034,7 +1494,12 @@
       "x": 514,
       "y": 410.1,
       "nx": 0.401563,
-      "ny": 0.569583
+      "ny": 0.569583,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000098",
@@ -1045,7 +1510,12 @@
       "x": 508.06,
       "y": 402.32,
       "nx": 0.396922,
-      "ny": 0.558778
+      "ny": 0.558778,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000099",
@@ -1056,7 +1526,12 @@
       "x": 508.5,
       "y": 397.04,
       "nx": 0.397266,
-      "ny": 0.551444
+      "ny": 0.551444,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000100",
@@ -1067,7 +1542,12 @@
       "x": 506.47,
       "y": 393.17,
       "nx": 0.39568,
-      "ny": 0.546069
+      "ny": 0.546069,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000101",
@@ -1078,7 +1558,12 @@
       "x": 503.45,
       "y": 386.85,
       "nx": 0.39332,
-      "ny": 0.537292
+      "ny": 0.537292,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000102",
@@ -1089,7 +1574,12 @@
       "x": 494.96,
       "y": 379.85,
       "nx": 0.386687,
-      "ny": 0.527569
+      "ny": 0.527569,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000103",
@@ -1100,7 +1590,12 @@
       "x": 494.39,
       "y": 377.59,
       "nx": 0.386242,
-      "ny": 0.524431
+      "ny": 0.524431,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000104",
@@ -1111,7 +1606,12 @@
       "x": 485.21,
       "y": 376.15,
       "nx": 0.37907,
-      "ny": 0.522431
+      "ny": 0.522431,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000105",
@@ -1122,7 +1622,12 @@
       "x": 480.29,
       "y": 374.67,
       "nx": 0.375227,
-      "ny": 0.520375
+      "ny": 0.520375,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000106",
@@ -1133,7 +1638,12 @@
       "x": 473.16,
       "y": 375.29,
       "nx": 0.369656,
-      "ny": 0.521236
+      "ny": 0.521236,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000107",
@@ -1144,7 +1654,12 @@
       "x": 470.97,
       "y": 371.72,
       "nx": 0.367945,
-      "ny": 0.516278
+      "ny": 0.516278,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000108",
@@ -1155,7 +1670,12 @@
       "x": 462.03,
       "y": 369.46,
       "nx": 0.360961,
-      "ny": 0.513139
+      "ny": 0.513139,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000109",
@@ -1166,7 +1686,12 @@
       "x": 449.71,
       "y": 366.92,
       "nx": 0.351336,
-      "ny": 0.509611
+      "ny": 0.509611,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000110",
@@ -1177,7 +1702,12 @@
       "x": 437.15,
       "y": 367.2,
       "nx": 0.341523,
-      "ny": 0.51
+      "ny": 0.51,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000111",
@@ -1188,7 +1718,12 @@
       "x": 435.88,
       "y": 375.17,
       "nx": 0.340531,
-      "ny": 0.521069
+      "ny": 0.521069,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000112",
@@ -1199,7 +1734,12 @@
       "x": 431.65,
       "y": 372.21,
       "nx": 0.337227,
-      "ny": 0.516958
+      "ny": 0.516958,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000113",
@@ -1210,7 +1750,12 @@
       "x": 424.97,
       "y": 390.52,
       "nx": 0.332008,
-      "ny": 0.542389
+      "ny": 0.542389,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000114",
@@ -1221,7 +1766,12 @@
       "x": 404.36,
       "y": 416.26,
       "nx": 0.315906,
-      "ny": 0.578139
+      "ny": 0.578139,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000115",
@@ -1232,7 +1782,12 @@
       "x": 405.03,
       "y": 429.29,
       "nx": 0.31643,
-      "ny": 0.596236
+      "ny": 0.596236,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000116",
@@ -1243,7 +1798,12 @@
       "x": 398.99,
       "y": 443.67,
       "nx": 0.311711,
-      "ny": 0.616208
+      "ny": 0.616208,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000117",
@@ -1254,7 +1814,12 @@
       "x": 400.59,
       "y": 439.22,
       "nx": 0.312961,
-      "ny": 0.610028
+      "ny": 0.610028,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000118",
@@ -1265,7 +1830,12 @@
       "x": 393.49,
       "y": 454.96,
       "nx": 0.307414,
-      "ny": 0.631889
+      "ny": 0.631889,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000119",
@@ -1276,7 +1846,12 @@
       "x": 393.49,
       "y": 454.96,
       "nx": 0.307414,
-      "ny": 0.631889
+      "ny": 0.631889,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     },
     {
       "id": "ann_000120",
@@ -1287,7 +1862,12 @@
       "x": 393.49,
       "y": 454.96,
       "nx": 0.307414,
-      "ny": 0.631889
+      "ny": 0.631889,
+      "class": "pen",
+      "track_id": null,
+      "confidence": 1,
+      "visibility": "visible",
+      "source": "manual"
     }
   ]
 }

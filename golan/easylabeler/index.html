@@ -3,14 +3,17 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Simple Media Annotator</title>
+    <title>EasyLabeler: a Simple Media Annotator</title>
     <link rel="stylesheet" href="style.css">
   </head>
   <body>
     <header class="app-header">
       <div>
-        <h1>Simple Media Annotator</h1>
-        <p>Make point, bbox, and shape labels for videos and images.</p>
+        <h1>EasyLabeler: a Simple Media Annotator</h1>
+        <p>
+          Make point, bbox, and shape labels for videos and images.<br>
+          All media are processed locally.
+        </p>
       </div>
       <div class="open-controls">
         <label class="file-picker">
@@ -81,8 +84,13 @@
         </div>
 
         <div class="control-group">
+          <label for="classInput">Class Name</label>
+          <input id="classInput" type="text" value="myCategory" autocomplete="off">
+        </div>
+
+        <div class="control-group">
           <label for="labelInput">Label Name</label>
-          <input id="labelInput" type="text" value="point" autocomplete="off">
+          <input id="labelInput" type="text" value="myPoint" autocomplete="off">
         </div>
 
         <div class="control-group">
@@ -99,6 +107,10 @@
 
         <section class="annotation-section">
           <h2>Current frame annotations</h2>
+          <label class="checkbox-label">
+            <input id="excludeFrame" type="checkbox">
+            (X) Exclude
+          </label>
           <ul id="annotationList" class="annotation-list"></ul>
         </section>
       </aside>

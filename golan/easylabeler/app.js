@@ -17,8 +17,10 @@ const frameProgress = document.getElementById("frameProgress");
 const frameProgressFill = document.getElementById("frameProgressFill");
 const frameProgressMarker = document.getElementById("frameProgressMarker");
 const modeInputs = Array.from(document.querySelectorAll('input[name="mode"]'));
+const classInput = document.getElementById("classInput");
 const labelInput = document.getElementById("labelInput");
 const onionEnabledInput = document.getElementById("onionEnabled");
+const excludeFrameInput = document.getElementById("excludeFrame");
 const annotationList = document.getElementById("annotationList");
 const exportButton = document.getElementById("exportJson");
 const clearFrameButton = document.getElementById("clearFrame");
@@ -28,6 +30,7 @@ const clearAllButton = document.getElementById("clearAll");
  * @typedef {Object} Annotation
  * @property {string} id
  * @property {"point"|"bbox"|"shape"} type
+ * @property {string} class Object/category name shared by related part labels.
  * @property {string} label
  * @property {number} frame
  * @property {number=} time Present for video annotations, omitted for image batches.
@@ -36,6 +39,10 @@ const clearAllButton = document.getElementById("clearAll");
  * @property {number=} width Box width in intrinsic media pixels.
  * @property {number=} height Box height in intrinsic media pixels.
  * @property {{x:number,y:number,nx:number,ny:number}[]=} points Shape vertices.
+ * @property {string|null=} track_id Optional identity used by downstream tracking/model code.
+ * @property {number=} confidence Manual annotations default to 1.0.
+ * @property {string=} visibility Manual annotations default to "visible".
+ * @property {string=} source Manual annotations default to "manual".
  */
 
 let sourceFilename = "";
@@ -50,6 +57,7 @@ let imageFrameIndex = 0;
 let currentVideoFrameIndex = 0;
 /** @type {Annotation[]} */
 let annotations = [];
+let excludedFrames = new Set();
 let nextAnnotationNumber = 1;
 let selectedAnnotationId = null;
 let dragState = null;
@@ -66,6 +74,13 @@ let lastAnnotationListFrame = null;
 let preserveAnnotationsOnNextVideoOpen = false;
 let preserveAnnotationsOnNextImageFolderOpen = false;
 let projectFPS = 30;
+const DEFAULT_CLASS_NAME = "myCategory";
+const MANUAL_ANNOTATION_EXPORT_FIELDS = {
+  track_id: null,
+  confidence: 1.0,
+  visibility: "visible",
+  source: "manual"
+};
 
 function getFPS() {
   return projectFPS;
@@ -143,6 +158,7 @@ function loadVideo(file) {
   sourceUrl = URL.createObjectURL(file);
   if (!shouldPreserveAnnotations) {
     annotations = [];
+    excludedFrames = new Set();
     nextAnnotationNumber = 1;
     projectFPS = 30;
     undoStack = [];
@@ -152,6 +168,7 @@ function loadVideo(file) {
   draftPoint = null;
   draftShape = null;
   setMode("select");
+  resetClassAndLabelFields();
   preserveAnnotationsOnNextVideoOpen = false;
 
   imageFrame.removeAttribute("src");
@@ -268,6 +285,7 @@ async function loadImageFolder(fileList) {
   sourceImageFolder = sourceFilename;
   if (!shouldPreserveAnnotations) {
     annotations = [];
+    excludedFrames = new Set();
     nextAnnotationNumber = 1;
     projectFPS = 30;
     undoStack = [];
@@ -278,6 +296,7 @@ async function loadImageFolder(fileList) {
   draftShape = null;
   imageFrameIndex = 0;
   setMode("select");
+  resetClassAndLabelFields();
   preserveAnnotationsOnNextImageFolderOpen = false;
 
   try {
@@ -499,6 +518,7 @@ function applyVideoProjectPayload(payload) {
   }
 
   annotations = getImportedAnnotations(payload).map(normalizeImportedAnnotation);
+  excludedFrames = getImportedExcludedFrames(payload);
   selectedAnnotationId = null;
   nextAnnotationNumber = getNextAnnotationNumberFrom(annotations);
   undoStack = [];
@@ -540,6 +560,7 @@ function applyImageProjectPayload(payload) {
   }
 
   annotations = getImportedAnnotations(payload).map(normalizeImportedAnnotation);
+  excludedFrames = getImportedExcludedFrames(payload);
   selectedAnnotationId = null;
   nextAnnotationNumber = getNextAnnotationNumberFrom(annotations);
   undoStack = [];
@@ -588,7 +609,9 @@ function addPoint(x, y) {
   const ann = {
     id: nextId(),
     type: "point",
+    class: getClassName(),
     label: getLabel(),
+    ...MANUAL_ANNOTATION_EXPORT_FIELDS,
     frame,
     time: getCurrentTimeForFrame(frame),
     x: roundCoord(x),
@@ -617,7 +640,9 @@ function addBox(x, y, width, height) {
   const ann = {
     id: nextId(),
     type: "bbox",
+    class: getClassName(),
     label: getLabel(),
+    ...MANUAL_ANNOTATION_EXPORT_FIELDS,
     frame,
     time: getCurrentTimeForFrame(frame),
     x: roundCoord(left),
@@ -644,7 +669,9 @@ function addShape(points) {
   const ann = {
     id: nextId(),
     type: "shape",
+    class: getClassName(),
     label: getLabel(),
+    ...MANUAL_ANNOTATION_EXPORT_FIELDS,
     frame,
     time: getCurrentTimeForFrame(frame),
     points: points.map(normalizeShapePoint)
@@ -735,6 +762,23 @@ function draw() {
   if (draftShape?.frame === frame) {
     drawDraftShape(draftShape.points);
   }
+
+  if (excludedFrames.has(frame)) {
+    drawExcludedFrameOverlay();
+  }
+}
+
+function drawExcludedFrameOverlay() {
+  ctx.save();
+  ctx.strokeStyle = "rgba(220, 38, 38, 0.95)";
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.moveTo(0, 0);
+  ctx.lineTo(canvas.width, canvas.height);
+  ctx.moveTo(canvas.width, 0);
+  ctx.lineTo(0, canvas.height);
+  ctx.stroke();
+  ctx.restore();
 }
 
 function drawAnnotation(ann, opacity, selected) {
@@ -872,7 +916,7 @@ function drawLabel(label, x, y) {
 /** Selects the topmost current-frame annotation hit by an intrinsic media point. */
 function selectAnnotation(point) {
   const hits = currentFrameAnnotations().filter((ann) => hitTest(ann, point));
-  selectedAnnotationId = hits.length ? hits[hits.length - 1].id : null;
+  setSelectedAnnotation(hits.length ? hits[hits.length - 1].id : null);
   draw();
   renderAnnotationList();
   return getSelectedAnnotation();
@@ -891,6 +935,7 @@ function deleteAnnotation(id = selectedAnnotationId) {
 function pushUndoState() {
   undoStack.push({
     annotations: annotations.map(cloneAnnotation),
+    excludedFrames: getSortedExcludedFrames(),
     selectedAnnotationId,
     nextAnnotationNumber
   });
@@ -904,9 +949,12 @@ function undoLastAction() {
   const state = undoStack.pop();
   if (!state) return;
   annotations = state.annotations.map(cloneAnnotation);
+  excludedFrames = new Set(state.excludedFrames || []);
   selectedAnnotationId = state.selectedAnnotationId;
   nextAnnotationNumber = state.nextAnnotationNumber;
   clearDraftAnnotation();
+  populateFieldsFromSelectedAnnotation();
+  updateDisplays();
   draw();
   renderAnnotationList();
 }
@@ -969,7 +1017,7 @@ function renderAnnotationList() {
 
     const details = document.createElement("div");
     const title = document.createElement("strong");
-    title.textContent = `${ann.label} (${ann.type})`;
+    title.textContent = `${ann.class || DEFAULT_CLASS_NAME}: ${ann.label} (${ann.type})`;
     const coords = document.createElement("span");
     coords.textContent = describeAnnotation(ann);
     details.append(title, coords);
@@ -978,10 +1026,13 @@ function renderAnnotationList() {
     deleteButton.type = "button";
     deleteButton.className = "delete-ann";
     deleteButton.textContent = "Delete";
-    deleteButton.addEventListener("click", () => deleteAnnotation(ann.id));
+    deleteButton.addEventListener("click", (event) => {
+      event.stopPropagation();
+      deleteAnnotation(ann.id);
+    });
 
     item.addEventListener("click", () => {
-      selectedAnnotationId = ann.id;
+      setSelectedAnnotation(ann.id);
       draw();
       renderAnnotationList();
     });
@@ -1005,7 +1056,8 @@ function exportJSON() {
       video_height: getMediaHeight(),
       fps: getFPS(),
       created_with: "minimal-media-annotator"
-    }
+    },
+    excluded_frames: getSortedExcludedFrames()
   };
 
   if (mediaMode === "images") {
@@ -1046,12 +1098,33 @@ function getSortedAnnotations() {
     .sort((a, b) => a.frame - b.frame || a.id.localeCompare(b.id));
 }
 
+function getSortedExcludedFrames() {
+  return Array.from(excludedFrames).sort((a, b) => a - b);
+}
+
 /** Removes UI-only fields and rounds geometry before writing JSON. */
 function cleanAnnotationForExport(ann) {
   const copy = cloneAnnotation(ann);
+  addDefaultClassField(copy);
+  addManualAnnotationTrainingFields(copy);
   delete copy.image_filename;
   delete copy.image_path;
   return copy;
+}
+
+/** Ensures every exported annotation has a class/category field. */
+function addDefaultClassField(ann) {
+  if (!hasOwn(ann, "class") || String(ann.class).trim() === "") {
+    ann.class = DEFAULT_CLASS_NAME;
+  }
+}
+
+/** Adds default model-training metadata for manual annotations. */
+function addManualAnnotationTrainingFields(ann) {
+  if (!hasOwn(ann, "track_id")) ann.track_id = MANUAL_ANNOTATION_EXPORT_FIELDS.track_id;
+  if (!hasOwn(ann, "confidence")) ann.confidence = MANUAL_ANNOTATION_EXPORT_FIELDS.confidence;
+  if (!hasOwn(ann, "visibility")) ann.visibility = MANUAL_ANNOTATION_EXPORT_FIELDS.visibility;
+  if (!hasOwn(ann, "source")) ann.source = MANUAL_ANNOTATION_EXPORT_FIELDS.source;
 }
 
 /** Image annotations do not carry video timestamps. */
@@ -1084,6 +1157,7 @@ async function openJSONFile(file) {
   }
 
   annotations = getImportedAnnotations(payload).map(normalizeImportedAnnotation);
+  excludedFrames = getImportedExcludedFrames(payload);
   selectedAnnotationId = null;
   nextAnnotationNumber = getNextAnnotationNumberFrom(annotations);
   undoStack = [];
@@ -1169,11 +1243,21 @@ function getImportedAnnotations(payload) {
   });
 }
 
+function getImportedExcludedFrames(payload) {
+  if (!Array.isArray(payload.excluded_frames)) return new Set();
+  return new Set(
+    payload.excluded_frames
+      .map((frame) => Math.round(Number(frame)))
+      .filter((frame) => Number.isFinite(frame) && frame >= 0)
+  );
+}
+
 function normalizeImportedAnnotation(ann) {
   const copy = { ...ann };
   copy.id = copy.id || nextId();
   copy.type = ["point", "bbox", "shape"].includes(copy.type) ? copy.type : "point";
-  copy.label = copy.label || "point";
+  copy.class = String(copy.class || DEFAULT_CLASS_NAME);
+  copy.label = copy.label || getDefaultLabelForMode(copy.type);
   copy.frame = Math.round(Number(copy.frame) || 0);
   copy.time = Number(copy.time) || getCurrentTimeForFrame(copy.frame);
 
@@ -1261,6 +1345,11 @@ function togglePlayback() {
 
 function jumpToFrameFromInput() {
   seekToFrame(frameInput.value);
+}
+
+function nextFrame() {
+  const targetFrame = getCurrentFrame() >= getMaxFrame() ? 0 : getCurrentFrame() + 1;
+  seekToFrame(targetFrame);
 }
 
 function scheduleDraw() {
@@ -1366,6 +1455,8 @@ function updateDisplays() {
   frameProgress.setAttribute("aria-valuemax", String(maxFrame));
   frameProgress.setAttribute("aria-valuenow", String(frame));
   frameProgress.setAttribute("aria-valuetext", `Frame ${frame} of ${maxFrame}`);
+  excludeFrameInput.checked = excludedFrames.has(frame);
+  excludeFrameInput.disabled = mediaMode === "none" || isPlaybackActive();
 }
 
 function setPlayButtonLabels(isPlaying) {
@@ -1383,6 +1474,9 @@ function updateAnnotationModeDisabled() {
   modeInputs.forEach((input) => {
     input.disabled = disabled;
   });
+  clearFrameButton.disabled = disabled;
+  clearAllButton.disabled = disabled;
+  excludeFrameInput.disabled = disabled || mediaMode === "none";
   document.getElementById("modeRadios")?.classList.toggle("disabled", disabled);
 }
 
@@ -1471,6 +1565,54 @@ function getSelectedAnnotation() {
   return annotations.find((ann) => ann.id === selectedAnnotationId) || null;
 }
 
+function setSelectedAnnotation(id, syncFields = true) {
+  selectedAnnotationId = id;
+  if (syncFields) populateFieldsFromSelectedAnnotation();
+}
+
+function populateFieldsFromSelectedAnnotation() {
+  const ann = getSelectedAnnotation();
+  if (!ann) return;
+  classInput.value = ann.class || DEFAULT_CLASS_NAME;
+  labelInput.value = ann.label || getDefaultLabelForMode(ann.type);
+}
+
+function updateSelectedAnnotationFromFields() {
+  const ann = getSelectedAnnotation();
+  if (!ann || getMode() !== "select") return;
+  const nextClass = getClassName();
+  const nextLabel = labelInput.value.trim() || getDefaultLabelForMode(ann.type);
+  if (ann.class === nextClass && ann.label === nextLabel) return;
+
+  pushUndoState();
+  ann.class = nextClass;
+  ann.label = nextLabel;
+  classInput.value = nextClass;
+  labelInput.value = nextLabel;
+  draw();
+  renderAnnotationList();
+}
+
+function setCurrentFrameExcluded(excluded) {
+  if (isPlaybackActive() || mediaMode === "none") return;
+  const frame = getCurrentFrame();
+  const isExcluded = excludedFrames.has(frame);
+  if (isExcluded === excluded) return;
+
+  pushUndoState();
+  if (excluded) {
+    excludedFrames.add(frame);
+  } else {
+    excludedFrames.delete(frame);
+  }
+  updateDisplays();
+  draw();
+}
+
+function toggleCurrentFrameExcluded() {
+  setCurrentFrameExcluded(!excludedFrames.has(getCurrentFrame()));
+}
+
 function getMode() {
   return modeInputs.find((input) => input.checked)?.value || "select";
 }
@@ -1481,6 +1623,7 @@ function setMode(mode) {
   const previousMode = getMode();
   input.checked = true;
   updateDefaultLabelForMode(mode, previousMode);
+  if (mode === "select") populateFieldsFromSelectedAnnotation();
   clearDraftAnnotation();
   draw();
 }
@@ -1505,19 +1648,37 @@ function nextId() {
   return `ann_${String(nextAnnotationNumber++).padStart(6, "0")}`;
 }
 
+function getClassName() {
+  return classInput.value.trim() || DEFAULT_CLASS_NAME;
+}
+
 function getLabel() {
   return labelInput.value.trim() || getDefaultLabelForMode(getMode());
 }
 
+function resetClassAndLabelFields() {
+  classInput.value = DEFAULT_CLASS_NAME;
+  labelInput.value = getDefaultLabelForMode(getMode());
+}
+
 function getDefaultLabelForMode(mode) {
-  if (mode === "bbox") return "bbox";
-  if (mode === "shape") return "shape";
-  return "point";
+  if (mode === "bbox") return "myBoundingBox";
+  if (mode === "shape") return "myShape";
+  return "myPoint";
 }
 
 function updateDefaultLabelForMode(mode, previousMode = getMode()) {
   const current = labelInput.value.trim().toLowerCase();
-  const defaultLabels = new Set(["", "point", "bbox", "shape", getDefaultLabelForMode(previousMode)]);
+  const defaultLabels = new Set([
+    "",
+    "point",
+    "bbox",
+    "shape",
+    "mypoint",
+    "myboundingbox",
+    "myshape",
+    getDefaultLabelForMode(previousMode).toLowerCase()
+  ]);
   if (defaultLabels.has(current)) {
     labelInput.value = getDefaultLabelForMode(mode);
   }
@@ -1542,6 +1703,10 @@ function describeAnnotation(ann) {
 
 function clamp(value, min, max) {
   return Math.min(Math.max(value, min), max);
+}
+
+function hasOwn(object, key) {
+  return Object.prototype.hasOwnProperty.call(object, key);
 }
 
 function roundCoord(value) {
@@ -1759,7 +1924,7 @@ deckPlayButton.addEventListener("click", togglePlayback);
 
 copyNextFrameButton.addEventListener("click", copyCurrentAnnotationsToNextFrame);
 deckPrevFrameButton.addEventListener("click", () => seekToFrame(getCurrentFrame() - 1));
-deckNextFrameButton.addEventListener("click", () => seekToFrame(getCurrentFrame() + 1));
+deckNextFrameButton.addEventListener("click", nextFrame);
 jumpStartButton.addEventListener("click", () => seekToFrame(0));
 jumpEndButton.addEventListener("click", () => seekToFrame(getMaxFrame()));
 
@@ -1775,15 +1940,31 @@ frameInput.addEventListener("keydown", (event) => {
 modeInputs.forEach((input) => {
   input.addEventListener("change", () => {
     updateDefaultLabelForMode(input.value);
+    if (input.value === "select") populateFieldsFromSelectedAnnotation();
     clearDraftAnnotation();
     draw();
   });
 });
 
+classInput.addEventListener("change", updateSelectedAnnotationFromFields);
+labelInput.addEventListener("change", updateSelectedAnnotationFromFields);
+[classInput, labelInput].forEach((input) => {
+  input.addEventListener("keydown", (event) => {
+    if (event.key !== "Enter") return;
+    event.preventDefault();
+    updateSelectedAnnotationFromFields();
+    input.blur();
+  });
+});
+
 onionEnabledInput.addEventListener("change", draw);
+excludeFrameInput.addEventListener("change", () => {
+  setCurrentFrameExcluded(excludeFrameInput.checked);
+});
 exportButton.addEventListener("click", exportJSON);
 
 clearFrameButton.addEventListener("click", () => {
+  if (isPlaybackActive()) return;
   const frame = getCurrentFrame();
   if (!annotations.some((ann) => ann.frame === frame)) return;
   pushUndoState();
@@ -1794,6 +1975,7 @@ clearFrameButton.addEventListener("click", () => {
 });
 
 clearAllButton.addEventListener("click", () => {
+  if (isPlaybackActive()) return;
   if (!annotations.length) return;
   const confirmed = window.confirm("Clear annotations from all frames?");
   if (!confirmed) return;
@@ -1812,6 +1994,9 @@ window.addEventListener("keydown", (event) => {
   if (modeKey === "z") {
     event.preventDefault();
     undoLastAction();
+  } else if (modeKey === "x") {
+    event.preventDefault();
+    toggleCurrentFrameExcluded();
   } else if ((modeKey === "p" || modeKey === "b" || modeKey === "s" || modeKey === "e") && !isPlaybackActive()) {
     event.preventDefault();
     setMode({ p: "point", b: "bbox", s: "shape", e: "select" }[modeKey]);
@@ -1826,7 +2011,7 @@ window.addEventListener("keydown", (event) => {
     copyCurrentAnnotationsToNextFrame();
   } else if (event.key === "ArrowRight") {
     event.preventDefault();
-    seekToFrame(getCurrentFrame() + 1);
+    nextFrame();
   } else if (event.key === "Backspace" || event.key === "Delete") {
     event.preventDefault();
     deleteAnnotation();
