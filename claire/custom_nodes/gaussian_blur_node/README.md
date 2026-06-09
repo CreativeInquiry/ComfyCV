@@ -1,6 +1,6 @@
 # Build Your Own Blur: A Custom ComfyUI Node with OpenCV
 
-<img src="./assets/both-eyes" alt="eyes">
+<img src="./assets/both-eyes.png" alt="eyes">
 
 ### A beginner-friendly guide to making your first image-processing node
 
@@ -29,6 +29,8 @@
 ## What Are We Building?
 
 Now that we've made a very simple Comfy node, we want to *LEVEL UP* and make a ComfyUI node that takes an input and returns an (altered) output. We'll demonstrate the process through something called a Gaussian blur. Our node will take any image, blur it, and then spit the blurred version back out. We're going to use a library called **OpenCV**, which is a popular computer vision library that makes image manipulation easy. (With this demo, you'll learn the skills to be able to call on other tools or libraries too, so the world is your oyster ˖°🌊.·°*🫧𓇼⋆🦪₊)
+<img src="./assets/the-node.png" alt="Description" width="500">
+
 
 It'll have two controls you can play with:
 - **Kernel size**: basically, how blurry. Bigger number = blurrier.
@@ -37,8 +39,6 @@ It'll have two controls you can play with:
 - **Sigma**: fine-tunes the blur shape. Leave it at 0 and OpenCV figures it out for you.
 <img src="./assets/sigma.jpg" alt="Description" width="300" height="200">
 
-
-<img src="./assets/the-node.png" alt="Description" width="300" height="200">
 
 This tutorial also teaches you something that may apply to some other work you might build: **how to convert images between ComfyUI's format and OpenCV's format**. Once you know this, a whole world of OpenCV effects opens up (such as sharpening, edge detection, color grading, and more!).
 
@@ -50,7 +50,7 @@ When you blur an image, you're replacing each pixel with some kind of average of
 
 A Gaussian blur uses a **bell curve** (a "Gaussian" curve) to decide. Pixels right next to the center pixel count a lot. Pixels further away count less and less. The result is a smooth, natural-looking blur, like a blurry photo filter.
 
-<img src="./custom_nodes/gaussian_blur_node/assets/gaussian_curve.jpg" alt="Description" width="300" height="200">
+<img src="./assets/gaussian_curve.jpg" alt="Description" width="300" height="200">
 
 More in depth about the parameters you'll control:
 
@@ -369,7 +369,7 @@ Here. we'll follow the same process as the [previous tutorial](https://github.co
 4. Wire them: `Load Image IMAGE` output → `Gaussian Blur image` input → `Preview Image images` input
 5. Upload a photo in Load Image and hit **Queue Prompt** 
 
-<img src="./assets/workflow.png" alt="Description" width="300" height="200">
+<img src="./assets/workflow.png" alt="Description" width="600" >
 
 ### Fun things to try
 
@@ -380,7 +380,7 @@ Here. we'll follow the same process as the [previous tutorial](https://github.co
 - **Kernel 9, sigma 5.0** — same kernel, much softer spread
 - **Kernel 1** — no-op! Passes the image through unchanged
 
-<img src="./assets/empty.png" alt="Description" width="300" height="200">
+<img src="./assets/empty.png" alt="Description" >
 
 ---
 
