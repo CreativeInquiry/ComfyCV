@@ -29,6 +29,7 @@
 ## What Are We Building?
 
 Now that we've made a very simple Comfy node, we want to *LEVEL UP* and make a ComfyUI node that takes an input and returns an (altered) output. We'll demonstrate the process through something called a Gaussian blur. Our node will take any image, blur it, and then spit the blurred version back out. We're going to use a library called **OpenCV**, which is a popular computer vision library that makes image manipulation easy. (With this demo, you'll learn the skills to be able to call on other tools or libraries too, so the world is your oyster ˖°🌊.·°*🫧𓇼⋆🦪₊)
+
 <img src="./assets/the-node.png" alt="Description" width="500">
 
 
@@ -369,16 +370,16 @@ Here. we'll follow the same process as the [previous tutorial](https://github.co
 4. Wire them: `Load Image IMAGE` output → `Gaussian Blur image` input → `Preview Image images` input
 5. Upload a photo in Load Image and hit **Queue Prompt** 
 
-<img src="./assets/workflow.png" alt="Description" width="600" >
+<img src="./assets/workflow.png" alt="Description">
 
 ### Fun things to try
 
-- **Kernel 3, sigma 0** — barely any blur, almost the original
-- **Kernel 15, sigma 0** — noticeably soft and dreamy
-- **Kernel 31, sigma 0** — very blurry, shapes become abstract
-- **Kernel 9, sigma 0.5** — tight, controlled blur
-- **Kernel 9, sigma 5.0** — same kernel, much softer spread
-- **Kernel 1** — no-op! Passes the image through unchanged
+- **Kernel 3, sigma 0**: barely any blur, almost the original
+- **Kernel 15, sigma 0**: noticeably soft and dreamy
+- **Kernel 31, sigma 0**: very blurry, shapes become abstract
+- **Kernel 9, sigma 0.5**: tight, controlled blur
+- **Kernel 9, sigma 5.0**: same kernel, much softer spread
+- **Kernel 1**: no-op! Passes the image through unchanged
 
 <img src="./assets/empty.png" alt="Description" >
 
@@ -423,6 +424,6 @@ The convert-in / do-the-thing / convert-out pattern is the same for basically ev
 
 ## Resources
 
-- [OpenCV image filtering docs](https://docs.opencv.org/4.x/d4/d13/tutorial_py_filtering.html) — official reference for blur functions
-- [opencv-python-headless on PyPI](https://pypi.org/project/opencv-python-headless/) — the package we installed
+- [OpenCV image filtering docs](https://docs.opencv.org/4.x/d4/d13/tutorial_py_filtering.html) <-— official reference for blur functions
+- [opencv-python-headless on PyPI](https://pypi.org/project/opencv-python-headless/) <-— the package we installed
 - [Hello World node tutorial](https://github.com/CreativeInquiry/ComfyCV/blob/main/claire/custom_nodes/hello_world_node/README.md) <—- the previous tutorial in this series
