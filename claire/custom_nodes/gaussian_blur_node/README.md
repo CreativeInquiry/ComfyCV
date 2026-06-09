@@ -1,4 +1,7 @@
 # Build Your Own Blur: A Custom ComfyUI Node with OpenCV
+
+<img src="./assets/both-eyes" alt="eyes">
+
 ### A beginner-friendly guide to making your first image-processing node
 
 > **Who this is for:** Anyone who wants to build a custom ComfyUI node that actually *does something* to an image.
@@ -35,7 +38,7 @@ It'll have two controls you can play with:
 <img src="./assets/sigma.jpg" alt="Description" width="300" height="200">
 
 
-TODO: ADD SCREENSHOT OF NODE IN CANVAS HERE
+<img src="./assets/the-node.png" alt="Description" width="300" height="200">
 
 This tutorial also teaches you something that may apply to some other work you might build: **how to convert images between ComfyUI's format and OpenCV's format**. Once you know this, a whole world of OpenCV effects opens up (such as sharpening, edge detection, color grading, and more!).
 
@@ -146,8 +149,8 @@ Every ComfyUI node is a Python class. The name can be anything (don't forget to 
         return {
             "required": {
                 "image":       ("IMAGE",),
-                "kernel_size": ("INT",   {"default": 5,   "min": 1, "max": 31, "step": 2}),
-                "sigma":       ("FLOAT", {"default": 0.0, "min": 0.0, "max": 10.0, "step": 0.1}),
+                "kernel_size": ("INT",   {"default": 5,   "min": 1, "max": 101, "step": 2}),
+                "sigma":       ("FLOAT", {"default": 0.0, "min": 0.0, "max": 50.0, "step": 0.1}),
             }
         }
 ```
@@ -188,7 +191,7 @@ A few things to notice here:
         # ── Apply the Gaussian blur ─────────────────────────────────────────
         blurred = cv2.GaussianBlur(
             img_cv,
-            (kernel_size, kernel_size),  # kernel size — same for width & height
+            (kernel_size, kernel_size),  # kernel size, same for width & height
             sigma                        # sigmaX — 0 = auto from kernel size
         )
 
@@ -210,7 +213,7 @@ NODE_CLASS_MAPPINGS = {
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
-    "GaussianBlur": "Gaussian Blur 🌫️",
+    "GaussianBlur": "Gaussian Blur",
 }
 ```
 
@@ -238,8 +241,8 @@ class GaussianBlurNode:
         return {
             "required": {
                 "image":       ("IMAGE",),
-                "kernel_size": ("INT",   {"default": 5,   "min": 1, "max": 31, "step": 2}),
-                "sigma":       ("FLOAT", {"default": 0.0, "min": 0.0, "max": 10.0, "step": 0.1}),
+                "kernel_size": ("INT",   {"default": 5,   "min": 1, "max": 101, "step": 2}),
+                "sigma":       ("FLOAT", {"default": 0.0, "min": 0.0, "max": 50.0, "step": 0.1}),
             }
         }
 
@@ -279,7 +282,7 @@ NODE_CLASS_MAPPINGS = {
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
-    "GaussianBlur": "Gaussian Blur 🌫️",
+    "GaussianBlur": "▓▓▓▓▓▓ Gaussian Blur ▓▓▓▓▓▓",
 }
 ```
 
@@ -357,7 +360,7 @@ Here. we'll follow the same process as the [previous tutorial](https://github.co
 ### Wire it up
 
 ```
-[Load Image] → [Gaussian Blur 🌫️] → [Preview Image]
+[Load Image] → [Gaussian Blur] → [Preview Image]
 ```
 
 1. Double-click the canvas → search **Load Image** → add it
@@ -366,7 +369,7 @@ Here. we'll follow the same process as the [previous tutorial](https://github.co
 4. Wire them: `Load Image IMAGE` output → `Gaussian Blur image` input → `Preview Image images` input
 5. Upload a photo in Load Image and hit **Queue Prompt** 
 
-TODO; ADD SCREENSHOT OF WIRED WORKFLOW HERE
+<img src="./assets/workflow.png" alt="Description" width="300" height="200">
 
 ### Fun things to try
 
@@ -377,7 +380,7 @@ TODO; ADD SCREENSHOT OF WIRED WORKFLOW HERE
 - **Kernel 9, sigma 5.0** — same kernel, much softer spread
 - **Kernel 1** — no-op! Passes the image through unchanged
 
-ADD BEFORE/AFTER COMPARISON SCREENSHOT HERE
+<img src="./assets/empty.png" alt="Description" width="300" height="200">
 
 ---
 
