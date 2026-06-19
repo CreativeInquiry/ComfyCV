@@ -1,0 +1,1161 @@
+{
+  "id": "08059950-19e3-4305-90ee-c0c1cd7d9fc3",
+  "revision": 0,
+  "last_node_id": 78,
+  "last_link_id": 122,
+  "nodes": [
+    {
+      "id": 58,
+      "type": "AILab_QwenVL_Advanced",
+      "pos": [
+        -164.54874614460664,
+        -2073.0939679964013
+      ],
+      "size": [
+        340,
+        468
+      ],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 92
+        },
+        {
+          "name": "video",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "RESPONSE",
+          "type": "STRING",
+          "links": [
+            93
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-qwenvl",
+        "ver": "2.1.1",
+        "Node name for S&R": "AILab_QwenVL_Advanced"
+      },
+      "widgets_values": [
+        "Qwen3-VL-4B-Instruct",
+        "None (FP16)",
+        "auto",
+        false,
+        "auto",
+        "🖼️ Tags",
+        "",
+        512,
+        0.6,
+        0.9,
+        1,
+        1.2,
+        16,
+        true,
+        3940896654,
+        "randomize"
+      ],
+      "color": "#28403f",
+      "bgcolor": "#374539"
+    },
+    {
+      "id": 63,
+      "type": "Reroute",
+      "pos": [
+        1538.1372849914817,
+        -1669.686892513745
+      ],
+      "size": [
+        75,
+        26
+      ],
+      "flags": {},
+      "order": 16,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "",
+          "type": "*",
+          "link": 103
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "TOKENS",
+          "links": [
+            104,
+            105
+          ]
+        }
+      ],
+      "title": "Tokens",
+      "properties": {
+        "showOutputText": false,
+        "horizontal": false
+      }
+    },
+    {
+      "id": 68,
+      "type": "Reroute",
+      "pos": [
+        1538.5558124191793,
+        -1616.131262092396
+      ],
+      "size": [
+        75,
+        26
+      ],
+      "flags": {},
+      "order": 17,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "",
+          "type": "*",
+          "link": 111
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "HEATMAP",
+          "links": [
+            112,
+            113
+          ]
+        }
+      ],
+      "properties": {
+        "showOutputText": false,
+        "horizontal": false
+      }
+    },
+    {
+      "id": 62,
+      "type": "Reroute",
+      "pos": [
+        1537.9392656801533,
+        -1559.8571301123213
+      ],
+      "size": [
+        75,
+        26
+      ],
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "",
+          "type": "*",
+          "link": 100
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "IMAGE",
+          "links": [
+            101,
+            102
+          ]
+        }
+      ],
+      "properties": {
+        "showOutputText": false,
+        "horizontal": false
+      }
+    },
+    {
+      "id": 31,
+      "type": "KSamplerDAAM",
+      "pos": [
+        1169.979685602397,
+        -1389.1494809352273
+      ],
+      "size": [
+        270,
+        262
+      ],
+      "flags": {},
+      "order": 15,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 40
+        },
+        {
+          "name": "positive",
+          "type": "CONDITIONING",
+          "link": 41
+        },
+        {
+          "name": "negative",
+          "type": "CONDITIONING",
+          "link": 42
+        },
+        {
+          "name": "latent_image",
+          "type": "LATENT",
+          "link": 43
+        }
+      ],
+      "outputs": [
+        {
+          "name": "latent",
+          "type": "LATENT",
+          "links": []
+        },
+        {
+          "name": "pos_heatmaps",
+          "type": "HEATMAP",
+          "links": [
+            111
+          ]
+        },
+        {
+          "name": "neg_heatmaps",
+          "type": "HEATMAP",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-daam",
+        "ver": "0.5.0",
+        "Node name for S&R": "KSamplerDAAM"
+      },
+      "widgets_values": [
+        424343463100384,
+        "randomize",
+        20,
+        7,
+        "euler_ancestral",
+        "normal",
+        0.01
+      ]
+    },
+    {
+      "id": 61,
+      "type": "Reroute",
+      "pos": [
+        1537.3002742697622,
+        -1725.2851809852268
+      ],
+      "size": [
+        75,
+        26
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "",
+          "type": "*",
+          "link": 97
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "CLIP",
+          "links": [
+            98,
+            99
+          ]
+        }
+      ],
+      "properties": {
+        "showOutputText": false,
+        "horizontal": false
+      }
+    },
+    {
+      "id": 32,
+      "type": "DAAMAnalyzer",
+      "pos": [
+        1776.4125736659194,
+        -1507.373090623061
+      ],
+      "size": [
+        270.97410013482886,
+        211.52757692385376
+      ],
+      "flags": {},
+      "order": 19,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 98
+        },
+        {
+          "name": "tokens",
+          "type": "TOKENS",
+          "link": 104
+        },
+        {
+          "name": "heatmaps",
+          "type": "HEATMAP",
+          "link": 113
+        },
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 101
+        },
+        {
+          "name": "attentions",
+          "type": "STRING",
+          "widget": {
+            "name": "attentions"
+          },
+          "link": 117
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            32,
+            121
+          ]
+        }
+      ],
+      "title": "DAAMAnalyzer",
+      "properties": {
+        "cnr_id": "comfyui-daam",
+        "ver": "0.5.0",
+        "Node name for S&R": "DAAMAnalyzer"
+      },
+      "widgets_values": [
+        "",
+        true,
+        1
+      ]
+    },
+    {
+      "id": 25,
+      "type": "CheckpointLoaderSimple",
+      "pos": [
+        -635.0517537028633,
+        -1511.8044639075424
+      ],
+      "size": [
+        336.94720955719015,
+        98
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            40
+          ]
+        },
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [
+            97,
+            120
+          ]
+        },
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "links": [
+            35
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.24.0",
+        "Node name for S&R": "CheckpointLoaderSimple"
+      },
+      "widgets_values": [
+        "SDXL/sd_xl_base_1.0.safetensors"
+      ]
+    },
+    {
+      "id": 59,
+      "type": "PreviewAny",
+      "pos": [
+        214.65011040797174,
+        -2072.6387191179156
+      ],
+      "size": [
+        298.6076993023107,
+        231.3960574008545
+      ],
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "source",
+          "type": "*",
+          "link": 93
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            96,
+            117
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.24.0",
+        "Node name for S&R": "PreviewAny"
+      },
+      "widgets_values": [
+        null,
+        null,
+        null
+      ]
+    },
+    {
+      "id": 77,
+      "type": "Note",
+      "pos": [
+        220.81148304744082,
+        -1791.284074672097
+      ],
+      "size": [
+        238.18008742519675,
+        126.60906390780474
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "About the Captioner",
+      "properties": {},
+      "widgets_values": [
+        "You could use Florence2 instead of QwenVL if you prefer. I'm using QwenVL because it offers a nice 'Tags' labeling option."
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
+    },
+    {
+      "id": 72,
+      "type": "Note",
+      "pos": [
+        1168.0599665901361,
+        -1079.3174214937826
+      ],
+      "size": [
+        274.75081508494213,
+        153.00129421645784
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "About this KSampler",
+      "properties": {},
+      "widgets_values": [
+        "This is a modified KSampler for DAAM, that produces the actual heatmaps. \n\nIt's important that the denoise be as low as possible, since we don't want to synthesize a new image influenced by our input image; we just want to use our input image."
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
+    },
+    {
+      "id": 76,
+      "type": "Note",
+      "pos": [
+        1779.434186829623,
+        -1251.4732431972654
+      ],
+      "size": [
+        261.7733614398751,
+        92.47423789888444
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Which tags to visualize?",
+      "properties": {},
+      "widgets_values": [
+        "Currently, the DAAMAnalyzer is using the tags produced by the captioner. But you can replace 'attentions' with your own tags or search terms to visualize."
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
+    },
+    {
+      "id": 29,
+      "type": "LoadImage",
+      "pos": [
+        -638.2385015617557,
+        -1348.9901942212773
+      ],
+      "size": [
+        325.95234374999995,
+        362.3371367187501
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            34,
+            92,
+            100
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.24.0",
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "original_rgb.png",
+        "image"
+      ]
+    },
+    {
+      "id": 36,
+      "type": "DAAMPreviewImage",
+      "pos": [
+        2153.796597239297,
+        -2080.8734530717365
+      ],
+      "size": [
+        506.21780012373176,
+        481.79302339580045
+      ],
+      "flags": {},
+      "order": 18,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 99
+        },
+        {
+          "name": "tokens",
+          "type": "TOKENS",
+          "link": 105
+        },
+        {
+          "name": "heatmaps",
+          "type": "HEATMAP",
+          "link": 112
+        },
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 102
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "comfyui-daam",
+        "ver": "0.5.0",
+        "Node name for S&R": "DAAMPreviewImage"
+      },
+      "widgets_values": [
+        8
+      ]
+    },
+    {
+      "id": 74,
+      "type": "ImageFromBatch+",
+      "pos": [
+        2110.451286824587,
+        -1510.6461324565591
+      ],
+      "size": [
+        210,
+        90.92807205045096
+      ],
+      "flags": {},
+      "order": 21,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 121
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            122
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui_essentials",
+        "ver": "9d9f4bedfc9f0321c19faf71855e228c93bd0dc9",
+        "Node name for S&R": "ImageFromBatch+"
+      },
+      "widgets_values": [
+        0,
+        1
+      ]
+    },
+    {
+      "id": 75,
+      "type": "PreviewImage",
+      "pos": [
+        2368.3318254852275,
+        -1512.2557480689038
+      ],
+      "size": [
+        289.35219307895795,
+        258
+      ],
+      "flags": {},
+      "order": 22,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 122
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.24.0",
+        "Node name for S&R": "PreviewImage"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 23,
+      "type": "PreviewImage",
+      "pos": [
+        2100.6180587597355,
+        -1201.066184229836
+      ],
+      "size": [
+        553.3843269669328,
+        258
+      ],
+      "flags": {},
+      "order": 20,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 32
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.24.0",
+        "Node name for S&R": "PreviewImage"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 78,
+      "type": "Note",
+      "pos": [
+        1818.4538415615243,
+        -1041.7575827739302
+      ],
+      "size": [
+        261.7733614398751,
+        92.47423789888444
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Which tags are visualized?",
+      "properties": {},
+      "widgets_values": [
+        "If your visualization term was not produced by the captioner, the corresponding image may be blank."
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
+    },
+    {
+      "id": 73,
+      "type": "Note",
+      "pos": [
+        1898.1450660302246,
+        -1722.19635711123
+      ],
+      "size": [
+        230.8831079374404,
+        88
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "This image is interactive!",
+      "properties": {},
+      "widgets_values": [
+        "Try mousing over this image. You'll see the top tags for each pixel. \n"
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
+    },
+    {
+      "id": 71,
+      "type": "Reroute",
+      "pos": [
+        568.1528918881027,
+        -1241.1567189460363
+      ],
+      "size": [
+        75,
+        26
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "",
+          "type": "*",
+          "link": 120
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "CLIP",
+          "links": [
+            118,
+            119
+          ]
+        }
+      ],
+      "properties": {
+        "showOutputText": false,
+        "horizontal": false
+      }
+    },
+    {
+      "id": 24,
+      "type": "CLIPTextEncode",
+      "pos": [
+        777.3121179865219,
+        -1171.4515557682485
+      ],
+      "size": [
+        279.33848753626773,
+        88
+      ],
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 119
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            42
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.24.0",
+        "Node name for S&R": "CLIPTextEncode"
+      },
+      "widgets_values": [
+        "watermark"
+      ]
+    },
+    {
+      "id": 27,
+      "type": "CLIPTextEncodeWithTokens",
+      "pos": [
+        777.6562566410901,
+        -1323.2276497970627
+      ],
+      "size": [
+        281.12676658270095,
+        108
+      ],
+      "flags": {},
+      "order": 14,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 118
+        },
+        {
+          "name": "text",
+          "type": "STRING",
+          "widget": {
+            "name": "text"
+          },
+          "link": 96
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            41
+          ]
+        },
+        {
+          "name": "TOKENS",
+          "type": "TOKENS",
+          "links": [
+            103
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-daam",
+        "ver": "0.5.0",
+        "Node name for S&R": "CLIPTextEncodeWithTokens"
+      },
+      "widgets_values": [
+        "elephant, sky, hills, plants, grass, dung, trunk, tusk"
+      ]
+    },
+    {
+      "id": 26,
+      "type": "VAEEncode",
+      "pos": [
+        778.0584261229028,
+        -1024.1796198074358
+      ],
+      "size": [
+        274.16415495436,
+        71.83740537573703
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "pixels",
+          "type": "IMAGE",
+          "link": 34
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 35
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            43
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.24.0",
+        "Node name for S&R": "VAEEncode"
+      },
+      "widgets_values": []
+    }
+  ],
+  "links": [
+    [
+      32,
+      32,
+      0,
+      23,
+      0,
+      "IMAGE"
+    ],
+    [
+      34,
+      29,
+      0,
+      26,
+      0,
+      "IMAGE"
+    ],
+    [
+      35,
+      25,
+      2,
+      26,
+      1,
+      "VAE"
+    ],
+    [
+      40,
+      25,
+      0,
+      31,
+      0,
+      "MODEL"
+    ],
+    [
+      41,
+      27,
+      0,
+      31,
+      1,
+      "CONDITIONING"
+    ],
+    [
+      42,
+      24,
+      0,
+      31,
+      2,
+      "CONDITIONING"
+    ],
+    [
+      43,
+      26,
+      0,
+      31,
+      3,
+      "LATENT"
+    ],
+    [
+      92,
+      29,
+      0,
+      58,
+      0,
+      "IMAGE"
+    ],
+    [
+      93,
+      58,
+      0,
+      59,
+      0,
+      "STRING"
+    ],
+    [
+      96,
+      59,
+      0,
+      27,
+      1,
+      "STRING"
+    ],
+    [
+      97,
+      25,
+      1,
+      61,
+      0,
+      "CLIP"
+    ],
+    [
+      98,
+      61,
+      0,
+      32,
+      0,
+      "CLIP"
+    ],
+    [
+      99,
+      61,
+      0,
+      36,
+      0,
+      "CLIP"
+    ],
+    [
+      100,
+      29,
+      0,
+      62,
+      0,
+      "IMAGE"
+    ],
+    [
+      101,
+      62,
+      0,
+      32,
+      3,
+      "IMAGE"
+    ],
+    [
+      102,
+      62,
+      0,
+      36,
+      3,
+      "IMAGE"
+    ],
+    [
+      103,
+      27,
+      1,
+      63,
+      0,
+      "TOKENS"
+    ],
+    [
+      104,
+      63,
+      0,
+      32,
+      1,
+      "TOKENS"
+    ],
+    [
+      105,
+      63,
+      0,
+      36,
+      1,
+      "TOKENS"
+    ],
+    [
+      111,
+      31,
+      1,
+      68,
+      0,
+      "HEATMAP"
+    ],
+    [
+      112,
+      68,
+      0,
+      36,
+      2,
+      "HEATMAP"
+    ],
+    [
+      113,
+      68,
+      0,
+      32,
+      2,
+      "HEATMAP"
+    ],
+    [
+      117,
+      59,
+      0,
+      32,
+      4,
+      "STRING"
+    ],
+    [
+      118,
+      71,
+      0,
+      27,
+      0,
+      "CLIP"
+    ],
+    [
+      119,
+      71,
+      0,
+      24,
+      0,
+      "CLIP"
+    ],
+    [
+      120,
+      25,
+      1,
+      71,
+      0,
+      "CLIP"
+    ],
+    [
+      121,
+      32,
+      0,
+      74,
+      0,
+      "IMAGE"
+    ],
+    [
+      122,
+      74,
+      0,
+      75,
+      0,
+      "IMAGE"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.4773483230854774,
+      "offset": [
+        842.9528094740551,
+        2489.3760839955457
+      ]
+    },
+    "frontendVersion": "1.44.19",
+    "VHS_latentpreview": false,
+    "VHS_latentpreviewrate": 0,
+    "VHS_MetadataImage": true,
+    "VHS_KeepIntermediate": true
+  },
+  "version": 0.4
+}
