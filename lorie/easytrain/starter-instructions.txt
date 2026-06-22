@@ -1,0 +1,287 @@
+Create a fresh local Python project called `easytrain-yolo`.
+
+Background:
+This project is part of an Experimental Capture / computer-vision teaching workflow.
+
+Students have a browser tool called EasyLabeler that lets them manually annotate images or videos with:
+
+* points
+* bounding boxes
+* closed polygon/polyline shapes
+
+EasyLabeler exports a simple JSON file. Students may label about 10–100 examples of something they want to detect. The thing may not be easy to describe in words. Examples:
+
+* bellybuttons
+* pen tips
+* dirt-pile peaks
+* ants
+* birds
+* tangerines
+* unusual marks
+* recurring visual phenomena
+
+There are two detection paths in the course:
+
+1. Text-described phenomena use LocateAnything in ComfyUI.
+2. Example-described phenomena use EasyLabeler → YOLO training → ComfyUI-YOLO inference.
+
+Your task:
+Build a local command-line tool that converts EasyLabeler JSON into an Ultralytics YOLO dataset, trains a YOLO model, and packages the trained `.pt` file so it can be copied into ComfyUI-YOLO.
+
+Do not build a GUI.
+Do not build a ComfyUI node.
+This is a local training/conversion project.
+
+Assume the student will run this in a Python virtual environment on macOS, Windows, Linux, or a lab PC with NVIDIA GPU.
+
+Core goals:
+
+1. Read EasyLabeler JSON.
+2. Extract or locate source images/frames.
+3. Convert annotations into YOLO-compatible datasets.
+4. Support at least:
+
+   * bounding-box detection using YOLO detect
+   * point detection by converting points into small synthetic bounding boxes
+5. Optionally scaffold later support for:
+
+   * YOLO pose/keypoints
+   * YOLO segmentation from polygons
+6. Train an Ultralytics YOLO model.
+7. Save a clear output folder containing:
+
+   * dataset
+   * data.yaml
+   * training logs
+   * trained weights
+   * README explaining how to use `best.pt` in ComfyUI-YOLO.
+
+Project structure:
+
+* pyproject.toml
+* README.md
+* src/easytrain_yolo/
+
+  * **init**.py
+  * cli.py
+  * schema.py
+  * easylabeler_io.py
+  * media.py
+  * yolo_convert.py
+  * train.py
+  * package.py
+  * utils.py
+* examples/
+
+  * sample_easylabeler.json
+  * sample_config.yaml
+
+Use:
+
+* Python 3.10+
+* pathlib
+* pydantic or dataclasses
+* PyYAML
+* OpenCV for extracting video frames when needed
+* Ultralytics YOLO for training
+* argparse or typer; choose one and keep it simple
+
+Expected EasyLabeler JSON shape:
+{
+"metadata": {
+"source_filename": "piles_test.mp4",
+"source_video_path": "piles_test/piles_test.mp4",
+"media_type": "video",
+"media_width": 1280,
+"media_height": 720,
+"video_width": 1280,
+"video_height": 720,
+"fps": 30,
+"created_with": "minimal-media-annotator"
+},
+"annotations": [
+{
+"id": "ann_000001",
+"type": "point",
+"label": "dirt_peak",
+"frame": 0,
+"time": 0,
+"x": 328.52,
+"y": 212.76,
+"nx": 0.256659,
+"ny": 0.2955
+},
+{
+"id": "ann_000002",
+"type": "bbox",
+"label": "tangerine",
+"frame": 3,
+"time": 0.1,
+"x": 100,
+"y": 120,
+"width": 80,
+"height": 60
+}
+],
+"frame_flags": [
+{
+"frame": 42,
+"flag": "exclude",
+"reason": "blank"
+}
+]
+}
+
+The actual JSON may omit `frame_flags`; handle that gracefully.
+
+Important conversion behavior:
+
+* Treat `label` as the YOLO class name.
+* Ignore annotations whose frame or image is excluded.
+* Ignore unsupported annotation types unless explicitly enabled.
+* For `bbox`:
+
+  * convert to YOLO format:
+    class_id x_center_norm y_center_norm width_norm height_norm
+* For `point`:
+
+  * convert to a small synthetic YOLO bbox around the point.
+  * Add CLI/config parameter:
+    `--point-box-size-px`, default 32.
+  * Clamp boxes to image bounds.
+  * Document that this is a pragmatic detector-training trick, not true keypoint training.
+* For `polygon` or `polyline`:
+
+  * initially convert to the tight bounding box around the polygon unless `--enable-segmentation` is later implemented.
+  * Document this limitation.
+
+Video handling:
+
+* If `media_type` is `"video"`:
+
+  * find the source video from:
+
+    1. CLI `--media-root`
+    2. JSON `metadata.source_video_path`
+    3. JSON `metadata.source_filename`
+  * extract only frames that contain usable annotations.
+  * Save them as images in YOLO dataset folders.
+  * Use zero-padded names, e.g. `frame_000123.jpg`.
+* If `media_type` is image batch:
+
+  * support annotations with an image filename if present.
+  * copy/link images into the YOLO dataset folder.
+  * If the exact EasyLabeler image-batch schema is unclear, implement defensively and document assumptions.
+
+Dataset layout:
+Create:
+
+output_project/
+dataset/
+images/
+train/
+val/
+labels/
+train/
+val/
+data.yaml
+runs/
+exported_model/
+best.pt
+README_FOR_COMFYUI_YOLO.md
+
+Split behavior:
+
+* Add `--val-ratio`, default 0.2.
+* Split by frame/image, not by annotation.
+* Use deterministic random seed.
+* If fewer than 10 labeled frames/images exist, warn and put at least one item in val if possible.
+
+data.yaml:
+Generate standard Ultralytics format:
+path: absolute/or/relative/path/to/dataset
+train: images/train
+val: images/val
+names:
+0: dirt_peak
+1: tangerine
+
+Training CLI:
+Provide commands:
+
+1. Inspect labels:
+   easytrain-yolo inspect path/to/labels.json
+
+2. Convert only:
+   easytrain-yolo convert path/to/labels.json --out output_project --media-root path/to/media
+
+3. Train:
+   easytrain-yolo train output_project --model yolo11n.pt --epochs 100 --imgsz 640 --batch 8
+
+4. Convert and train in one:
+   easytrain-yolo all path/to/labels.json --out output_project --media-root path/to/media --model yolo11n.pt --epochs 100
+
+Training behavior:
+
+* Use Ultralytics `YOLO(model).train(...)`.
+* Choose defaults suitable for small student datasets:
+
+  * model: yolo11n.pt or yolo11s.pt
+  * epochs: 100
+  * imgsz: 640
+  * patience: 20
+* Allow user overrides.
+* Detect CUDA availability and print device info.
+* Do not assume GPU exists.
+* If running on CPU, warn that training may be slow.
+* Save a copy of `best.pt` into `exported_model/best.pt`.
+* Generate `README_FOR_COMFYUI_YOLO.md` explaining:
+
+  * copy `best.pt` into `ComfyUI/models/ultralytics/`
+  * restart ComfyUI
+  * load it using ComfyUI-YOLO’s custom model loader
+  * run detection inference
+
+Validation / sanity checks:
+
+* Check image dimensions.
+* Check annotation coordinates are inside image bounds or clamp with warning.
+* Check class labels are non-empty.
+* Print counts:
+
+  * number of annotations by type
+  * number of classes
+  * number of labeled frames/images
+  * train/val split
+  * excluded frames/images
+* Write a `conversion_report.json`.
+
+Useful extras:
+
+* Add a `preview` command if simple:
+  easytrain-yolo preview output_project --count 12
+  It should render a few converted YOLO labels over images for sanity checking.
+* If preview is too much, leave a TODO.
+
+README should explain:
+
+* what the tool is for
+* how it fits:
+  EasyLabeler → easytrain-yolo → best.pt → ComfyUI-YOLO
+* installation:
+  python -m venv venv
+  source venv/bin/activate
+  pip install -e .
+* example commands
+* how point labels are converted to boxes
+* limitations:
+
+  * this is object detection, not persistent tracking
+  * point labels become small boxes
+  * YOLO pose/keypoint training is future work
+  * segmentation from polygons is future work
+  * 10–100 labels may or may not be enough depending on visual consistency
+  * students should label diverse examples
+
+Design priority:
+Keep the code simple, explicit, and readable. This is for students and artists, not a production ML platform.

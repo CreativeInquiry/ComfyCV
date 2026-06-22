@@ -1,0 +1,34 @@
+{
+  "metadata": {
+    "media_type": "images",
+    "image_folder": "sample_images",
+    "image_count": 1,
+    "media_width": 640,
+    "media_height": 480,
+    "fps": 30,
+    "created_with": "minimal-media-annotator"
+  },
+  "excluded_frames": [],
+  "images": [
+    {
+      "frame": 0,
+      "filename": "example.jpg",
+      "path": "sample_images/example.jpg",
+      "width": 640,
+      "height": 480,
+      "annotations": [
+        {
+          "id": "ann_000001",
+          "type": "point",
+          "class": "interesting_object",
+          "label": "center",
+          "frame": 0,
+          "x": 320,
+          "y": 240,
+          "nx": 0.5,
+          "ny": 0.5
+        }
+      ]
+    }
+  ]
+}

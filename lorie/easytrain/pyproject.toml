@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "easytrain-yolo"
+version = "0.1.0"
+description = "Convert EasyLabeler annotations into Ultralytics YOLO datasets and train small detection models."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "opencv-python>=4.8",
+    "Pillow>=10.0",
+    "PyYAML>=6.0",
+    "ultralytics>=8.3",
+]
+
+[project.scripts]
+easytrain-yolo = "easytrain_yolo.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
