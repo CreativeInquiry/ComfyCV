@@ -1,0 +1,2233 @@
+{
+  "id": "87369a92-01b3-498a-aa92-9bac8da5b984",
+  "revision": 0,
+  "last_node_id": 691,
+  "last_link_id": 1735,
+  "nodes": [
+    {
+      "id": 2,
+      "type": "LoadImage",
+      "pos": [
+        -519.0762978876494,
+        932.5946713503811
+      ],
+      "size": [
+        282.796875,
+        340
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            1,
+            8,
+            40,
+            46,
+            93,
+            125,
+            134,
+            1729,
+            1733
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": []
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "65e93ed13823cf37583832e384dd3271236e5e511f2ad60d27765108c3eec0b0.jpg",
+        "image"
+      ]
+    },
+    {
+      "id": 3,
+      "type": "DepthAnything_V3",
+      "pos": [
+        1322.4671061253578,
+        1388.5466710789674
+      ],
+      "size": [
+        340.78125,
+        451.15625
+      ],
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "da3_model",
+          "type": "DA3MODEL",
+          "link": 2
+        },
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 1
+        },
+        {
+          "name": "camera_params",
+          "shape": 7,
+          "type": "CAMERA_PARAMS",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "depth",
+          "type": "IMAGE",
+          "links": [
+            5
+          ]
+        },
+        {
+          "name": "confidence",
+          "type": "IMAGE",
+          "links": []
+        },
+        {
+          "name": "resized_rgb_image",
+          "type": "IMAGE",
+          "links": null
+        },
+        {
+          "name": "ray_origin",
+          "type": "IMAGE",
+          "links": []
+        },
+        {
+          "name": "ray_direction",
+          "type": "IMAGE",
+          "links": []
+        },
+        {
+          "name": "extrinsics_json",
+          "type": "STRING",
+          "links": null
+        },
+        {
+          "name": "intrinsics_json",
+          "type": "STRING",
+          "links": null
+        },
+        {
+          "name": "sky_mask",
+          "type": "MASK",
+          "links": null
+        },
+        {
+          "name": "extrinsics",
+          "type": "EXTRINSICS",
+          "links": null
+        },
+        {
+          "name": "intrinsics",
+          "type": "INTRINSICS",
+          "links": null
+        },
+        {
+          "name": "gaussian_ply_path",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "DepthAnything_V3"
+      },
+      "widgets_values": [
+        "V2-Style",
+        "resize",
+        false,
+        false
+      ]
+    },
+    {
+      "id": 4,
+      "type": "DownloadAndLoadDepthAnythingV3Model",
+      "pos": [
+        963.4047212005066,
+        1584.8331271844559
+      ],
+      "size": [
+        306.59375,
+        177.328125
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "da3_model",
+          "type": "DA3MODEL",
+          "links": [
+            2
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "DownloadAndLoadDepthAnythingV3Model"
+      },
+      "widgets_values": [
+        "da3_large.safetensors",
+        "auto",
+        "auto"
+      ]
+    },
+    {
+      "id": 6,
+      "type": "PreviewImage",
+      "pos": [
+        2101.9098560457405,
+        1458.1613772186938
+      ],
+      "size": [
+        300.75,
+        430.390625
+      ],
+      "flags": {},
+      "order": 26,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 5
+        }
+      ],
+      "outputs": [],
+      "title": "Depth",
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 14,
+      "type": "SAM3Segment",
+      "pos": [
+        1058.9844845698426,
+        -917.1061021026635
+      ],
+      "size": [
+        473.3125,
+        537.984375
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 8
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            9
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": []
+        },
+        {
+          "name": "MASK_IMAGE",
+          "type": "IMAGE",
+          "links": [
+            11
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "SAM3Segment"
+      },
+      "widgets_values": [
+        "person",
+        "Merged",
+        0.5,
+        0,
+        0,
+        0,
+        0,
+        "Auto",
+        false,
+        false,
+        "Alpha",
+        "#222222"
+      ],
+      "color": "#222e40",
+      "bgcolor": "#364254"
+    },
+    {
+      "id": 15,
+      "type": "PreviewImage",
+      "pos": [
+        2088.7374554130743,
+        -1346.9359163649692
+      ],
+      "size": [
+        296.453125,
+        526
+      ],
+      "flags": {},
+      "order": 14,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 9
+        }
+      ],
+      "outputs": [],
+      "title": "SAM3 Extracted People",
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 17,
+      "type": "PreviewImage",
+      "pos": [
+        2089.471974291233,
+        -770.4308274010114
+      ],
+      "size": [
+        296.203125,
+        540.75
+      ],
+      "flags": {},
+      "order": 15,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 11
+        }
+      ],
+      "outputs": [],
+      "title": "SAM3 Mask",
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 21,
+      "type": "DSINE-NormalMapPreprocessor",
+      "pos": [
+        1061.3669419689302,
+        1926.5628040565975
+      ],
+      "size": [
+        290.9375,
+        307.921875
+      ],
+      "flags": {},
+      "order": 17,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 42
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            28
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "DSINE-NormalMapPreprocessor"
+      },
+      "widgets_values": [
+        60,
+        5,
+        768
+      ]
+    },
+    {
+      "id": 27,
+      "type": "PreviewImage",
+      "pos": [
+        2103.8077721150985,
+        1970.1975050081326
+      ],
+      "size": [
+        284.125,
+        433.5625
+      ],
+      "flags": {},
+      "order": 36,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 29
+        }
+      ],
+      "outputs": [],
+      "title": "Normal Map",
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 28,
+      "type": "ImageResize+",
+      "pos": [
+        1411.4135692960137,
+        2070.851155322651
+      ],
+      "size": [
+        256.328125,
+        312.203125
+      ],
+      "flags": {},
+      "order": 28,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 28
+        },
+        {
+          "name": "width",
+          "type": "INT",
+          "widget": {
+            "name": "width"
+          },
+          "link": 26
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "widget": {
+            "name": "height"
+          },
+          "link": 27
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            29
+          ]
+        },
+        {
+          "name": "width",
+          "type": "INT",
+          "links": null
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ImageResize+"
+      },
+      "widgets_values": [
+        512,
+        512,
+        "bicubic",
+        "stretch",
+        "always",
+        0
+      ]
+    },
+    {
+      "id": 29,
+      "type": "GetImageSize+",
+      "pos": [
+        1064.7007694991407,
+        2279.790569992326
+      ],
+      "size": [
+        244.953125,
+        120
+      ],
+      "flags": {},
+      "order": 16,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 41
+        }
+      ],
+      "outputs": [
+        {
+          "name": "width",
+          "type": "INT",
+          "links": [
+            26
+          ]
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "links": [
+            27
+          ]
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "GetImageSize+"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 46,
+      "type": "Reroute",
+      "pos": [
+        875.0019437928539,
+        2142.934894283028
+      ],
+      "size": [
+        75,
+        26
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "",
+          "type": "*",
+          "link": 40
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "IMAGE",
+          "links": [
+            41,
+            42
+          ]
+        }
+      ],
+      "properties": {
+        "showOutputText": false,
+        "horizontal": false
+      }
+    },
+    {
+      "id": 47,
+      "type": "OpenposePreprocessor",
+      "pos": [
+        1006.4015741339388,
+        2577.4779835277423
+      ],
+      "size": [
+        439.703125,
+        336.125
+      ],
+      "flags": {},
+      "order": 20,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 126
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": []
+        },
+        {
+          "name": "POSE_KEYPOINT",
+          "type": "POSE_KEYPOINT",
+          "links": [
+            80
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "OpenposePreprocessor"
+      },
+      "widgets_values": [
+        "enable",
+        "enable",
+        "enable",
+        704,
+        "disable"
+      ]
+    },
+    {
+      "id": 48,
+      "type": "PreviewImage",
+      "pos": [
+        2071.839292292641,
+        -2449.7707101389965
+      ],
+      "size": [
+        326.046875,
+        469.265625
+      ],
+      "flags": {},
+      "order": 18,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 47
+        }
+      ],
+      "outputs": [],
+      "title": "Original Image",
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 50,
+      "type": "Reroute",
+      "pos": [
+        757.4189560184517,
+        -1922.43633845539
+      ],
+      "size": [
+        75,
+        26
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "",
+          "type": "*",
+          "link": 46
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "IMAGE",
+          "links": [
+            47,
+            296,
+            300
+          ]
+        }
+      ],
+      "properties": {
+        "showOutputText": false,
+        "horizontal": false
+      }
+    },
+    {
+      "id": 52,
+      "type": "RenderPeopleKps",
+      "pos": [
+        1504.0111551672458,
+        2596.3954226587493
+      ],
+      "size": [
+        294.578125,
+        156
+      ],
+      "flags": {},
+      "order": 30,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "kps",
+          "type": "POSE_KEYPOINT",
+          "link": 80
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            128
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "RenderPeopleKps"
+      },
+      "widgets_values": [
+        true,
+        true,
+        true
+      ]
+    },
+    {
+      "id": 53,
+      "type": "PreviewImage",
+      "pos": [
+        2113.352093931576,
+        2634.263753650822
+      ],
+      "size": [
+        277.84375,
+        449.234375
+      ],
+      "flags": {},
+      "order": 43,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 131
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 80,
+      "type": "MediaPipeFaceMask",
+      "pos": [
+        1410.786706810545,
+        3291.402843188207
+      ],
+      "size": [
+        293.671875,
+        220
+      ],
+      "flags": {},
+      "order": 27,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "face_landmarks",
+          "type": "FACE_LANDMARKS",
+          "link": 87
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": [
+            90
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "MediaPipeFaceMask"
+      },
+      "widgets_values": [
+        "custom",
+        false,
+        true,
+        true,
+        true,
+        false
+      ]
+    },
+    {
+      "id": 81,
+      "type": "MediaPipeFaceLandmarker",
+      "pos": [
+        1010.8635666836099,
+        3435.4897232470958
+      ],
+      "size": [
+        340.15625,
+        228
+      ],
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "showAdvanced": true,
+      "inputs": [
+        {
+          "name": "face_detection_model",
+          "type": "FACE_DETECTION_MODEL",
+          "link": 89
+        },
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 93
+        }
+      ],
+      "outputs": [
+        {
+          "name": "face_landmarks",
+          "type": "FACE_LANDMARKS",
+          "links": [
+            87
+          ]
+        },
+        {
+          "name": "bboxes",
+          "type": "BOUNDING_BOX",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "MediaPipeFaceLandmarker"
+      },
+      "widgets_values": [
+        "full",
+        3,
+        0.5,
+        "empty"
+      ]
+    },
+    {
+      "id": 82,
+      "type": "LoadMediaPipeFaceLandmarker",
+      "pos": [
+        991.8091143471695,
+        3282.4271328127634
+      ],
+      "size": [
+        364.890625,
+        80
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "FACE_DETECTION_MODEL",
+          "type": "FACE_DETECTION_MODEL",
+          "links": [
+            89
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadMediaPipeFaceLandmarker"
+      },
+      "widgets_values": [
+        "mediapipe_face_fp32.safetensors"
+      ]
+    },
+    {
+      "id": 83,
+      "type": "MaskToImage",
+      "pos": [
+        1443.087675665056,
+        3571.4324994497283
+      ],
+      "size": [
+        225,
+        48
+      ],
+      "flags": {},
+      "order": 35,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": 90
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            91
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "MaskToImage"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 84,
+      "type": "PreviewImage",
+      "pos": [
+        2115.8912745775415,
+        3168.137176200805
+      ],
+      "size": [
+        279.359375,
+        517.390625
+      ],
+      "flags": {},
+      "order": 41,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 91
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 115,
+      "type": "GetImageSize+",
+      "pos": [
+        1012.6109693344583,
+        2980.2780617945136
+      ],
+      "size": [
+        244.953125,
+        120
+      ],
+      "flags": {},
+      "order": 21,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 127
+        }
+      ],
+      "outputs": [
+        {
+          "name": "width",
+          "type": "INT",
+          "links": [
+            129
+          ]
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "links": [
+            130
+          ]
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "GetImageSize+"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 116,
+      "type": "Reroute",
+      "pos": [
+        758.2322909533458,
+        2819.5396605751293
+      ],
+      "size": [
+        75,
+        26
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "",
+          "type": "*",
+          "link": 125
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "IMAGE",
+          "links": [
+            126,
+            127
+          ]
+        }
+      ],
+      "properties": {
+        "showOutputText": false,
+        "horizontal": false
+      }
+    },
+    {
+      "id": 117,
+      "type": "ImageResize+",
+      "pos": [
+        1523.4574920421,
+        2800.5204257055666
+      ],
+      "size": [
+        263.8125,
+        312
+      ],
+      "flags": {},
+      "order": 38,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 128
+        },
+        {
+          "name": "width",
+          "type": "INT",
+          "widget": {
+            "name": "width"
+          },
+          "link": 129
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "widget": {
+            "name": "height"
+          },
+          "link": 130
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            131
+          ]
+        },
+        {
+          "name": "width",
+          "type": "INT",
+          "links": null
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ImageResize+"
+      },
+      "widgets_values": [
+        512,
+        512,
+        "bicubic",
+        "stretch",
+        "always",
+        0
+      ]
+    },
+    {
+      "id": 118,
+      "type": "OneFormer-COCO-SemSegPreprocessor",
+      "pos": [
+        989.2866827868486,
+        922.1766214427553
+      ],
+      "size": [
+        296.59375,
+        104
+      ],
+      "flags": {},
+      "order": 22,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 135
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            139
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "OneFormer-COCO-SemSegPreprocessor"
+      },
+      "widgets_values": [
+        704
+      ]
+    },
+    {
+      "id": 119,
+      "type": "PreviewImage",
+      "pos": [
+        2086.627120691387,
+        889.2894195728701
+      ],
+      "size": [
+        312.015625,
+        466.859375
+      ],
+      "flags": {},
+      "order": 39,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 140
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 120,
+      "type": "Reroute",
+      "pos": [
+        799.109997485848,
+        1035.0761970756962
+      ],
+      "size": [
+        75,
+        26
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "",
+          "type": "*",
+          "link": 134
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "IMAGE",
+          "links": [
+            135,
+            138
+          ]
+        }
+      ],
+      "properties": {
+        "showOutputText": false,
+        "horizontal": false
+      }
+    },
+    {
+      "id": 121,
+      "type": "GetImageSize+",
+      "pos": [
+        998.6789830569344,
+        1074.5647159884793
+      ],
+      "size": [
+        244.953125,
+        120
+      ],
+      "flags": {},
+      "order": 23,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 138
+        }
+      ],
+      "outputs": [
+        {
+          "name": "width",
+          "type": "INT",
+          "links": [
+            136
+          ]
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "links": [
+            137
+          ]
+        },
+        {
+          "name": "count",
+          "type": "INT",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "GetImageSize+"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 122,
+      "type": "ImageResize+",
+      "pos": [
+        1327.237247903627,
+        920.0153372557888
+      ],
+      "size": [
+        318.015625,
+        312
+      ],
+      "flags": {},
+      "order": 31,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 139
+        },
+        {
+          "name": "width",
+          "type": "INT",
+          "widget": {
+            "name": "width"
+          },
+          "link": 136
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "widget": {
+            "name": "height"
+          },
+          "link": 137
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            140
+          ]
+        },
+        {
+          "name": "width",
+          "type": "INT",
+          "links": null
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ImageResize+"
+      },
+      "widgets_values": [
+        512,
+        512,
+        "bicubic",
+        "stretch",
+        "always",
+        0
+      ]
+    },
+    {
+      "id": 123,
+      "type": "LayerMask: ObjectDetectorYOLO8",
+      "pos": [
+        1098.9166091081331,
+        269.1948157754319
+      ],
+      "size": [
+        403.59375,
+        232
+      ],
+      "flags": {},
+      "order": 24,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 1730
+        }
+      ],
+      "outputs": [
+        {
+          "name": "bboxes",
+          "type": "BBOXES",
+          "links": [
+            1726
+          ]
+        },
+        {
+          "name": "preview",
+          "type": "IMAGE",
+          "links": [
+            142
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerMask: ObjectDetectorYOLO8"
+      },
+      "widgets_values": [
+        "yolov8s.pt",
+        "big_to_small",
+        "all",
+        "0,"
+      ],
+      "color": "rgba(27, 80, 119, 0.7)"
+    },
+    {
+      "id": 124,
+      "type": "PreviewImage",
+      "pos": [
+        2090.6941152409213,
+        -113.23367430587109
+      ],
+      "size": [
+        299.875,
+        438.625
+      ],
+      "flags": {},
+      "order": 33,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 142
+        }
+      ],
+      "outputs": [],
+      "title": "YOLO Detected Objects",
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 140,
+      "type": "RemoveBackground",
+      "pos": [
+        964.64567885038,
+        -1628.9825616512508
+      ],
+      "size": [
+        313.859375,
+        88.140625
+      ],
+      "flags": {},
+      "order": 19,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 296
+        },
+        {
+          "name": "bg_removal_model",
+          "type": "BACKGROUND_REMOVAL",
+          "link": 297
+        }
+      ],
+      "outputs": [
+        {
+          "name": "mask",
+          "type": "MASK",
+          "links": [
+            303
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "RemoveBackground"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 141,
+      "type": "LoadBackgroundRemovalModel",
+      "pos": [
+        965.4633573959039,
+        -1765.1641341416682
+      ],
+      "size": [
+        321.6875,
+        84
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "bg_model",
+          "type": "BACKGROUND_REMOVAL",
+          "links": [
+            297
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadBackgroundRemovalModel"
+      },
+      "widgets_values": [
+        "birefnet.safetensors"
+      ]
+    },
+    {
+      "id": 144,
+      "type": "INPAINT_InpaintWithModel",
+      "pos": [
+        1327.9994933519115,
+        -1580.122300297644
+      ],
+      "size": [
+        406.21875,
+        176
+      ],
+      "flags": {},
+      "order": 37,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "inpaint_model",
+          "type": "INPAINT_MODEL",
+          "link": 301
+        },
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 300
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": 305
+        },
+        {
+          "label": "upscale model (optional)",
+          "name": "optional_upscale_model",
+          "shape": 7,
+          "type": "MODEL",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "inpainted image",
+          "type": "IMAGE",
+          "links": [
+            302
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "INPAINT_InpaintWithModel"
+      },
+      "widgets_values": [
+        696860398980488,
+        "randomize"
+      ]
+    },
+    {
+      "id": 145,
+      "type": "INPAINT_LoadInpaintModel",
+      "pos": [
+        1325.4944094581729,
+        -1739.7712351528055
+      ],
+      "size": [
+        270,
+        108
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "inpaint model",
+          "type": "INPAINT_MODEL",
+          "links": [
+            301
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "INPAINT_LoadInpaintModel"
+      },
+      "widgets_values": [
+        "MAT_Places512_G_fp16.safetensors"
+      ]
+    },
+    {
+      "id": 146,
+      "type": "PreviewImage",
+      "pos": [
+        2073.375881355428,
+        -1868.1240728967894
+      ],
+      "size": [
+        316.90625,
+        446.0625
+      ],
+      "flags": {},
+      "order": 42,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 302
+        }
+      ],
+      "outputs": [],
+      "title": "Inpainted background (hallucinated)",
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 147,
+      "type": "ImpactDilateMask",
+      "pos": [
+        972.5505683624714,
+        -1491.4465798697163
+      ],
+      "size": [
+        311.25,
+        104
+      ],
+      "flags": {},
+      "order": 29,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": 303
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": [
+            305
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ImpactDilateMask"
+      },
+      "widgets_values": [
+        10
+      ]
+    },
+    {
+      "id": 148,
+      "type": "FacialPartColoringFromPoseKps",
+      "pos": [
+        1414.892901877875,
+        3864.5252724952725
+      ],
+      "size": [
+        274.109375,
+        356
+      ],
+      "flags": {},
+      "order": 25,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "pose_kps",
+          "type": "POSE_KEYPOINT",
+          "link": 306
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            310
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "FacialPartColoringFromPoseKps"
+      },
+      "widgets_values": [
+        "polygon",
+        "rgb(0, 153, 255)",
+        "rgb(0, 204, 153)",
+        "rgb(255, 153, 0)",
+        "rgb(255, 102, 255)",
+        "rgb(102, 0, 51)",
+        "rgb(255, 204, 255)",
+        "rgb(255, 0, 102)"
+      ]
+    },
+    {
+      "id": 149,
+      "type": "DWPreprocessor",
+      "pos": [
+        1015.1603190411463,
+        3882.493186513173
+      ],
+      "size": [
+        299.578125,
+        320
+      ],
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 1733
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": []
+        },
+        {
+          "name": "POSE_KEYPOINT",
+          "type": "POSE_KEYPOINT",
+          "links": [
+            306
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "DWPreprocessor"
+      },
+      "widgets_values": [
+        "disable",
+        "disable",
+        "enable",
+        704,
+        "yolox_l.onnx",
+        "dw-ll_ucoco_384_bs5.torchscript.pt",
+        "disable"
+      ]
+    },
+    {
+      "id": 152,
+      "type": "PreviewImage",
+      "pos": [
+        2121.0638956437233,
+        3784.2094523777964
+      ],
+      "size": [
+        262.453125,
+        474.96875
+      ],
+      "flags": {},
+      "order": 34,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 310
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 686,
+      "type": "LayerMask: DrawBBoxMask",
+      "pos": [
+        1110.2038685678851,
+        565.4898217447103
+      ],
+      "size": [
+        374.515625,
+        224
+      ],
+      "flags": {},
+      "order": 32,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 1731
+        },
+        {
+          "name": "bboxes",
+          "type": "BBOXES",
+          "link": 1726
+        }
+      ],
+      "outputs": [
+        {
+          "name": "mask",
+          "type": "MASK",
+          "links": [
+            1727
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LayerMask: DrawBBoxMask"
+      },
+      "widgets_values": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "color": "rgba(27, 80, 119, 0.7)"
+    },
+    {
+      "id": 687,
+      "type": "MaskPreview+",
+      "pos": [
+        2093.162945165462,
+        381.26839556842134
+      ],
+      "size": [
+        293.609375,
+        436.328125
+      ],
+      "flags": {},
+      "order": 40,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": 1727
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "MaskPreview+"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 688,
+      "type": "Reroute",
+      "pos": [
+        933.1776300096724,
+        497.29101169904885
+      ],
+      "size": [
+        75,
+        26
+      ],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "",
+          "type": "*",
+          "link": 1729
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "IMAGE",
+          "links": [
+            1730,
+            1731
+          ]
+        }
+      ],
+      "properties": {
+        "showOutputText": false,
+        "horizontal": false
+      }
+    }
+  ],
+  "links": [
+    [
+      1,
+      2,
+      0,
+      3,
+      1,
+      "IMAGE"
+    ],
+    [
+      2,
+      4,
+      0,
+      3,
+      0,
+      "DA3MODEL"
+    ],
+    [
+      5,
+      3,
+      0,
+      6,
+      0,
+      "IMAGE"
+    ],
+    [
+      8,
+      2,
+      0,
+      14,
+      0,
+      "IMAGE"
+    ],
+    [
+      9,
+      14,
+      0,
+      15,
+      0,
+      "IMAGE"
+    ],
+    [
+      11,
+      14,
+      2,
+      17,
+      0,
+      "IMAGE"
+    ],
+    [
+      26,
+      29,
+      0,
+      28,
+      1,
+      "INT"
+    ],
+    [
+      27,
+      29,
+      1,
+      28,
+      2,
+      "INT"
+    ],
+    [
+      28,
+      21,
+      0,
+      28,
+      0,
+      "IMAGE"
+    ],
+    [
+      29,
+      28,
+      0,
+      27,
+      0,
+      "IMAGE"
+    ],
+    [
+      40,
+      2,
+      0,
+      46,
+      0,
+      "IMAGE"
+    ],
+    [
+      41,
+      46,
+      0,
+      29,
+      0,
+      "IMAGE"
+    ],
+    [
+      42,
+      46,
+      0,
+      21,
+      0,
+      "IMAGE"
+    ],
+    [
+      46,
+      2,
+      0,
+      50,
+      0,
+      "IMAGE"
+    ],
+    [
+      47,
+      50,
+      0,
+      48,
+      0,
+      "IMAGE"
+    ],
+    [
+      80,
+      47,
+      1,
+      52,
+      0,
+      "POSE_KEYPOINT"
+    ],
+    [
+      87,
+      81,
+      0,
+      80,
+      0,
+      "FACE_LANDMARKS"
+    ],
+    [
+      89,
+      82,
+      0,
+      81,
+      0,
+      "FACE_DETECTION_MODEL"
+    ],
+    [
+      90,
+      80,
+      0,
+      83,
+      0,
+      "MASK"
+    ],
+    [
+      91,
+      83,
+      0,
+      84,
+      0,
+      "IMAGE"
+    ],
+    [
+      93,
+      2,
+      0,
+      81,
+      1,
+      "IMAGE"
+    ],
+    [
+      125,
+      2,
+      0,
+      116,
+      0,
+      "IMAGE"
+    ],
+    [
+      126,
+      116,
+      0,
+      47,
+      0,
+      "IMAGE"
+    ],
+    [
+      127,
+      116,
+      0,
+      115,
+      0,
+      "IMAGE"
+    ],
+    [
+      128,
+      52,
+      0,
+      117,
+      0,
+      "IMAGE"
+    ],
+    [
+      129,
+      115,
+      0,
+      117,
+      1,
+      "INT"
+    ],
+    [
+      130,
+      115,
+      1,
+      117,
+      2,
+      "INT"
+    ],
+    [
+      131,
+      117,
+      0,
+      53,
+      0,
+      "IMAGE"
+    ],
+    [
+      134,
+      2,
+      0,
+      120,
+      0,
+      "IMAGE"
+    ],
+    [
+      135,
+      120,
+      0,
+      118,
+      0,
+      "IMAGE"
+    ],
+    [
+      136,
+      121,
+      0,
+      122,
+      1,
+      "INT"
+    ],
+    [
+      137,
+      121,
+      1,
+      122,
+      2,
+      "INT"
+    ],
+    [
+      138,
+      120,
+      0,
+      121,
+      0,
+      "IMAGE"
+    ],
+    [
+      139,
+      118,
+      0,
+      122,
+      0,
+      "IMAGE"
+    ],
+    [
+      140,
+      122,
+      0,
+      119,
+      0,
+      "IMAGE"
+    ],
+    [
+      142,
+      123,
+      1,
+      124,
+      0,
+      "IMAGE"
+    ],
+    [
+      296,
+      50,
+      0,
+      140,
+      0,
+      "IMAGE"
+    ],
+    [
+      297,
+      141,
+      0,
+      140,
+      1,
+      "BACKGROUND_REMOVAL"
+    ],
+    [
+      300,
+      50,
+      0,
+      144,
+      1,
+      "IMAGE"
+    ],
+    [
+      301,
+      145,
+      0,
+      144,
+      0,
+      "INPAINT_MODEL"
+    ],
+    [
+      302,
+      144,
+      0,
+      146,
+      0,
+      "IMAGE"
+    ],
+    [
+      303,
+      140,
+      0,
+      147,
+      0,
+      "MASK"
+    ],
+    [
+      305,
+      147,
+      0,
+      144,
+      2,
+      "MASK"
+    ],
+    [
+      306,
+      149,
+      1,
+      148,
+      0,
+      "POSE_KEYPOINT"
+    ],
+    [
+      310,
+      148,
+      0,
+      152,
+      0,
+      "IMAGE"
+    ],
+    [
+      1726,
+      123,
+      0,
+      686,
+      1,
+      "BBOXES"
+    ],
+    [
+      1727,
+      686,
+      0,
+      687,
+      0,
+      "MASK"
+    ],
+    [
+      1729,
+      2,
+      0,
+      688,
+      0,
+      "IMAGE"
+    ],
+    [
+      1730,
+      688,
+      0,
+      123,
+      0,
+      "IMAGE"
+    ],
+    [
+      1731,
+      688,
+      0,
+      686,
+      0,
+      "IMAGE"
+    ],
+    [
+      1733,
+      2,
+      0,
+      149,
+      0,
+      "IMAGE"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.13310000000000255,
+      "offset": [
+        4019.284605015914,
+        3033.1609418636162
+      ]
+    },
+    "frontendVersion": "1.45.15",
+    "VHS_latentpreview": false,
+    "VHS_latentpreviewrate": 0,
+    "VHS_MetadataImage": true,
+    "VHS_KeepIntermediate": true
+  },
+  "version": 0.4
+}

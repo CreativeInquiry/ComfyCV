@@ -200,7 +200,7 @@
 
     return {
       name: "EasyTrack SAM3 Tracking",
-      sourceFileName: sequence.sourceFileName || "input.json",
+      sourceFileName: sequence.sourceFileName || "bouncing.json",
       sourceBaseName: exportBaseName(sequence),
       include,
       width: sequence.width,
@@ -865,7 +865,7 @@ def import_easytrack(data):
   }
 
   /**
-   * Builds an export filename that includes the loaded JSON file's base name.
+   * Builds an export filename with the source base name and a local timestamp.
    *
    * @param {object} sequence Normalized tracking sequence.
    * @param {string} target Export target label.
@@ -873,7 +873,33 @@ def import_easytrack(data):
    * @returns {string}
    */
   function exportFilename(sequence, target, extension) {
-    return `${exportBaseName(sequence)}_${target}.${extension}`;
+    return `${exportBaseName(sequence)}_${target}_${timestampForFilename(new Date())}.${extension}`;
+  }
+
+  /**
+   * Formats a local timestamp as YYYYMMDDHHMM for export filenames.
+   *
+   * @param {Date} date Timestamp to format.
+   * @returns {string}
+   */
+  function timestampForFilename(date) {
+    return [
+      date.getFullYear(),
+      pad2(date.getMonth() + 1),
+      pad2(date.getDate()),
+      pad2(date.getHours()),
+      pad2(date.getMinutes()),
+    ].join("");
+  }
+
+  /**
+   * Pads a number to two digits.
+   *
+   * @param {number} value Number to format.
+   * @returns {string}
+   */
+  function pad2(value) {
+    return String(value).padStart(2, "0");
   }
 
   /**
@@ -884,7 +910,7 @@ def import_easytrack(data):
    */
   function exportBaseName(sequence) {
     const source = sequence && (sequence.sourceBaseName || sequence.sourceFileName);
-    return sanitizeFilenameBase(removeExtension(source || "input")) || "input";
+    return sanitizeFilenameBase(removeExtension(source || "bouncing")) || "bouncing";
   }
 
   /**

@@ -3,6 +3,14 @@
 app.beginUndoGroup("Import EasyTrack tracking data");
 var data = {
   "name": "EasyTrack SAM3 Tracking",
+  "sourceFileName": "bouncing.json",
+  "sourceBaseName": "bouncing",
+  "include": {
+    "boxes": true,
+    "labels": true,
+    "points": true,
+    "contours": true
+  },
   "width": 960,
   "height": 540,
   "fps": 24,
@@ -49831,13 +49839,14 @@ function formatScore(score) {
 
 function importTrack(comp, data, track) {
   var duration = data.frameCount / data.fps;
-  var bboxLayer = addShapePathLayer(comp, track.label + " #" + track.id + " bbox", track.color, 2, 0);
-  var pointLayer = addCentroidLayer(comp, track);
-  var pointNullPosition = addCentroidNull(comp, track, duration);
-  var textLayer = addTextLayer(comp, track);
+  var include = data.include || {};
+  var bboxLayer = include.boxes ? addShapePathLayer(comp, track.label + " #" + track.id + " bbox", track.color, 2, 0) : null;
+  var pointLayer = include.points ? addCentroidLayer(comp, track) : null;
+  var pointNullPosition = include.points ? addCentroidNull(comp, track, duration) : null;
+  var textLayer = include.labels ? addTextLayer(comp, track) : null;
   var contourLayers = [];
 
-  for (var contourIndex = 0; contourIndex < track.maxContours; contourIndex += 1) {
+  for (var contourIndex = 0; include.contours && contourIndex < track.maxContours; contourIndex += 1) {
     contourLayers.push(addShapePathLayer(comp, track.label + " #" + track.id + " simplified contour " + (contourIndex + 1), track.color, 2, 0));
   }
 
@@ -49846,21 +49855,27 @@ function importTrack(comp, data, track) {
     var time = frameIndex / data.fps;
     var visible = frame && frame.visible;
 
-    bboxLayer.opacity.setValueAtTime(time, visible && frame.bbox ? 100 : 0);
-    pointLayer.opacity.setValueAtTime(time, visible && frame.point ? 100 : 0);
-    textLayer.opacity.setValueAtTime(time, visible ? 100 : 0);
+    if (bboxLayer) {
+      bboxLayer.opacity.setValueAtTime(time, visible && frame.bbox ? 100 : 0);
+    }
+    if (pointLayer) {
+      pointLayer.opacity.setValueAtTime(time, visible && frame.point ? 100 : 0);
+    }
+    if (textLayer) {
+      textLayer.opacity.setValueAtTime(time, visible ? 100 : 0);
+    }
 
-    if (visible && frame.bbox) {
+    if (bboxLayer && visible && frame.bbox) {
       var b = frame.bbox;
       bboxLayer.path.setValueAtTime(time, makeShape([[b[0], b[1]], [b[0] + b[2], b[1]], [b[0] + b[2], b[1] + b[3]], [b[0], b[1] + b[3]]], true));
     }
 
-    if (visible && frame.point) {
+    if (pointLayer && visible && frame.point) {
       pointLayer.position.setValueAtTime(time, frame.point);
       pointNullPosition.setValueAtTime(time, frame.point);
     }
 
-    if (visible) {
+    if (textLayer && visible) {
       var doc = textLayer.sourceText.value;
       doc.text = track.label + " #" + track.id + formatScore(frame.score);
       doc.fontSize = 18;

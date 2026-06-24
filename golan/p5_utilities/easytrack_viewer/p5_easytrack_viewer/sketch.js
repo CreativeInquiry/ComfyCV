@@ -5,7 +5,13 @@ let startedAt = 0;
 let layerToggles = {};
 let isPaused = false;
 let pausedFrameIndex = 0;
-let sourceFileName = "input.json";
+const DEFAULT_INPUT_PATH = "input/bouncing.json";
+const DEFAULT_INPUT_FILENAME = "bouncing.json";
+const DEFAULT_SOURCE_WIDTH = 960;
+const DEFAULT_SOURCE_HEIGHT = 540;
+const MAX_DISPLAY_DIMENSION = 1280;
+let sourceFileName = DEFAULT_INPUT_FILENAME;
+let displayScale = 1;
 
 // Each layer key maps to a p5 DOM checkbox. The same keys gate drawing in drawDetection().
 const layerDefinitions = [
@@ -39,18 +45,19 @@ const palette = [
  * normalize rawData synchronously in setup().
  */
 function preload() {
-  rawData = loadJSON("input.json");
+  rawData = loadJSON(DEFAULT_INPUT_PATH);
 }
 
 /**
  * Creates the canvas, UI controls, and normalized frame sequence.
  */
 function setup() {
-  const sourceWidth = positiveNumber(rawData && rawData.width, 960);
-  const sourceHeight = positiveNumber(rawData && rawData.height, 540);
+  const sourceDimensions = sourceDimensionsForData(rawData);
+  const displaySize = displaySizeForSource(sourceDimensions.width, sourceDimensions.height);
+  displayScale = displaySize.scale;
 
   pixelDensity(2);
-  createCanvas(sourceWidth, sourceHeight);
+  createCanvas(displaySize.width, displaySize.height);
   frameRate(positiveNumber(rawData && rawData.fps, 24));
   textFont("monospace");
   textSize(14);
@@ -76,16 +83,19 @@ function draw() {
   }
 
   if (!sequence || !sequence.frames.length) {
-    drawStatus("No frame data found in input.json");
+    drawStatus(`No frame data found in ${sourceFileName}`);
     return;
   }
 
   const frameIndex = getPlaybackFrameIndex();
   const detections = sequence.frames[frameIndex] || [];
 
+  push();
+  scale(displayScale);
   for (const detection of detections) {
     drawDetection(detection);
   }
+  pop();
 
   if (layerEnabled("frameCounter")) {
     drawOverlay(frameIndex, detections.length);
@@ -199,7 +209,7 @@ function handleJsonFileSelected(event) {
  */
 function applyRawData(data, filename) {
   rawData = data;
-  sourceFileName = filename || "input.json";
+  sourceFileName = filename || DEFAULT_INPUT_FILENAME;
   sequence = buildSequence(rawData);
   sequence.sourceFileName = sourceFileName;
   sequence.sourceBaseName = baseNameWithoutExtension(sourceFileName);
@@ -208,7 +218,31 @@ function applyRawData(data, filename) {
   isPaused = false;
   startedAt = millis();
   frameRate(positiveNumber(sequence.fps, 24));
-  resizeCanvas(sequence.width, sequence.height);
+  const displaySize = displaySizeForSource(sequence.width, sequence.height);
+  displayScale = displaySize.scale;
+  resizeCanvas(displaySize.width, displaySize.height);
+}
+
+/**
+ * Computes the canvas display size for a source image.
+ *
+ * The largest displayed dimension is clamped to MAX_DISPLAY_DIMENSION while the
+ * original source coordinate system is preserved for drawing and export data.
+ *
+ * @param {number} sourceWidth Source image width.
+ * @param {number} sourceHeight Source image height.
+ * @returns {{width:number, height:number, scale:number}}
+ */
+function displaySizeForSource(sourceWidth, sourceHeight) {
+  const safeWidth = positiveNumber(sourceWidth, DEFAULT_SOURCE_WIDTH);
+  const safeHeight = positiveNumber(sourceHeight, DEFAULT_SOURCE_HEIGHT);
+  const largestDimension = max(safeWidth, safeHeight);
+  const scale = largestDimension > MAX_DISPLAY_DIMENSION ? MAX_DISPLAY_DIMENSION / largestDimension : 1;
+  return {
+    width: max(1, round(safeWidth * scale)),
+    height: max(1, round(safeHeight * scale)),
+    scale,
+  };
 }
 
 /**
@@ -295,16 +329,17 @@ function stepPausedFrame(delta) {
 /**
  * Converts supported JSON layouts into a frame-indexed sequence.
  *
- * The current input.json is object-indexed: objects[id].frames[frameNumber].
+ * The default input JSON is object-indexed: objects[id].frames[frameNumber].
  * This function also accepts common frame-indexed shapes such as data.frames or
  * data.annotations, then normalizes every detection into one internal format.
  *
- * @param {object|Array} data Raw JSON from input.json.
+ * @param {object|Array} data Raw tracking JSON.
  * @returns {{width:number, height:number, fps:number, frames:Array<Array<object>>}}
  */
 function buildSequence(data) {
-  const width = positiveNumber(data && data.width, 960);
-  const height = positiveNumber(data && data.height, 540);
+  const sourceDimensions = sourceDimensionsForData(data);
+  const width = sourceDimensions.width;
+  const height = sourceDimensions.height;
   const fps = positiveNumber(data && data.fps, 24);
   const frameCount = positiveInteger(
     data && (data.num_frames || data.frame_count || data.frameCount || data.length),
@@ -509,7 +544,7 @@ function drawMask(detection, c) {
 
   push();
   tint(255, 72);
-  image(img, 0, 0, width, height);
+  image(img, 0, 0, detection.sourceWidth, detection.sourceHeight);
   noTint();
   pop();
 }
@@ -614,7 +649,7 @@ function drawPoint(point, c, size) {
 /**
  * Draws optional track points when input JSON provides them.
  *
- * The current input.json has track_points fields but they are all null; this is
+ * The default input JSON has track_points fields but they are all null; this is
  * kept for compatibility with future files.
  *
  * @param {object} detection Normalized detection.
@@ -692,12 +727,43 @@ function drawSourceFilename() {
     return;
   }
 
+  const dimensions = sourceDimensionsLabel();
+
   push();
   noStroke();
   fill(115);
   textAlign(RIGHT, BASELINE);
   text(sourceFileName, width - 20, 29);
+  if (dimensions) {
+    text(dimensions, width - 20, 45);
+  }
   pop();
+}
+
+/**
+ * Formats the source image dimensions shown under the input filename.
+ *
+ * @returns {string} Dimension label such as "960 x 540".
+ */
+function sourceDimensionsLabel() {
+  const dimensions = sourceDimensionsForData(rawData || sequence);
+  if (!Number.isFinite(dimensions.width) || !Number.isFinite(dimensions.height)) {
+    return "";
+  }
+  return `${dimensions.width} x ${dimensions.height}`;
+}
+
+/**
+ * Returns positive source dimensions, falling back for missing/pathological data.
+ *
+ * @param {?object} data Raw or normalized tracking data.
+ * @returns {{width:number, height:number}}
+ */
+function sourceDimensionsForData(data) {
+  return {
+    width: positiveNumber(data && data.width, DEFAULT_SOURCE_WIDTH),
+    height: positiveNumber(data && data.height, DEFAULT_SOURCE_HEIGHT),
+  };
 }
 
 /**
@@ -1251,12 +1317,12 @@ function hashString(value) {
  * @returns {string}
  */
 function baseNameWithoutExtension(filename) {
-  const name = String(filename || "input.json").split(/[\\/]/).pop();
+  const name = String(filename || DEFAULT_INPUT_FILENAME).split(/[\\/]/).pop();
   return name.replace(/\.[^/.\\]+$/, "") || "input";
 }
 
 /**
- * Infers sequence length when input.json does not provide an explicit count.
+ * Infers sequence length when input JSON does not provide an explicit count.
  *
  * @param {object|Array} data Raw JSON.
  * @returns {number}
