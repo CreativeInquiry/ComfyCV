@@ -1,4 +1,4 @@
-# HumanCV Workflow
+# Human CV Workflow
 
 ![example](images/humancv_workflow_results.jpg)<br />
 
@@ -19,7 +19,7 @@ Work products from a custom "HumanCV" workflow. It produces the following data s
 
 <table>
 <tr>
-<td valign="top"><img src="humancv_workflow_comfycloud.png"></td>
-<td valign="top"><img src="humancv_workflow_runcomfy.png"></td>
+<td valign="top">Workflow for cloud.comfy.org<br/><img src="humancv_workflow_comfycloud.png"></td>
+<td valign="top">Workflow for runcomfy.com<img src="humancv_workflow_runcomfy.png"></td>
 </tr>
 </table>
