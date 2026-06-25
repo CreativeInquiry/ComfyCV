@@ -567,6 +567,7 @@ function drawContours(detection, c) {
   push();
   stroke(c[0], c[1], c[2], 245);
   strokeWeight(2);
+  strokeJoin(ROUND); 
   noFill();
 
   for (const contour of contours) {
@@ -597,6 +598,8 @@ function drawRleContour(detection, c) {
   push();
   stroke(c[0], c[1], c[2], 120);
   strokeWeight(1);
+  strokeCap(ROUND);
+  strokeJoin(ROUND); 
   for (const segment of segments) {
     line(segment[0], segment[1], segment[2], segment[3]);
   }
@@ -618,6 +621,7 @@ function drawBBox(detection, c) {
   noFill();
   stroke(c[0], c[1], c[2], 180);
   strokeWeight(1.5);
+  strokeJoin(ROUND); 
   drawingContext.setLineDash([7, 5]);
   rect(detection.bbox.x, detection.bbox.y, detection.bbox.w, detection.bbox.h);
   drawingContext.setLineDash([]);
