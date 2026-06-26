@@ -1,18 +1,17 @@
-# Simple Media Annotator
+# easylabeler
 
-A small local-first web app for labeling points, bounding boxes, and closed shapes on short `.mp4` videos or folders of images. It uses plain HTML, CSS, and JavaScript with no backend, build system, cloud services, or external dependencies.
+**easylabeler** *is a small local-first web app for labeling points, bounding boxes, and closed shapes on short `.mp4` videos or folders of images. It uses plain HTML, CSS, and JavaScript with no backend, build system, cloud services, or external dependencies.*
 
 ## Run Locally
 
-Open `index.html` directly in a browser.
-
-If your browser restricts local files, run a tiny local server from this folder:
+It's common for browsers to restrict local files. To launch easylabeler, therefore, you should open your Terminal app and run a tiny local server from this folder:
 
 ```bash
+cd /path/to/easylabeler/
 python3 -m http.server 8000
 ```
 
-Then open `http://localhost:8000`.
+Then open the URL `http://localhost:8000`.
 
 ## Load Media
 
@@ -136,17 +135,20 @@ Example point annotation:
 }
 ```
 
-Project JSON includes a top-level `excluded_frames` array containing zero-based frame indices to omit from model-training datasets.
+Project JSON files includes a top-level `excluded_frames` array containing zero-based frame indices to omit selected frames from model-training datasets.
 
 All exported annotations include training-oriented metadata: `track_id`, `confidence`, `visibility`, and `source`. Manually created annotations default to `track_id: null`, `confidence: 1.0`, `visibility: "visible"`, and `source: "manual"`.
 
-Point annotations include `x`, `y`, `nx`, and `ny`.
+Coordinates are stored in original video or image pixel coordinates. Normalized coordinate values ( `nx` and `ny`) go from `0...1` and are relative to the original media's width and height.
 
-Bounding boxes include `x`, `y`, `width`, `height`, `nx`, `ny`, `nwidth`, and `nheight`. Shape annotations include `points`, with each point storing `x`, `y`, `nx`, and `ny`.
+Annotations on video content include `time`. Image-batch annotations do not include `time`. Supported annotation types include:
 
-Video annotations include `time`. Image-batch annotations do not include `time`.
+* **Point** annotations include `x`, `y`, `nx`, and `ny`.
+* **Bounding box** annotations include `x`, `y`, `width`, `height`, `nx`, `ny`, `nwidth`, and `nheight`. 
+* **Shape** annotations (polygons) include `points`, with each point storing `x`, `y`, `nx`, and `ny`.
 
-Coordinates are stored in original video or image pixels, not displayed CSS pixels. Normalized values are relative to the original media width and height.
+
+---
 
 ## Code Layout
 
@@ -154,6 +156,9 @@ Coordinates are stored in original video or image pixels, not displayed CSS pixe
 - `style.css` handles the compact app layout, overlay cursor, progress bar, and annotation controls.
 - `app.js` owns all browser behavior: media loading, frame stepping, coordinate conversion, drawing, editing, import/export, and keyboard shortcuts.
 - `test/render_point_overlays.py` is an optional test helper for checking point annotations against decoded video frames.
+
+
+---
 
 ## Render Point Overlays
 
@@ -174,13 +179,16 @@ venv/bin/python test/render_point_overlays.py
 
 By default, it reads `media/video/piles_test/piles_test.mp4` and `media/video/piles_test/piles_test_annotations.json`, then writes PNGs to `media/video/piles_test/annotated_frames/`.
 
+
+---
+
 ## Known Limitations
 
 - Video frame accuracy depends on browser video seeking and the project FPS value matching the media's intended frame rate.
 - Image folder loading uses browser directory selection support, commonly exposed as `webkitdirectory`.
 - Image folders are intended to contain frames with the same dimensions.
-- No model training.
-- No automatic tracking yet.
+- No model training is implemented here; see the `easytrain-yolo` subproject. 
+- No automatic tracking is implemented here.
 - Intended for short videos and lightweight classroom use.
 - Project JSON files can only auto-load MP4 paths the browser is allowed to reach; otherwise, choose the MP4 manually after opening the JSON.
 
