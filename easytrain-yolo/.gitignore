@@ -1,0 +1,9 @@
+runs/
+.DS_Store
+notes.txt
+*.egg-info/
+__pycache__/
+.pytest_cache/
+.mypy_cache/
+venv/
+.venv/
