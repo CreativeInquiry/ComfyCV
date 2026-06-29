@@ -159,7 +159,7 @@ Training a YOLO model requires significant memory and processing resources. The 
 
 You are strongly advised to create or use a *Python virtual environment*. A virtual environment is a local Python installation, just for this one project. It keeps `easytrain-yolo` and its machine-learning libraries separate from the rest of your computer. This is useful because it can prevent your installation from causing accidental conflicts.
 
-As of mid-2026, Python 3.10 or 3.11 is recommended for this project. The examples below use Python 3.11.
+As of mid-2026, Python 3.10 or 3.11 is recommended for this project, though 3.14 seems to be working as well. The examples below use Python 3.11.
 
 **Open** the Terminal app and **go** to the `easytrain-yolo` project folder:
 
