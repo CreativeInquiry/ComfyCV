@@ -140,8 +140,7 @@ rm -rf /root/.cache/huggingface/modules/transformers_modules/nvidia_hyphen__hyph
 Verify the downloads worked (files should be much larger than 29 bytes):
 
 ```bash
-ls -la /workspace/ComfyUI/models/LocateAnything/nvidia--LocateAnything-3B/modeling_locateanything.py
-ls -la /workspace/ComfyUI/models/LocateAnything/nvidia--LocateAnything-3B/modeling_qwen2.py
+ls -la /workspace/ComfyUI/models/LocateAnything/nvidia--LocateAnything-3B/modeling*
 ```
 
 Expected output: `modeling_locateanything.py` ~22K, `modeling_qwen2.py` ~77K.

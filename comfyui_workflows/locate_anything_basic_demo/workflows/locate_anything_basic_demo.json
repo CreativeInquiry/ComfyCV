@@ -1,0 +1,411 @@
+{
+  "id": "4b02be25-5364-4e22-9b7a-9a393950a85a",
+  "revision": 0,
+  "last_node_id": 21,
+  "last_link_id": 26,
+  "nodes": [
+    {
+      "id": 13,
+      "type": "PreviewImage",
+      "pos": [
+        998.8519176136367,
+        101.42286931818184
+      ],
+      "size": [
+        210,
+        327.2988675426135
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 12
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.24.0",
+        "Node name for S&R": "PreviewImage"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 14,
+      "type": "MaskPreview+",
+      "pos": [
+        1235.2594177556816,
+        103.1749323863636
+      ],
+      "size": [
+        210,
+        324.68299818892046
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": 13
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "comfyui_essentials",
+        "ver": "9d9f4bedfc9f0321c19faf71855e228c93bd0dc9",
+        "Node name for S&R": "MaskPreview+"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 15,
+      "type": "PreviewImage",
+      "pos": [
+        1473.2139939960657,
+        100.18045107116858
+      ],
+      "size": [
+        214.39048167613623,
+        324.33163803267047
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 14
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.24.0",
+        "Node name for S&R": "PreviewImage"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 11,
+      "type": "LocateAnythingGrounding",
+      "pos": [
+        530.104757693986,
+        104.80982238719231
+      ],
+      "size": [
+        410.2424609374999,
+        504
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "LOCATEANYTHING_MODEL",
+          "link": 10
+        },
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 11
+        },
+        {
+          "name": "query",
+          "type": "STRING",
+          "widget": {
+            "name": "query"
+          },
+          "link": 18
+        }
+      ],
+      "outputs": [
+        {
+          "name": "answer",
+          "type": "STRING",
+          "links": []
+        },
+        {
+          "name": "locations_json",
+          "type": "STRING",
+          "links": [
+            16
+          ]
+        },
+        {
+          "name": "annotated_image",
+          "type": "IMAGE",
+          "links": [
+            12
+          ]
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "links": [
+            13
+          ]
+        },
+        {
+          "name": "mask_overlay",
+          "type": "IMAGE",
+          "links": [
+            14
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-locateanything",
+        "ver": "4d25a9ee95fd9f2da8d7f3baa39a5eb401796cc7",
+        "Node name for S&R": "LocateAnythingGrounding",
+        "aux_id": "ylchen333/ComfyUI-LocateAnything"
+      },
+      "widgets_values": [
+        "ground_multi",
+        "cars",
+        "hybrid",
+        2048,
+        0,
+        0.9,
+        1.1,
+        12,
+        0,
+        0,
+        "#00ff66",
+        0.45,
+        699031134909859,
+        "randomize",
+        true
+      ]
+    },
+    {
+      "id": 16,
+      "type": "DisplayAny",
+      "pos": [
+        992.1788170196421,
+        499.76044485095116
+      ],
+      "size": [
+        565.0589296875,
+        155.46287890625013
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "input",
+          "type": "*",
+          "link": 16
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": []
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui_essentials",
+        "ver": "9d9f4bedfc9f0321c19faf71855e228c93bd0dc9",
+        "Node name for S&R": "DisplayAny"
+      },
+      "widgets_values": [
+        "raw value",
+        "[\n  {\n    \"batch_index\": 0,\n    \"prompt\": \"Locate all the instances that match the following description: cars.\",\n    \"answer\": \"<ref>cars</ref><box><0><117><172><201></box><box><0><536><285><764></box><box><81><278><361><432></box><box><104><29><250><94></box><box><303><82><453><161></box><box><322><139><496><228></box><box><352><0><471><44></box><box><354><21><505><105></box><box><568><0><694><56></box><box><587><284><838><395></box><box><610><148><810><242></box><box><628><49><769><119></box><box><663><19><800><84></box><box><686><0><781><24></box><box><962><269><1000><391></box><box><976><126><1000><192></box><|im_end|>\",\n    \"elapsed_seconds\": 1.5837801770003352,\n    \"seed\": 865513337473948,\n    \"locations\": {\n      \"boxes\": [\n        {\n          \"label\": \"cars\",\n          \"normalized\": [\n            0,\n            117,\n            172,\n            201\n          ],\n          \"pixel\": [\n            0.0,\n            149.76000000000002,\n            123.83999999999999,\n            257.28000000000003\n          ]\n        },\n        {\n          \"label\": \"\",\n          \"normalized\": [\n            0,\n            536,\n            285,\n            764\n          ],\n          \"pixel\": [\n            0.0,\n            686.08,\n            205.2,\n            977.9200000000001\n          ]\n        },\n        {\n          \"label\": \"\",\n          \"normalized\": [\n            81,\n            278,\n            361,\n            432\n          ],\n          \"pixel\": [\n            58.32,\n            355.84000000000003,\n            259.92,\n            552.96\n          ]\n        },\n        {\n          \"label\": \"\",\n          \"normalized\": [\n            104,\n            29,\n            250,\n            94\n          ],\n          \"pixel\": [\n            74.88,\n            37.120000000000005,\n            180.0,\n            120.32\n          ]\n        },\n        {\n          \"label\": \"\",\n          \"normalized\": [\n            303,\n            82,\n            453,\n            161\n          ],\n          \"pixel\": [\n            218.16,\n            104.96000000000001,\n            326.16,\n            206.08\n          ]\n        },\n        {\n          \"label\": \"\",\n          \"normalized\": [\n            322,\n            139,\n            496,\n            228\n          ],\n          \"pixel\": [\n            231.84,\n            177.92000000000002,\n            357.12,\n            291.84000000000003\n          ]\n        },\n        {\n          \"label\": \"\",\n          \"normalized\": [\n            352,\n            0,\n            471,\n            44\n          ],\n          \"pixel\": [\n            253.44,\n            0.0,\n            339.12,\n            56.31999999999999\n          ]\n        },\n        {\n          \"label\": \"\",\n          \"normalized\": [\n            354,\n            21,\n            505,\n            105\n          ],\n          \"pixel\": [\n            254.88,\n            26.880000000000003,\n            363.6,\n            134.4\n          ]\n        },\n        {\n          \"label\": \"\",\n          \"normalized\": [\n            568,\n            0,\n            694,\n            56\n          ],\n          \"pixel\": [\n            408.96,\n            0.0,\n            499.67999999999995,\n            71.68\n          ]\n        },\n        {\n          \"label\": \"\",\n          \"normalized\": [\n            587,\n            284,\n            838,\n            395\n          ],\n          \"pixel\": [\n            422.64,\n            363.52,\n            603.36,\n            505.6\n          ]\n        },\n        {\n          \"label\": \"\",\n          \"normalized\": [\n            610,\n            148,\n            810,\n            242\n          ],\n          \"pixel\": [\n            439.2,\n            189.44,\n            583.2,\n            309.76\n          ]\n        },\n        {\n          \"label\": \"\",\n          \"normalized\": [\n            628,\n            49,\n            769,\n            119\n          ],\n          \"pixel\": [\n            452.16,\n            62.72,\n            553.6800000000001,\n            152.32\n          ]\n        },\n        {\n          \"label\": \"\",\n          \"normalized\": [\n            663,\n            19,\n            800,\n            84\n          ],\n          \"pixel\": [\n            477.36,\n            24.32,\n            576.0,\n            107.52000000000001\n          ]\n        },\n        {\n          \"label\": \"\",\n          \"normalized\": [\n            686,\n            0,\n            781,\n            24\n          ],\n          \"pixel\": [\n            493.92,\n            0.0,\n            562.32,\n            30.72\n          ]\n        },\n        {\n          \"label\": \"\",\n          \"normalized\": [\n            962,\n            269,\n            1000,\n            391\n          ],\n          \"pixel\": [\n            692.64,\n            344.32000000000005,\n            720.0,\n            500.48\n          ]\n        },\n        {\n          \"label\": \"\",\n          \"normalized\": [\n            976,\n            126,\n            1000,\n            192\n          ],\n          \"pixel\": [\n            702.72,\n            161.28,\n            720.0,\n            245.76\n          ]\n        }\n      ],\n      \"points\": [],\n      \"none\": false,\n      \"image_size\": {\n        \"width\": 720,\n        \"height\": 1280\n      }\n    },\n    \"stats\": \"\\nStatistic Info, num_tokens=100; generate_time(s)=1.5144; tps=66.0313; forward_step=22; num_boxes=16; bps=10.5650; prefill_time=0.7450; switch_to_ar=1\\n\"\n  }\n]"
+      ]
+    },
+    {
+      "id": 12,
+      "type": "LoadImage",
+      "pos": [
+        270.47828114833663,
+        332.3446675737939
+      ],
+      "size": [
+        222.798828125,
+        326
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            11
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.24.0",
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "cars_traffic_720x1280_1_4.jpg",
+        "image"
+      ]
+    },
+    {
+      "id": 18,
+      "type": "easy string",
+      "pos": [
+        205.1797520391147,
+        204.6295503930644
+      ],
+      "size": [
+        282.271875,
+        58
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "string",
+          "type": "STRING",
+          "links": [
+            18
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-easy-use",
+        "ver": "625efbfa2fc20c31797dfffcbb41a26b6d91ab7b",
+        "Node name for S&R": "easy string"
+      },
+      "widgets_values": [
+        "cars"
+      ]
+    },
+    {
+      "id": 10,
+      "type": "LocateAnythingModelLoader",
+      "pos": [
+        199.16357011215877,
+        -3.797662386824888
+      ],
+      "size": [
+        295.3828657670454,
+        156.15553977272725
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "model",
+          "type": "LOCATEANYTHING_MODEL",
+          "links": [
+            10
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-locateanything",
+        "ver": "4d25a9ee95fd9f2da8d7f3baa39a5eb401796cc7",
+        "Node name for S&R": "LocateAnythingModelLoader",
+        "aux_id": "ylchen333/ComfyUI-LocateAnything"
+      },
+      "widgets_values": [
+        "nvidia/LocateAnything-3B",
+        false,
+        "auto",
+        "auto",
+        "sdpa"
+      ]
+    }
+  ],
+  "links": [
+    [
+      10,
+      10,
+      0,
+      11,
+      0,
+      "LOCATEANYTHING_MODEL"
+    ],
+    [
+      11,
+      12,
+      0,
+      11,
+      1,
+      "IMAGE"
+    ],
+    [
+      12,
+      11,
+      2,
+      13,
+      0,
+      "IMAGE"
+    ],
+    [
+      13,
+      11,
+      3,
+      14,
+      0,
+      "MASK"
+    ],
+    [
+      14,
+      11,
+      4,
+      15,
+      0,
+      "IMAGE"
+    ],
+    [
+      16,
+      11,
+      1,
+      16,
+      0,
+      "STRING"
+    ],
+    [
+      18,
+      18,
+      0,
+      11,
+      2,
+      "STRING"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 1,
+      "offset": [
+        -72.4958873068584,
+        179.4522892383285
+      ]
+    },
+    "frontendVersion": "1.45.15",
+    "VHS_latentpreview": false,
+    "VHS_latentpreviewrate": 0,
+    "VHS_MetadataImage": true,
+    "VHS_KeepIntermediate": true
+  },
+  "version": 0.4
+}

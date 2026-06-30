@@ -1,8 +1,8 @@
-# Human CV Workflow
+# Human_CV Workflow
 
-![example](images/humancv_workflow_results.jpg)<br />
+![example](images/humancv_results.jpg)<br />
 
-Work products from a custom "HumanCV" workflow. It produces the following data streams, among others (clockwise from top left): 
+Work products from a custom "Human_CV" workflow. It produces the following data streams, among others (clockwise from top left): 
 
 1. Original image
 2. Extracted people
@@ -16,6 +16,10 @@ Work products from a custom "HumanCV" workflow. It produces the following data s
 10. Face subpart masks
 
 ---
+
+## Workflows
+
+*There are minor differences in the nodes supported by cloud.comfy.org versus RunComfy.com.*
 
 <table>
 <tr>
