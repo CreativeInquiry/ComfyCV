@@ -8,7 +8,7 @@
 
 [**YOLO** (You Only Look Once)](https://en.wikipedia.org/wiki/You_Only_Look_Once) is a family of computer vision models for recognizing and locating objects in images and video. Because YOLO models can be fine-tuned from a pretrained network, they are well suited to creative applications where as few as 50–200 carefully labeled examples can be enough to build a reliable detector for a custom phenomenon.
 
-`easytrain-yolo` is a local command-line tool that trains a YOLO detector from [EasyLabeler](https://github.com/CreativeInquiry/ComfyCV/tree/main/golan/p5_utilities/easylabeler) annotations. It converts EasyLabeler JSON annotations into an Ultralytics YOLO dataset; trains a model; and then packages the resulting `.pt` model for ComfyUI-YOLO. You can then use this model in ComfyUI. Note that training is performed *locally* on your own computer, so some installation is required.
+`easytrain-yolo` is a local command-line tool that trains a YOLO detector from [EasyLabeler](https://github.com/CreativeInquiry/ComfyCV/tree/main/easylabeler) annotations. It converts EasyLabeler JSON annotations into an Ultralytics YOLO dataset; trains a model; and then packages the resulting `.pt` model for ComfyUI-YOLO. You can then use this model in ComfyUI. Note that training is performed *locally* on your own computer, so some installation is required.
 
 How does it work? Rather than training a neural network from scratch, `easytrain-yolo` starts with a pretrained YOLO model that has already learned general visual features from millions of labeled images. Your annotations then fine-tune this existing model so that it learns to recognize the specific objects or visual phenomena you care about.
 
@@ -16,7 +16,7 @@ How does it work? Rather than training a neural network from scratch, `easytrain
 ### TL;DR: Main Steps / Quickstart
 
 1. [**Install**](#3-how-to-install-easytrain-yolo-on-a-mac) `easytrain-yolo` by creating a Python venv with the libraries in [pyproject.toml](pyproject.toml).
-2. **Label** your media with [EasyLabeler](https://github.com/CreativeInquiry/ComfyCV/tree/main/golan/p5_utilities/easylabeler). Export the JSON annotations, and keep them with the original video or image folder.
+2. **Label** your media with [EasyLabeler](https://github.com/CreativeInquiry/ComfyCV/tree/main/easylabeler). Export the JSON annotations, and keep them with the original video or image folder.
 3. [**Convert**](#5-2-convert) the EasyLabeler annotations into a YOLO dataset, with the command `easytrain-yolo convert my_project/my_project_annotations.json`. By default, this creates `runs/my_project/`, using the media name from the EasyLabeler JSON.
 4. [**Train**](#5-4-train) the model: `easytrain-yolo train runs/my_project`. (Optional quality check: preview before training with the `preview` option.) You should now have a `.pt` model, with a name similar to `runs/my_project/exported_model/my_project_YYYYMMDDHHMM_yolo_model_100e.pt`. 
 5. [**Upload**](#6-use-your-model-in-comfyui) the model into ComfyUI and use it with the [ComfyUI Ultralytics YOLO](https://www.runcomfy.com/comfyui-nodes/comfyui-ultralytics-yolo) detection node.
@@ -30,7 +30,8 @@ How does it work? Rather than training a neural network from scratch, `easytrain
 4. [Run a Quick Test](#4-run-a-quick-test)
 5. [Train Your Own Model](#5-train-your-own-model)
 6. [Use Your Model In ComfyUI](#6-use-your-model-in-comfyui)
-7. Appendices
+7. [Use Your Exported Data](#7-use-your-exported-data)
+8. Appendices
   * [**Command Reference**](#command-reference)
   * [How Many Labels Do I Need?](#how-many-labels-do-i-need)
   * [Annotation Behavior](#annotation-behavior)
@@ -42,7 +43,7 @@ How does it work? Rather than training a neural network from scratch, `easytrain
 
 ## 1. Inputs: What `easytrain-yolo` Needs
 
-The `easytrain-yolo` tool expects you to provide a pair of things from [EasyLabeler](https://github.com/CreativeInquiry/ComfyCV/tree/main/golan/p5_utilities/easylabeler):
+The `easytrain-yolo` tool expects you to provide a pair of things from [EasyLabeler](https://github.com/CreativeInquiry/ComfyCV/tree/main/easylabeler):
 
 1. The exported EasyLabeler `.json` annotation file.
 2. The original video or image folder that you annotated.
@@ -406,6 +407,23 @@ The following GIF, excerpted from the video output of the above workflow, shows 
 
 ![piles_test_with_yolo_inference](images/piles_test_with_yolo_inference.gif)
 
+---
+
+## 7. Use Your Exported Data
+
+The ComfyUI workflow shown here can export text-format numeric data containing the tracked points detected by the comfyui-ultralytics-yolo operators. (This happens in the `Save String KJ` node.) You can then: 
+
+* **visualize** this data in the included p5.js viewer, [p5_easytrain_yolo_viewer](p5_easytrain_yolo_viewer/sketch.js), as shown below;
+* **export** this data for AfterEffects, Blender, or Maya using [p5_easytrain_yolo_viewer](p5_easytrain_yolo_viewer/sketch.js)
+
+![p5_easytrain_yolo_viewer_screenshot.png](images/p5_easytrain_yolo_viewer_screenshot.png)
+
+For example, in After Effects, you can then *File > Script > Run File...* to load these data points into the Adobe system. You could use the exported boxes as motion-tracked guide layers: attach graphics, callouts, particles, or masks to the detected positions over time. They could also drive automated overlays, highlight detected objects, or become reference paths for compositing, stabilization, or visual debugging of the detection model.
+
+![easytrain_yolo_predictions_in_aftereffects.png](images/easytrain_yolo_predictions_in_aftereffects.png)
+
+
+---
 
 # Appendices
 
