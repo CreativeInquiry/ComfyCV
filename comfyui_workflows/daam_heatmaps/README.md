@@ -29,6 +29,23 @@ Below is a simplified version of the above workflow, which is driven by tags tha
 
 ![comfyui_daam_simple_workflow.png](daam_simple_workflow/comfyui_daam_simple_workflow.png)
 
+### Instructions
+
+* In RunComfy.com, running `RunComfy/ComfyUI-NodesLoaded`, do: *C->File->Open->comfyui_daam_simple_workflow.png* in order to upload the (simplified) workflow. 
+* Several nodes will be marked in red, indicating that they need you to load them. Click *Manager->Install Missing Custom Nodes*. The Manager should present you with **ComfyUI-DAAM** (#850); click the *Install* button to install it. This workflow was tested with DAAM version 0.5.0.
+* As usual, click the red **Restart** button in the Manager to restart the ComfyUI server. After doing so, RunComfy may also ask you to refresh the browser page, which you should do. 
+* You may need to upload [original_rgb.png](daam_simple_workflow/original_rgb.png), which is the sample (elephant) input image for the provided demo. To do this, you can click *Assets->[⋮]->Upload->File*, or you can click "choose file to upload" in the `Load Image` node on the left of the network.
+* Click *Run* to execute the workflow. You can change the heatmap terms using the comma-separated list in the `String` node on the left of the workflow.
+* **Caution**: this workflow can be very slow if you use a large input image. Consider resizing large input images using an `Image Resize` node, as shown in [this alternatve version of the workflow](daam_simple_workflow/comfyui_daam_simple_workflow_with_resize.json).
+* **Note:** Just as with stable diffusion image *synthesis*, using different random seeds may produce different results as different parts of the network become activated; think of this as giving the image to different "observers". Run the workflow several times to get the best results. 
+
+### Expected Outputs
+
+![family_argument_analyzed.jpg](images/family_argument_analyzed.jpg)
+
+For a given input image, and a set of activation terms, you should receive a set of heatmap images showing the activation for each term. The text caption burned into each heatmap can be disabled in the `DAAMAnalyzer` node. 
+
+
 ---
 
 
