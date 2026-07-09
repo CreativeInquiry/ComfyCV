@@ -87,7 +87,7 @@ This is better when the splat will be part of a polished piece, exhibition, film
 
 The controlled workflow is slower, but it gives you more control over exposure, sharpness, color, and coverage.
 
-See the [3D capture flowchart](./imgs_pdfs/3D_capture_flowchart.pdf) for a broader comparison between 3DGS and other capture methods.
+See the [3D capture flowchart](./imgs_pdfs/3D_capture_flowchart.pdf) for a broader comparison between 3DGS and other capture methods. See the [3DGS flowchart](./imgs_pdfs/3dgs_flowchart.png) for a detailed scene setup and recommended capture device based on your target scene.
 
 ## When to Use 3DGS
 
@@ -132,6 +132,8 @@ Avoid 3DGS, or treat it only as reference, if you need:
 - A model that can be re-lit from scratch like a normal 3D scene.
 
 You can sometimes extract a mesh from a splat, but the results vary. If clean geometry is the goal, use photogrammetry, LiDAR, structured light, laser scanning, manual modeling, or a hybrid workflow.
+
+**3DGS is consistently evolving, so try lots of different methods for capture. With the development of World models on the rise, you can get gaussian splats with pretty clean segmentation, meshes, and bounding boxes. Look into World Lab's Marble.**
 
 ## Choosing a Capture Method
 
@@ -199,6 +201,10 @@ Tradeoffs:
 - LiDAR is usually lower visual resolution than photos
 - It does not automatically solve reflective or transparent surfaces
 - The final look still depends heavily on image quality
+
+### SLAM Cameras
+
+To my knowledge, the Studio for Creative Inquiry doesn't own any SLAM + RGB cameras like the [XGRIDS PortalCam](https://www.xgrids.com/intl/portalcam). These kinds of cameras can get both physically accurate and high visual quality results with a short pass of your scene. Pretty expensive though, starting anywhere from $4,000-$5,000.
 
 ## Capture Principles
 
