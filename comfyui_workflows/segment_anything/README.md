@@ -1,0 +1,1 @@
+Put images you upload into Assets -> ComfyUI->input

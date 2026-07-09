@@ -1,0 +1,1113 @@
+{
+  "id": "12110a13-99f9-43d7-aab2-4d8942ecce91",
+  "revision": 0,
+  "last_node_id": 37,
+  "last_link_id": 55,
+  "nodes": [
+    {
+      "id": 8,
+      "type": "SAM3_VideoTrack",
+      "pos": [
+        -445.66324755409687,
+        3429.534639427243
+      ],
+      "size": [
+        278.33906758294734,
+        192.70343905570053
+      ],
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [
+        {
+          "color_off": null,
+          "color_on": null,
+          "dir": null,
+          "label": "images",
+          "locked": null,
+          "name": "images",
+          "nameLocked": null,
+          "removable": null,
+          "type": "IMAGE",
+          "pos": null,
+          "link": 50
+        },
+        {
+          "color_off": null,
+          "color_on": null,
+          "dir": null,
+          "label": "model",
+          "locked": null,
+          "name": "model",
+          "nameLocked": null,
+          "removable": null,
+          "type": "MODEL",
+          "pos": null,
+          "link": 39
+        },
+        {
+          "color_off": null,
+          "color_on": null,
+          "dir": null,
+          "label": "initial_mask",
+          "locked": null,
+          "name": "initial_mask",
+          "nameLocked": null,
+          "removable": null,
+          "shape": 7,
+          "type": "MASK",
+          "pos": null,
+          "link": 11
+        },
+        {
+          "color_off": null,
+          "color_on": null,
+          "dir": null,
+          "label": "conditioning",
+          "locked": null,
+          "name": "conditioning",
+          "nameLocked": null,
+          "removable": null,
+          "shape": 7,
+          "type": "CONDITIONING",
+          "pos": null,
+          "link": 43
+        }
+      ],
+      "outputs": [
+        {
+          "color_off": null,
+          "color_on": null,
+          "dir": null,
+          "label": null,
+          "locked": null,
+          "name": "track_data",
+          "nameLocked": null,
+          "removable": null,
+          "type": "SAM3_TRACK_DATA",
+          "pos": null,
+          "slot_index": null,
+          "links": [
+            18,
+            35
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.19.3",
+        "Node name for S&R": "SAM3_VideoTrack"
+      },
+      "widgets_values": [
+        0.5,
+        0,
+        1
+      ]
+    },
+    {
+      "id": 13,
+      "type": "SAM3_Detect",
+      "pos": [
+        -732.8884400618891,
+        3423.861199650531
+      ],
+      "size": [
+        225.65913097409145,
+        208.6030957935609
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {
+          "color_off": null,
+          "color_on": null,
+          "dir": null,
+          "label": "model",
+          "locked": null,
+          "name": "model",
+          "nameLocked": null,
+          "removable": null,
+          "type": "MODEL",
+          "pos": null,
+          "link": 37
+        },
+        {
+          "color_off": null,
+          "color_on": null,
+          "dir": null,
+          "label": "image",
+          "locked": null,
+          "name": "image",
+          "nameLocked": null,
+          "removable": null,
+          "type": "IMAGE",
+          "pos": null,
+          "link": 15
+        },
+        {
+          "color_off": null,
+          "color_on": null,
+          "dir": null,
+          "label": "conditioning",
+          "locked": null,
+          "name": "conditioning",
+          "nameLocked": null,
+          "removable": null,
+          "shape": 7,
+          "type": "CONDITIONING",
+          "pos": null,
+          "link": 41
+        },
+        {
+          "color_off": null,
+          "color_on": null,
+          "dir": null,
+          "label": "bboxes",
+          "locked": null,
+          "name": "bboxes",
+          "nameLocked": null,
+          "removable": null,
+          "shape": 7,
+          "type": "BOUNDING_BOX",
+          "pos": null,
+          "link": null
+        },
+        {
+          "color_off": null,
+          "color_on": null,
+          "dir": null,
+          "label": "positive_coords",
+          "locked": null,
+          "name": "positive_coords",
+          "nameLocked": null,
+          "removable": null,
+          "shape": 7,
+          "type": "STRING",
+          "pos": null,
+          "link": null
+        },
+        {
+          "color_off": null,
+          "color_on": null,
+          "dir": null,
+          "label": "negative_coords",
+          "locked": null,
+          "name": "negative_coords",
+          "nameLocked": null,
+          "removable": null,
+          "shape": 7,
+          "type": "STRING",
+          "pos": null,
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "color_off": null,
+          "color_on": null,
+          "dir": null,
+          "label": null,
+          "locked": null,
+          "name": "masks",
+          "nameLocked": null,
+          "removable": null,
+          "type": "MASK",
+          "pos": null,
+          "slot_index": null,
+          "links": [
+            11
+          ]
+        },
+        {
+          "color_off": null,
+          "color_on": null,
+          "dir": null,
+          "label": null,
+          "locked": null,
+          "name": "bboxes",
+          "nameLocked": null,
+          "removable": null,
+          "type": "BOUNDING_BOX",
+          "pos": null,
+          "slot_index": null,
+          "links": []
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.19.3",
+        "Node name for S&R": "SAM3_Detect"
+      },
+      "widgets_values": [
+        0.5,
+        2,
+        false
+      ]
+    },
+    {
+      "id": 29,
+      "type": "Reroute",
+      "pos": [
+        -895.6839748151702,
+        3299.2047611749085
+      ],
+      "size": [
+        75,
+        26
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "",
+          "type": "*",
+          "link": 40
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "CONDITIONING",
+          "links": [
+            41,
+            42
+          ]
+        }
+      ],
+      "properties": {
+        "showOutputText": false,
+        "horizontal": false
+      }
+    },
+    {
+      "id": 33,
+      "type": "CreateVideo",
+      "pos": [
+        239.84291425425727,
+        3530.9814446508854
+      ],
+      "size": [
+        270,
+        102
+      ],
+      "flags": {},
+      "order": 15,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 47
+        },
+        {
+          "name": "audio",
+          "shape": 7,
+          "type": "AUDIO",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "VIDEO",
+          "type": "VIDEO",
+          "links": [
+            48
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.25.1",
+        "Node name for S&R": "CreateVideo"
+      },
+      "widgets_values": [
+        30,
+        8
+      ]
+    },
+    {
+      "id": 9,
+      "type": "SAM3_TrackToMask",
+      "pos": [
+        -69.64392324524943,
+        3428.5960148501777
+      ],
+      "size": [
+        216.91396354869676,
+        58
+      ],
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [
+        {
+          "color_off": null,
+          "color_on": null,
+          "dir": null,
+          "label": "track_data",
+          "locked": null,
+          "name": "track_data",
+          "nameLocked": null,
+          "removable": null,
+          "type": "SAM3_TRACK_DATA",
+          "pos": null,
+          "link": 18
+        }
+      ],
+      "outputs": [
+        {
+          "color_off": null,
+          "color_on": null,
+          "dir": null,
+          "label": null,
+          "locked": null,
+          "name": "masks",
+          "nameLocked": null,
+          "removable": null,
+          "type": "MASK",
+          "pos": null,
+          "slot_index": null,
+          "links": [
+            32
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.19.3",
+        "Node name for S&R": "SAM3_TrackToMask"
+      },
+      "widgets_values": [
+        "0,12"
+      ]
+    },
+    {
+      "id": 28,
+      "type": "Reroute",
+      "pos": [
+        -595.1189609422405,
+        3258.4110389365173
+      ],
+      "size": [
+        75,
+        26
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "",
+          "type": "*",
+          "link": 38
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "MODEL",
+          "links": [
+            39
+          ]
+        }
+      ],
+      "properties": {
+        "showOutputText": false,
+        "horizontal": false
+      }
+    },
+    {
+      "id": 30,
+      "type": "Reroute",
+      "pos": [
+        -610.9073182407848,
+        3302.1239461766427
+      ],
+      "size": [
+        75,
+        26
+      ],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "",
+          "type": "*",
+          "link": 42
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "CONDITIONING",
+          "links": [
+            43
+          ]
+        }
+      ],
+      "properties": {
+        "showOutputText": false,
+        "horizontal": false
+      }
+    },
+    {
+      "id": 14,
+      "type": "CLIPTextEncode",
+      "pos": [
+        -1135.065851820095,
+        3408.99504335778
+      ],
+      "size": [
+        218.659765625,
+        88
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "color_off": null,
+          "color_on": null,
+          "dir": null,
+          "label": null,
+          "locked": null,
+          "name": "clip",
+          "nameLocked": null,
+          "removable": null,
+          "type": "CLIP",
+          "pos": null,
+          "link": 17
+        }
+      ],
+      "outputs": [
+        {
+          "color_off": null,
+          "color_on": null,
+          "dir": null,
+          "label": null,
+          "locked": null,
+          "name": "CONDITIONING",
+          "nameLocked": null,
+          "removable": null,
+          "type": "CONDITIONING",
+          "pos": null,
+          "slot_index": null,
+          "links": [
+            40
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.19.3",
+        "Node name for S&R": "CLIPTextEncode"
+      },
+      "widgets_values": [
+        "luggage"
+      ]
+    },
+    {
+      "id": 15,
+      "type": "ImageFromBatch",
+      "pos": [
+        -1127.0861914874763,
+        3564.7428689873586
+      ],
+      "size": [
+        210,
+        82
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "color_off": null,
+          "color_on": null,
+          "dir": null,
+          "label": null,
+          "locked": null,
+          "name": "image",
+          "nameLocked": null,
+          "removable": null,
+          "type": "IMAGE",
+          "pos": null,
+          "link": 53
+        }
+      ],
+      "outputs": [
+        {
+          "color_off": null,
+          "color_on": null,
+          "dir": null,
+          "label": null,
+          "locked": null,
+          "name": "IMAGE",
+          "nameLocked": null,
+          "removable": null,
+          "type": "IMAGE",
+          "pos": null,
+          "slot_index": null,
+          "links": [
+            15
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.19.3",
+        "Node name for S&R": "ImageFromBatch"
+      },
+      "widgets_values": [
+        0,
+        1
+      ]
+    },
+    {
+      "id": 16,
+      "type": "MaskToImage",
+      "pos": [
+        241.85431810230253,
+        3409.994322186067
+      ],
+      "size": [
+        260.5084665157308,
+        55.97988265101549
+      ],
+      "flags": {},
+      "order": 14,
+      "mode": 0,
+      "inputs": [
+        {
+          "color_off": null,
+          "color_on": null,
+          "dir": null,
+          "label": null,
+          "locked": null,
+          "name": "mask",
+          "nameLocked": null,
+          "removable": null,
+          "type": "MASK",
+          "pos": null,
+          "link": 32
+        }
+      ],
+      "outputs": [
+        {
+          "color_off": null,
+          "color_on": null,
+          "dir": null,
+          "label": null,
+          "locked": null,
+          "name": "IMAGE",
+          "nameLocked": null,
+          "removable": null,
+          "type": "IMAGE",
+          "pos": null,
+          "slot_index": null,
+          "links": [
+            47
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.19.3",
+        "Node name for S&R": "MaskToImage"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 26,
+      "type": "SAM3_TrackPreview",
+      "pos": [
+        -113.90857038781684,
+        3703.186908397047
+      ],
+      "size": [
+        393.1480033707927,
+        619.547090648767
+      ],
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [
+        {
+          "label": "track_data",
+          "name": "track_data",
+          "type": "SAM3_TRACK_DATA",
+          "link": 35
+        },
+        {
+          "label": "images",
+          "name": "images",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 51
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.25.1",
+        "Node name for S&R": "SAM3_TrackPreview"
+      },
+      "widgets_values": [
+        0.5,
+        30
+      ]
+    },
+    {
+      "id": 34,
+      "type": "Reroute",
+      "pos": [
+        -582.8486488068753,
+        3719.0225631441217
+      ],
+      "size": [
+        75,
+        26
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "",
+          "type": "*",
+          "link": 55
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "IMAGE",
+          "links": [
+            50,
+            51
+          ]
+        }
+      ],
+      "properties": {
+        "showOutputText": false,
+        "horizontal": false
+      }
+    },
+    {
+      "id": 37,
+      "type": "PreviewImage",
+      "pos": [
+        -932.2444797727749,
+        3830.2986187354686
+      ],
+      "size": [
+        730.6102300016331,
+        480.1452201346556
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 52
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.25.1",
+        "Node name for S&R": "PreviewImage"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 32,
+      "type": "SaveVideo",
+      "pos": [
+        291.0764451859665,
+        3710.7204979146018
+      ],
+      "size": [
+        422.81590201244535,
+        598.5461148227778
+      ],
+      "flags": {},
+      "order": 16,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "video",
+          "type": "VIDEO",
+          "link": 48
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.25.1",
+        "Node name for S&R": "SaveVideo"
+      },
+      "widgets_values": [
+        "vid-boy",
+        "mp4",
+        "h264"
+      ]
+    },
+    {
+      "id": 2,
+      "type": "CheckpointLoaderSimple",
+      "pos": [
+        -1523.429721987585,
+        3341.9897276242978
+      ],
+      "size": [
+        355.12261021580827,
+        98.74112967125438
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "color_off": null,
+          "color_on": null,
+          "dir": null,
+          "label": null,
+          "locked": null,
+          "name": "MODEL",
+          "nameLocked": null,
+          "removable": null,
+          "type": "MODEL",
+          "pos": null,
+          "slot_index": null,
+          "links": [
+            36
+          ]
+        },
+        {
+          "color_off": null,
+          "color_on": null,
+          "dir": null,
+          "label": null,
+          "locked": null,
+          "name": "CLIP",
+          "nameLocked": null,
+          "removable": null,
+          "type": "CLIP",
+          "pos": null,
+          "slot_index": null,
+          "links": [
+            17
+          ]
+        },
+        {
+          "color_off": null,
+          "color_on": null,
+          "dir": null,
+          "label": null,
+          "locked": null,
+          "name": "VAE",
+          "nameLocked": null,
+          "removable": null,
+          "type": "VAE",
+          "pos": null,
+          "slot_index": null,
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.19.3",
+        "Node name for S&R": "CheckpointLoaderSimple"
+      },
+      "widgets_values": [
+        "sam3.1_multiplex_fp16.safetensors"
+      ]
+    },
+    {
+      "id": 36,
+      "type": "LoadImagesFromDir //Inspire",
+      "pos": [
+        -1515.9187613453798,
+        3718.3430222208735
+      ],
+      "size": [
+        337.7974609375,
+        194
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            52,
+            53,
+            55
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        },
+        {
+          "name": "INT",
+          "type": "INT",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-inspire-pack",
+        "ver": "unknown",
+        "Node name for S&R": "LoadImagesFromDir //Inspire",
+        "aux_id": "ltdrdata/ComfyUI-Inspire-Pack"
+      },
+      "widgets_values": [
+        "input/luggage",
+        0,
+        0,
+        false,
+        "None"
+      ]
+    },
+    {
+      "id": 27,
+      "type": "Reroute",
+      "pos": [
+        -896.6666093843047,
+        3259.4044252137846
+      ],
+      "size": [
+        75,
+        26
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "",
+          "type": "*",
+          "link": 36
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "MODEL",
+          "links": [
+            37,
+            38
+          ]
+        }
+      ],
+      "properties": {
+        "showOutputText": false,
+        "horizontal": false
+      }
+    }
+  ],
+  "links": [
+    [
+      11,
+      13,
+      0,
+      8,
+      2,
+      "MASK"
+    ],
+    [
+      15,
+      15,
+      0,
+      13,
+      1,
+      "IMAGE"
+    ],
+    [
+      17,
+      2,
+      1,
+      14,
+      0,
+      "CLIP"
+    ],
+    [
+      18,
+      8,
+      0,
+      9,
+      0,
+      "SAM3_TRACK_DATA"
+    ],
+    [
+      32,
+      9,
+      0,
+      16,
+      0,
+      "MASK"
+    ],
+    [
+      35,
+      8,
+      0,
+      26,
+      0,
+      "SAM3_TRACK_DATA"
+    ],
+    [
+      36,
+      2,
+      0,
+      27,
+      0,
+      "MODEL"
+    ],
+    [
+      37,
+      27,
+      0,
+      13,
+      0,
+      "MODEL"
+    ],
+    [
+      38,
+      27,
+      0,
+      28,
+      0,
+      "MODEL"
+    ],
+    [
+      39,
+      28,
+      0,
+      8,
+      1,
+      "MODEL"
+    ],
+    [
+      40,
+      14,
+      0,
+      29,
+      0,
+      "CONDITIONING"
+    ],
+    [
+      41,
+      29,
+      0,
+      13,
+      2,
+      "CONDITIONING"
+    ],
+    [
+      42,
+      29,
+      0,
+      30,
+      0,
+      "CONDITIONING"
+    ],
+    [
+      43,
+      30,
+      0,
+      8,
+      3,
+      "CONDITIONING"
+    ],
+    [
+      47,
+      16,
+      0,
+      33,
+      0,
+      "IMAGE"
+    ],
+    [
+      48,
+      33,
+      0,
+      32,
+      0,
+      "VIDEO"
+    ],
+    [
+      50,
+      34,
+      0,
+      8,
+      0,
+      "IMAGE"
+    ],
+    [
+      51,
+      34,
+      0,
+      26,
+      1,
+      "IMAGE"
+    ],
+    [
+      52,
+      36,
+      0,
+      37,
+      0,
+      "IMAGE"
+    ],
+    [
+      53,
+      36,
+      0,
+      15,
+      0,
+      "IMAGE"
+    ],
+    [
+      55,
+      36,
+      0,
+      34,
+      0,
+      "IMAGE"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.6651871339065326,
+      "offset": [
+        1772.3133436650708,
+        -3022.054634971216
+      ]
+    },
+    "frontendVersion": "1.45.15",
+    "VHS_MetadataImage": true,
+    "VHS_latentpreview": false,
+    "VHS_KeepIntermediate": true,
+    "VHS_latentpreviewrate": 0,
+    "anomalous_hashes": {
+      "2_sam3.1_multiplex_fp16.safetensors": {
+        "hash": "",
+        "size": 1745546848
+      }
+    }
+  },
+  "version": 0.4
+}

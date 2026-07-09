@@ -9,13 +9,13 @@ Computer Vision tools for ComfyUI
 
 ### Locate Anything
 
-![locate_anything_people_droplets_ants.png](comfyui_workflows/locate_anything_basic_demo/images/locate_anything_people_droplets_ants2.png)
+![locate_anything_people_droplets_ants.png](comfyui_workflows/locate_anything/images/locate_anything_people_droplets_ants2.png)
 
 ---
 
-### HumanCV & QuadrupedCV
+### Computer Vision for Humans & Quadrupeds
 
-[A ComfyUI workflow](comfyui_workflows/human_cv/README.md) that computes a variety of analyses of media featuring **people**, including (among others): segmentation of the body from the background; monocular depth estimation; normal map estimation; and pose estimation of the body, face, and hands. 
+[A ComfyUI workflow](comfyui_workflows/human_cv/README.md) that computes a variety of analyses of media specifically featuring **people**, including (among others): segmentation of the body from the background; monocular depth estimation; normal map estimation; and pose estimation of the body, face, and hands. 
 
 [![humancv_results](comfyui_workflows/human_cv/images/humancv_results_wide.jpg)](comfyui_workflows/human_cv/README.md)
 
@@ -33,3 +33,6 @@ Computer Vision tools for ComfyUI
 
 ---
 
+### DINOv3 Heatmaps
+
+![dinov3_image_similarity_results](comfyui_workflows/dinov3_image_similarity/images/dinov3_image_similarity_results.jpg)

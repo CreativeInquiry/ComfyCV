@@ -1,0 +1,553 @@
+{
+  "id": "897f1e90-5068-44af-8bfa-77e3ddda98dc",
+  "revision": 0,
+  "last_node_id": 33,
+  "last_link_id": 35,
+  "nodes": [
+    {
+      "id": 22,
+      "type": "MarkdownNote",
+      "pos": [
+        954.8511878541851,
+        919.6578939629861
+      ],
+      "size": [
+        210,
+        88
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {},
+      "widgets_values": [
+        "DINO wants to consume square images up to 1024x1024. "
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
+    },
+    {
+      "id": 18,
+      "type": "ImageResizeKJv2",
+      "pos": [
+        948.6888472946945,
+        533.2752145165105
+      ],
+      "size": [
+        230.1722926064042,
+        336
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 17
+        },
+        {
+          "name": "mask",
+          "shape": 7,
+          "type": "MASK",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            18,
+            35
+          ]
+        },
+        {
+          "name": "width",
+          "type": "INT",
+          "links": null
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "links": null
+        },
+        {
+          "name": "mask",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-kjnodes",
+        "ver": "7f43f2ce910a27971bdbbf3fb5a52081457f32e2",
+        "Node name for S&R": "ImageResizeKJv2"
+      },
+      "widgets_values": [
+        1024,
+        1024,
+        "bicubic",
+        "crop",
+        "0, 0, 0",
+        "center",
+        2,
+        "cpu"
+      ]
+    },
+    {
+      "id": 32,
+      "type": "Reroute",
+      "pos": [
+        1441.3028862754659,
+        536.5228583623747
+      ],
+      "size": [
+        75,
+        26
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "",
+          "type": "*",
+          "link": 35
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "IMAGE",
+          "links": [
+            33,
+            34
+          ]
+        }
+      ],
+      "properties": {
+        "showOutputText": false,
+        "horizontal": false
+      }
+    },
+    {
+      "id": 10,
+      "type": "DINOv3Loader",
+      "pos": [
+        641.714239647624,
+        422.5999700459454
+      ],
+      "size": [
+        269.757052715786,
+        100.27550001768742
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "DINOv3 Model",
+          "type": "DINOV3_MODEL",
+          "links": [
+            10
+          ]
+        }
+      ],
+      "properties": {
+        "aux_id": "xuheyao/comfyui-dinov3-point-prompt",
+        "ver": "c69dd38d59e58376ff66611aed47b3d514beb894",
+        "Node name for S&R": "DINOv3Loader"
+      },
+      "widgets_values": [
+        "models/dinov3/dinov3_vitb16_pretrain_lvd1689m-73cec8be.pth",
+        "dinov3_vitb16"
+      ]
+    },
+    {
+      "id": 16,
+      "type": "LoadImage",
+      "pos": [
+        632.6402392801406,
+        575.7098138075055
+      ],
+      "size": [
+        282.798828125,
+        314
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            17
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.25.1",
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "Fruit_Stand.jpg",
+        "image"
+      ]
+    },
+    {
+      "id": 12,
+      "type": "DINOv3Process",
+      "pos": [
+        1625.074752415724,
+        487.6606834018646
+      ],
+      "size": [
+        275.26171875,
+        144.0679002632894
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "dinov3_model",
+          "type": "DINOV3_MODEL",
+          "link": 10
+        },
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 34
+        },
+        {
+          "name": "positive_points",
+          "shape": 7,
+          "type": "SAM3_POINTS_PROMPT",
+          "link": 15
+        },
+        {
+          "name": "negative_points",
+          "shape": 7,
+          "type": "SAM3_POINTS_PROMPT",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Positive Feature Images",
+          "type": "IMAGE",
+          "links": [
+            13,
+            30
+          ]
+        },
+        {
+          "name": "Negative Feature Images",
+          "type": "IMAGE",
+          "links": []
+        },
+        {
+          "name": "Processed Image",
+          "type": "IMAGE",
+          "links": []
+        },
+        {
+          "name": "All Features",
+          "type": "IMAGE",
+          "links": []
+        }
+      ],
+      "properties": {
+        "aux_id": "xuheyao/comfyui-dinov3-point-prompt",
+        "ver": "c69dd38d59e58376ff66611aed47b3d514beb894",
+        "Node name for S&R": "DINOv3Process"
+      },
+      "widgets_values": [
+        1024,
+        false
+      ]
+    },
+    {
+      "id": 14,
+      "type": "DINOv3PointCollector",
+      "pos": [
+        1215.1889147307263,
+        623.642895684042
+      ],
+      "size": [
+        330.7644690965499,
+        391
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 18
+        }
+      ],
+      "outputs": [
+        {
+          "name": "positive_points",
+          "type": "SAM3_POINTS_PROMPT",
+          "links": [
+            15
+          ]
+        },
+        {
+          "name": "negative_points",
+          "type": "SAM3_POINTS_PROMPT",
+          "links": []
+        }
+      ],
+      "properties": {
+        "aux_id": "xuheyao/comfyui-dinov3-point-prompt",
+        "ver": "c69dd38d59e58376ff66611aed47b3d514beb894",
+        "Node name for S&R": "DINOv3PointCollector"
+      },
+      "widgets_values": [
+        "{\"positive_points\":[{\"x\":904.0898710330637,\"y\":355.82174885985984}],\"negative_points\":[]}",
+        "[{\"x\":904.0898710330637,\"y\":355.82174885985984}]",
+        "[]",
+        ""
+      ]
+    },
+    {
+      "id": 33,
+      "type": "MarkdownNote",
+      "pos": [
+        1566.810994511649,
+        898.9267479251049
+      ],
+      "size": [
+        311.2980148164951,
+        105.85179292862153
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "About the DINOv3 Point Collector",
+      "properties": {},
+      "widgets_values": [
+        "Left-clicks in this image create green \"positive\" points; right-clicks create red \"negative\" points. (Of course, you could also generate these points by other means...)\n\nThis demo only happens to use one positive point, on one of the right-hand bananas. Observe how the heatmap shows how several parts of the image match this location."
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
+    },
+    {
+      "id": 30,
+      "type": "Image Blend",
+      "pos": [
+        1939.0665310349884,
+        771.7129104175697
+      ],
+      "size": [
+        210,
+        82.03795141348837
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image_a",
+          "type": "IMAGE",
+          "link": 30
+        },
+        {
+          "name": "image_b",
+          "type": "IMAGE",
+          "link": 33
+        }
+      ],
+      "outputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "links": [
+            32
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "was-node-suite-comfyui",
+        "ver": "ea935d1044ae5a26efa54ebeb18fe9020af49a45",
+        "Node name for S&R": "Image Blend"
+      },
+      "widgets_values": [
+        0.25
+      ]
+    },
+    {
+      "id": 31,
+      "type": "PreviewImage",
+      "pos": [
+        2176.377281931034,
+        658.3236935399392
+      ],
+      "size": [
+        363.64164963177427,
+        343.8511769998752
+      ],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 32
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.25.1",
+        "Node name for S&R": "PreviewImage"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 17,
+      "type": "PreviewImage",
+      "pos": [
+        1940.3497761602957,
+        449.7895633197694
+      ],
+      "size": [
+        210,
+        258
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 13
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.25.1",
+        "Node name for S&R": "PreviewImage"
+      },
+      "widgets_values": []
+    }
+  ],
+  "links": [
+    [
+      10,
+      10,
+      0,
+      12,
+      0,
+      "DINOV3_MODEL"
+    ],
+    [
+      13,
+      12,
+      0,
+      17,
+      0,
+      "IMAGE"
+    ],
+    [
+      15,
+      14,
+      0,
+      12,
+      2,
+      "SAM3_POINTS_PROMPT"
+    ],
+    [
+      17,
+      16,
+      0,
+      18,
+      0,
+      "IMAGE"
+    ],
+    [
+      18,
+      18,
+      0,
+      14,
+      0,
+      "IMAGE"
+    ],
+    [
+      30,
+      12,
+      0,
+      30,
+      0,
+      "IMAGE"
+    ],
+    [
+      32,
+      30,
+      0,
+      31,
+      0,
+      "IMAGE"
+    ],
+    [
+      33,
+      32,
+      0,
+      30,
+      1,
+      "IMAGE"
+    ],
+    [
+      34,
+      32,
+      0,
+      12,
+      1,
+      "IMAGE"
+    ],
+    [
+      35,
+      18,
+      0,
+      32,
+      0,
+      "IMAGE"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.8477802489426032,
+      "offset": [
+        -543.9338970753637,
+        -177.25046011124334
+      ]
+    },
+    "frontendVersion": "1.45.15",
+    "VHS_latentpreview": false,
+    "VHS_latentpreviewrate": 0,
+    "VHS_MetadataImage": true,
+    "VHS_KeepIntermediate": true
+  },
+  "version": 0.4
+}
