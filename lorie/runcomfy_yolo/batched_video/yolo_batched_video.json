@@ -1,0 +1,953 @@
+{
+  "id": "6d5b638e-4f57-4a2e-a5fc-46912e24ed88",
+  "revision": 0,
+  "last_node_id": 88,
+  "last_link_id": 114,
+  "nodes": [
+    {
+      "id": 52,
+      "type": "Reroute",
+      "pos": [
+        1219.8479126703694,
+        657.166241388719
+      ],
+      "size": [
+        75,
+        26
+      ],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "",
+          "type": "*",
+          "widget": {
+            "name": "value"
+          },
+          "link": 71
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "INT",
+          "links": [
+            73
+          ]
+        }
+      ],
+      "properties": {
+        "showOutputText": false,
+        "horizontal": false
+      }
+    },
+    {
+      "id": 54,
+      "type": "Reroute",
+      "pos": [
+        1300.4792419850005,
+        677.2049187213429
+      ],
+      "size": [
+        75,
+        26
+      ],
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "",
+          "type": "*",
+          "widget": {
+            "name": "value"
+          },
+          "link": 75
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "INT",
+          "links": [
+            76
+          ]
+        }
+      ],
+      "properties": {
+        "showOutputText": false,
+        "horizontal": false
+      }
+    },
+    {
+      "id": 29,
+      "type": "ShuffleChannels",
+      "pos": [
+        1115.6869898529708,
+        43.37419725470427
+      ],
+      "size": [
+        270,
+        130
+      ],
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 39
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            72
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Image-Filters",
+        "ver": "bbb3fb0045461adf3602faeedaf40af57090d4e2",
+        "Node name for S&R": "ShuffleChannels"
+      },
+      "widgets_values": [
+        "blue",
+        "green",
+        "red",
+        "none"
+      ]
+    },
+    {
+      "id": 51,
+      "type": "GetImageSize",
+      "pos": [
+        171.88004193078453,
+        654.6138866776674
+      ],
+      "size": [
+        210,
+        136
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 112
+        }
+      ],
+      "outputs": [
+        {
+          "name": "width",
+          "type": "INT",
+          "links": [
+            71
+          ]
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "links": [
+            75
+          ]
+        },
+        {
+          "name": "batch_size",
+          "type": "INT",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.24.0",
+        "Node name for S&R": "GetImageSize"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 56,
+      "type": "MarkdownNote",
+      "pos": [
+        173.66380640097543,
+        507.13032053762487
+      ],
+      "size": [
+        297.40722800897294,
+        89.83814399947448
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Note: Padding / Cropping the Video",
+      "properties": {},
+      "widgets_values": [
+        "Unfortunately the YOLO algorithm requires image dimensions to be multiples of 32. So here we pad the video height (from 720 to 736), and then we crop it later."
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
+    },
+    {
+      "id": 57,
+      "type": "MarkdownNote",
+      "pos": [
+        127.30553590559414,
+        -64.9324745644353
+      ],
+      "size": [
+        231.80412434103368,
+        88
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Note: Loading the Model",
+      "properties": {},
+      "widgets_values": [
+        "Here we load the Ultralytics YOLO model we trained! We uploaded it to our assets in `ComfyUI/models/ultralytics/bbox/`."
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
+    },
+    {
+      "id": 14,
+      "type": "UltralyticsInference",
+      "pos": [
+        477.31773126170214,
+        41.81413097010847
+      ],
+      "size": [
+        278.9765625,
+        410
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "ULTRALYTICS_MODEL",
+          "link": 110
+        },
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 59
+        }
+      ],
+      "outputs": [
+        {
+          "name": "ULTRALYTICS_RESULTS",
+          "type": "ULTRALYTICS_RESULTS",
+          "links": [
+            14
+          ]
+        },
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            12
+          ]
+        },
+        {
+          "name": "BOXES",
+          "type": "BOXES",
+          "links": []
+        },
+        {
+          "name": "MASKS",
+          "type": "MASKS",
+          "links": []
+        },
+        {
+          "name": "PROBABILITIES",
+          "type": "PROBABILITIES",
+          "links": []
+        },
+        {
+          "name": "KEYPOINTS",
+          "type": "KEYPOINTS",
+          "links": []
+        },
+        {
+          "name": "OBB",
+          "type": "OBB",
+          "links": []
+        },
+        {
+          "name": "LABELS",
+          "type": "LABELS",
+          "links": []
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": []
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-YOLO",
+        "ver": "750d8aec81db26a004a64317e9f33283818f8539",
+        "Node name for S&R": "UltralyticsInference"
+      },
+      "widgets_values": [
+        0.25,
+        0.7,
+        640,
+        640,
+        "cuda:0",
+        true,
+        true,
+        true,
+        "None"
+      ]
+    },
+    {
+      "id": 18,
+      "type": "ImageResizeAdvanced",
+      "pos": [
+        174.12868895617808,
+        233.80579332577912
+      ],
+      "size": [
+        270,
+        218
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 111
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            59
+          ]
+        },
+        {
+          "name": "width",
+          "type": "INT",
+          "links": null
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "links": []
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-YOLO",
+        "ver": "750d8aec81db26a004a64317e9f33283818f8539",
+        "Node name for S&R": "ImageResizeAdvanced"
+      },
+      "widgets_values": [
+        1280,
+        736,
+        "nearest",
+        "pad",
+        "always",
+        32
+      ]
+    },
+    {
+      "id": 53,
+      "type": "ImageCrop+",
+      "pos": [
+        1436.1542044468017,
+        68.68064739808011
+      ],
+      "size": [
+        270,
+        194
+      ],
+      "flags": {},
+      "order": 14,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 72
+        },
+        {
+          "name": "width",
+          "type": "INT",
+          "widget": {
+            "name": "width"
+          },
+          "link": 73
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "widget": {
+            "name": "height"
+          },
+          "link": 76
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            74,
+            97
+          ]
+        },
+        {
+          "name": "x",
+          "type": "INT",
+          "links": null
+        },
+        {
+          "name": "y",
+          "type": "INT",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui_essentials",
+        "ver": "9d9f4bedfc9f0321c19faf71855e228c93bd0dc9",
+        "Node name for S&R": "ImageCrop+"
+      },
+      "widgets_values": [
+        256,
+        256,
+        "top-left",
+        0,
+        0
+      ]
+    },
+    {
+      "id": 86,
+      "type": "UltralyticsModelLoader",
+      "pos": [
+        135.94856246526027,
+        -196.39217266513995
+      ],
+      "size": [
+        270,
+        58
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "ULTRALYTICS_MODEL",
+          "type": "ULTRALYTICS_MODEL",
+          "links": [
+            110
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-YOLO",
+        "ver": "750d8aec81db26a004a64317e9f33283818f8539",
+        "Node name for S&R": "UltralyticsModelLoader"
+      },
+      "widgets_values": [
+        "yolov5nu.pt"
+      ]
+    },
+    {
+      "id": 20,
+      "type": "CustomUltralyticsModelLoader",
+      "pos": [
+        124.79709957404408,
+        66.16651445321943
+      ],
+      "size": [
+        301.649614486601,
+        61.46060946493708
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 4,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "ULTRALYTICS_MODEL",
+          "type": "ULTRALYTICS_MODEL",
+          "links": []
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-YOLO",
+        "ver": "750d8aec81db26a004a64317e9f33283818f8539",
+        "Node name for S&R": "CustomUltralyticsModelLoader"
+      },
+      "widgets_values": [
+        "piles_peak_best.pt"
+      ]
+    },
+    {
+      "id": 15,
+      "type": "UltralyticsVisualization",
+      "pos": [
+        808.93868011257,
+        42.74337374687662
+      ],
+      "size": [
+        270,
+        270
+      ],
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "results",
+          "type": "ULTRALYTICS_RESULTS",
+          "link": 14
+        },
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 12
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            39
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-YOLO",
+        "ver": "750d8aec81db26a004a64317e9f33283818f8539",
+        "Node name for S&R": "UltralyticsVisualization"
+      },
+      "widgets_values": [
+        3,
+        1,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        "class"
+      ]
+    },
+    {
+      "id": 22,
+      "type": "VHS_VideoCombine",
+      "pos": [
+        1735.536161128451,
+        48.373461561748265
+      ],
+      "size": [
+        436.1011040053845,
+        582.0568710030288
+      ],
+      "flags": {},
+      "order": 15,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 74
+        },
+        {
+          "name": "audio",
+          "shape": 7,
+          "type": "AUDIO",
+          "link": null
+        },
+        {
+          "name": "meta_batch",
+          "shape": 7,
+          "type": "VHS_BatchManager",
+          "link": 114
+        },
+        {
+          "name": "vae",
+          "shape": 7,
+          "type": "VAE",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Filenames",
+          "type": "VHS_FILENAMES",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-videohelpersuite",
+        "ver": "4ee72c065db22c9d96c2427954dc69e7b908444b",
+        "Node name for S&R": "VHS_VideoCombine"
+      },
+      "widgets_values": {
+        "frame_rate": 30,
+        "loop_count": 0,
+        "filename_prefix": "cars_and pedestrians_annotated",
+        "format": "video/h264-mp4",
+        "pix_fmt": "yuv420p",
+        "crf": 19,
+        "save_metadata": true,
+        "trim_to_audio": false,
+        "pingpong": false,
+        "save_output": true,
+        "videopreview": {
+          "hidden": false,
+          "params": {
+            "type": "output",
+            "format": "video/h264-mp4",
+            "filename": "cars_and pedestrians_annotated_00001.mp4",
+            "fullpath": "/workspace/ComfyUI/output/cars_and pedestrians_annotated_00001.mp4",
+            "workflow": "cars_and pedestrians_annotated_00001.png",
+            "subfolder": "",
+            "frame_rate": 30
+          },
+          "paused": false
+        }
+      }
+    },
+    {
+      "id": 88,
+      "type": "VHS_BatchManager",
+      "pos": [
+        -798.1767739656522,
+        -229.8297523060977
+      ],
+      "size": [
+        262.53125,
+        58
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "meta_batch",
+          "type": "VHS_BatchManager",
+          "links": [
+            113,
+            114
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-videohelpersuite",
+        "ver": "4ee72c065db22c9d96c2427954dc69e7b908444b",
+        "Node name for S&R": "VHS_BatchManager"
+      },
+      "widgets_values": {
+        "frames_per_batch": 64,
+        "count": 1
+      }
+    },
+    {
+      "id": 21,
+      "type": "VHS_LoadVideo",
+      "pos": [
+        -489.93785364961826,
+        172.6151701759784
+      ],
+      "size": [
+        374.63957443532905,
+        523.0783506703258
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "meta_batch",
+          "shape": 7,
+          "type": "VHS_BatchManager",
+          "link": 113
+        },
+        {
+          "name": "vae",
+          "shape": 7,
+          "type": "VAE",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            111,
+            112
+          ]
+        },
+        {
+          "name": "frame_count",
+          "type": "INT",
+          "links": null
+        },
+        {
+          "name": "audio",
+          "type": "AUDIO",
+          "links": null
+        },
+        {
+          "name": "video_info",
+          "type": "VHS_VIDEOINFO",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-videohelpersuite",
+        "ver": "4ee72c065db22c9d96c2427954dc69e7b908444b",
+        "Node name for S&R": "VHS_LoadVideo"
+      },
+      "widgets_values": {
+        "video": "cars_and_pedestrians_1280x720_4_short.mp4",
+        "force_rate": 0,
+        "custom_width": 0,
+        "custom_height": 0,
+        "frame_load_cap": 0,
+        "skip_first_frames": 0,
+        "select_every_nth": 1,
+        "format": "AnimateDiff",
+        "videopreview": {
+          "hidden": false,
+          "params": {
+            "type": "input",
+            "format": "video/mp4",
+            "filename": "cars_and_pedestrians_1280x720_4_short.mp4",
+            "force_rate": 0,
+            "custom_width": 0,
+            "custom_height": 0,
+            "frame_load_cap": 0,
+            "select_every_nth": 1,
+            "skip_first_frames": 0
+          },
+          "paused": false
+        }
+      }
+    },
+    {
+      "id": 87,
+      "type": "Note",
+      "pos": [
+        -477.8357901731692,
+        -67.6805688714261
+      ],
+      "size": [
+        356.7774379683608,
+        162.9692830349714
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Note: Loading Longer Videos",
+      "properties": {},
+      "widgets_values": [
+        "In the Load Video node, the 'frame_load_cap' metric (when set to 0) will show the total number of frames in a darker grey. Loading more than 200 frames will likely cause memory issues, so we need to limit the number of frames we render in one run and also use a hefty machine (minimum large and extra large machine).\n\nStart with 64 frames per batch using the batch manager. If you don't use this, you will throttle your memory regardless of machine size.\n\n"
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
+    },
+    {
+      "id": 75,
+      "type": "PreviewImage",
+      "pos": [
+        1743.23077709898,
+        699.9659365486218
+      ],
+      "size": [
+        468.0893842488415,
+        576.3153983609475
+      ],
+      "flags": {},
+      "order": 16,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 97
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.25.1",
+        "Node name for S&R": "PreviewImage"
+      },
+      "widgets_values": []
+    }
+  ],
+  "links": [
+    [
+      12,
+      14,
+      1,
+      15,
+      1,
+      "IMAGE"
+    ],
+    [
+      14,
+      14,
+      0,
+      15,
+      0,
+      "ULTRALYTICS_RESULTS"
+    ],
+    [
+      39,
+      15,
+      0,
+      29,
+      0,
+      "IMAGE"
+    ],
+    [
+      59,
+      18,
+      0,
+      14,
+      1,
+      "IMAGE"
+    ],
+    [
+      71,
+      51,
+      0,
+      52,
+      0,
+      "INT"
+    ],
+    [
+      72,
+      29,
+      0,
+      53,
+      0,
+      "IMAGE"
+    ],
+    [
+      73,
+      52,
+      0,
+      53,
+      1,
+      "INT"
+    ],
+    [
+      74,
+      53,
+      0,
+      22,
+      0,
+      "IMAGE"
+    ],
+    [
+      75,
+      51,
+      1,
+      54,
+      0,
+      "INT"
+    ],
+    [
+      76,
+      54,
+      0,
+      53,
+      2,
+      "INT"
+    ],
+    [
+      97,
+      53,
+      0,
+      75,
+      0,
+      "IMAGE"
+    ],
+    [
+      110,
+      86,
+      0,
+      14,
+      0,
+      "ULTRALYTICS_MODEL"
+    ],
+    [
+      111,
+      21,
+      0,
+      18,
+      0,
+      "IMAGE"
+    ],
+    [
+      112,
+      21,
+      0,
+      51,
+      0,
+      "IMAGE"
+    ],
+    [
+      113,
+      88,
+      0,
+      21,
+      0,
+      "VHS_BatchManager"
+    ],
+    [
+      114,
+      88,
+      0,
+      22,
+      2,
+      "VHS_BatchManager"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.740024994425817,
+      "offset": [
+        1323.7174104396008,
+        957.3148383615264
+      ]
+    },
+    "frontendVersion": "1.45.15",
+    "VHS_MetadataImage": true,
+    "VHS_latentpreview": false,
+    "VHS_KeepIntermediate": true,
+    "VHS_latentpreviewrate": 0
+  },
+  "version": 0.4
+}

@@ -1,0 +1,854 @@
+{
+  "id": "6d5b638e-4f57-4a2e-a5fc-46912e24ed88",
+  "revision": 0,
+  "last_node_id": 86,
+  "last_link_id": 110,
+  "nodes": [
+    {
+      "id": 52,
+      "type": "Reroute",
+      "pos": [
+        1219.8479126703694,
+        657.166241388719
+      ],
+      "size": [
+        75,
+        26
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "",
+          "type": "*",
+          "widget": {
+            "name": "value"
+          },
+          "link": 71
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "INT",
+          "links": [
+            73
+          ]
+        }
+      ],
+      "properties": {
+        "showOutputText": false,
+        "horizontal": false
+      }
+    },
+    {
+      "id": 54,
+      "type": "Reroute",
+      "pos": [
+        1300.4792419850005,
+        677.2049187213429
+      ],
+      "size": [
+        75,
+        26
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "",
+          "type": "*",
+          "widget": {
+            "name": "value"
+          },
+          "link": 75
+        }
+      ],
+      "outputs": [
+        {
+          "name": "",
+          "type": "INT",
+          "links": [
+            76
+          ]
+        }
+      ],
+      "properties": {
+        "showOutputText": false,
+        "horizontal": false
+      }
+    },
+    {
+      "id": 59,
+      "type": "SaveStringKJ",
+      "pos": [
+        1435.3286892393446,
+        325.9372870911156
+      ],
+      "size": [
+        270,
+        106
+      ],
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "string",
+          "type": "STRING",
+          "link": 91
+        }
+      ],
+      "outputs": [
+        {
+          "name": "filename",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-kjnodes",
+        "ver": "14b7c035c4ce7e60e348bd12d9d26109a83e645c",
+        "Node name for S&R": "SaveStringKJ"
+      },
+      "widgets_values": [
+        "piles_annotated",
+        "output",
+        ".txt"
+      ]
+    },
+    {
+      "id": 29,
+      "type": "ShuffleChannels",
+      "pos": [
+        1115.6869898529708,
+        43.37419725470427
+      ],
+      "size": [
+        270,
+        130
+      ],
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 39
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            72
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-Image-Filters",
+        "ver": "bbb3fb0045461adf3602faeedaf40af57090d4e2",
+        "Node name for S&R": "ShuffleChannels"
+      },
+      "widgets_values": [
+        "blue",
+        "green",
+        "red",
+        "none"
+      ]
+    },
+    {
+      "id": 51,
+      "type": "GetImageSize",
+      "pos": [
+        171.88004193078453,
+        654.6138866776674
+      ],
+      "size": [
+        210,
+        136
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 108
+        }
+      ],
+      "outputs": [
+        {
+          "name": "width",
+          "type": "INT",
+          "links": [
+            71
+          ]
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "links": [
+            75
+          ]
+        },
+        {
+          "name": "batch_size",
+          "type": "INT",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.24.0",
+        "Node name for S&R": "GetImageSize"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 56,
+      "type": "MarkdownNote",
+      "pos": [
+        173.66380640097543,
+        507.13032053762487
+      ],
+      "size": [
+        297.40722800897294,
+        89.83814399947448
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Note: Padding / Cropping the Video",
+      "properties": {},
+      "widgets_values": [
+        "Unfortunately the YOLO algorithm requires image dimensions to be multiples of 32. So here we pad the video height (from 720 to 736), and then we crop it later."
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
+    },
+    {
+      "id": 57,
+      "type": "MarkdownNote",
+      "pos": [
+        127.30553590559414,
+        -64.9324745644353
+      ],
+      "size": [
+        231.80412434103368,
+        88
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "Note: Loading the Model",
+      "properties": {},
+      "widgets_values": [
+        "Here we load the Ultralytics YOLO model we trained! We uploaded it to our assets in `ComfyUI/models/ultralytics/bbox/`."
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
+    },
+    {
+      "id": 14,
+      "type": "UltralyticsInference",
+      "pos": [
+        477.31773126170214,
+        41.81413097010847
+      ],
+      "size": [
+        278.9765625,
+        410
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "ULTRALYTICS_MODEL",
+          "link": 110
+        },
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 59
+        }
+      ],
+      "outputs": [
+        {
+          "name": "ULTRALYTICS_RESULTS",
+          "type": "ULTRALYTICS_RESULTS",
+          "links": [
+            14
+          ]
+        },
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            12
+          ]
+        },
+        {
+          "name": "BOXES",
+          "type": "BOXES",
+          "links": [
+            49
+          ]
+        },
+        {
+          "name": "MASKS",
+          "type": "MASKS",
+          "links": []
+        },
+        {
+          "name": "PROBABILITIES",
+          "type": "PROBABILITIES",
+          "links": []
+        },
+        {
+          "name": "KEYPOINTS",
+          "type": "KEYPOINTS",
+          "links": []
+        },
+        {
+          "name": "OBB",
+          "type": "OBB",
+          "links": []
+        },
+        {
+          "name": "LABELS",
+          "type": "LABELS",
+          "links": []
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": []
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-YOLO",
+        "ver": "750d8aec81db26a004a64317e9f33283818f8539",
+        "Node name for S&R": "UltralyticsInference"
+      },
+      "widgets_values": [
+        0.25,
+        0.7,
+        640,
+        640,
+        "cuda:0",
+        true,
+        true,
+        true,
+        "None"
+      ]
+    },
+    {
+      "id": 38,
+      "type": "easy showAnything",
+      "pos": [
+        810.5601879470089,
+        377.2150362575544
+      ],
+      "size": [
+        461.4504112266368,
+        230.36502569872596
+      ],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "anything",
+          "shape": 7,
+          "type": "*",
+          "link": 49
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output",
+          "type": "*",
+          "links": [
+            91
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-easy-use",
+        "ver": "625efbfa2fc20c31797dfffcbb41a26b6d91ab7b",
+        "Node name for S&R": "easy showAnything"
+      },
+      "widgets_values": [
+        "tensor([[ 478.1250,  537.1250,  183.7500,  221.7500],\n        [1156.0000,  432.5000,   40.0000,   84.0000],\n        [ 744.0000,  153.7188,  156.0000,  142.5625],\n        [ 395.5000,  218.7500,   24.0000,   67.5000],\n        [ 937.7500,  614.0000,  178.5000,  112.0000],\n        [1059.0000,  454.0000,   74.0000,  130.0000],\n        [ 575.0000,  394.5000,   48.0000,  116.0000],\n        [ 774.0000,  285.7500,   46.0000,   86.0000],\n        [ 503.5000,  288.7500,   29.0000,   75.5000],\n        [ 857.5000,  445.0000,   30.0000,   85.0000],\n        [ 541.5000,  317.5000,   26.0000,   74.0000],\n        [ 369.0000,  184.7500,   21.0000,   75.5000],\n        [ 661.0000,  440.0000,   42.0000,  106.0000],\n        [ 823.0000,  427.2500,   26.0000,   82.5000],\n        [1030.2500,  415.5000,   27.5000,   85.0000],\n        [1049.0000,  428.0000,   50.0000,   80.0000],\n        [ 627.0000,  446.7500,   30.0000,   82.5000],\n        [ 636.5000,   52.2812,  128.0000,   35.4375],\n        [ 654.5000,  195.1250,   43.0000,   55.7500],\n        [ 925.0000,  430.0000,   38.0000,   83.0000],\n        [ 357.5000,  129.0000,   21.0000,   63.0000],\n        [ 928.0000,  440.0000,   35.0000,   85.0000],\n        [ 389.2500,  173.0000,   24.0000,   60.0000],\n        [ 571.0000,  312.0000,   32.0000,   68.0000],\n        [ 426.7500,  375.7500,  177.5000,  185.0000],\n        [ 416.7500,  214.1250,   28.0000,   72.2500],\n        [ 641.0000,   62.8594,  124.0000,   58.2812],\n        [ 465.0000,  279.9375,   40.0000,   91.1250],\n        [ 929.0000,  435.2500,   30.0000,   66.5000],\n        [ 542.0000,  329.2500,   29.0000,   96.5000],\n        [ 801.0000,  444.0000,   22.0000,   67.0000],\n        [ 802.0000,  451.2500,   26.0000,   79.5000],\n        [1060.0000,  485.5000,   68.0000,   72.0000],\n        [ 566.5000,  313.2500,   22.0000,   66.0000],\n        [ 614.0000,  395.7500,   21.0000,   72.0000],\n        [ 463.0000,  271.4375,   34.0000,   76.6250],\n        [ 593.5000,  636.5000,  141.0000,   65.0000],\n        [ 420.0000,  224.8125,   30.5000,   86.3750],\n        [ 336.7500,  133.8750,   24.5000,   71.7500],\n        [1031.0000,  395.2500,   28.0000,   47.0000],\n        [1061.0000,   51.0000,  124.0000,   30.0000],\n        [ 397.5000,  225.6250,   29.0000,   88.2500],\n        [1033.2500,  420.2500,   35.5000,   92.0000],\n        [ 597.5000,  364.2500,   21.0000,   71.5000],\n        [ 374.0000,  187.5000,   29.5000,   79.7500],\n        [1054.0000,  427.0000,   36.0000,   73.0000],\n        [ 628.5000,  387.5000,   23.0000,   64.0000],\n        [ 503.0000,   55.9375,   20.0000,   42.5000]], device='cuda:0')"
+      ]
+    },
+    {
+      "id": 18,
+      "type": "ImageResizeAdvanced",
+      "pos": [
+        174.12868895617808,
+        233.80579332577912
+      ],
+      "size": [
+        270,
+        218
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 107
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            59
+          ]
+        },
+        {
+          "name": "width",
+          "type": "INT",
+          "links": null
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "links": []
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-YOLO",
+        "ver": "750d8aec81db26a004a64317e9f33283818f8539",
+        "Node name for S&R": "ImageResizeAdvanced"
+      },
+      "widgets_values": [
+        1280,
+        736,
+        "nearest",
+        "pad",
+        "always",
+        32
+      ]
+    },
+    {
+      "id": 84,
+      "type": "LoadImage",
+      "pos": [
+        -374.4583948736779,
+        581.2968860463542
+      ],
+      "size": [
+        282.798828125,
+        314
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            107,
+            108
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.25.1",
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "cars_and_people_ss.png",
+        "image"
+      ]
+    },
+    {
+      "id": 53,
+      "type": "ImageCrop+",
+      "pos": [
+        1436.1542044468017,
+        68.68064739808011
+      ],
+      "size": [
+        270,
+        194
+      ],
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 72
+        },
+        {
+          "name": "width",
+          "type": "INT",
+          "widget": {
+            "name": "width"
+          },
+          "link": 73
+        },
+        {
+          "name": "height",
+          "type": "INT",
+          "widget": {
+            "name": "height"
+          },
+          "link": 76
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            97,
+            109
+          ]
+        },
+        {
+          "name": "x",
+          "type": "INT",
+          "links": null
+        },
+        {
+          "name": "y",
+          "type": "INT",
+          "links": null
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui_essentials",
+        "ver": "9d9f4bedfc9f0321c19faf71855e228c93bd0dc9",
+        "Node name for S&R": "ImageCrop+"
+      },
+      "widgets_values": [
+        256,
+        256,
+        "top-left",
+        0,
+        0
+      ]
+    },
+    {
+      "id": 86,
+      "type": "UltralyticsModelLoader",
+      "pos": [
+        135.94856246526027,
+        -196.39217266513995
+      ],
+      "size": [
+        270,
+        58
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "ULTRALYTICS_MODEL",
+          "type": "ULTRALYTICS_MODEL",
+          "links": [
+            110
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-YOLO",
+        "ver": "750d8aec81db26a004a64317e9f33283818f8539",
+        "Node name for S&R": "UltralyticsModelLoader"
+      },
+      "widgets_values": [
+        "yolov5nu.pt"
+      ]
+    },
+    {
+      "id": 15,
+      "type": "UltralyticsVisualization",
+      "pos": [
+        808.93868011257,
+        42.74337374687662
+      ],
+      "size": [
+        270,
+        270
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "results",
+          "type": "ULTRALYTICS_RESULTS",
+          "link": 14
+        },
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 12
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            39
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "ComfyUI-YOLO",
+        "ver": "750d8aec81db26a004a64317e9f33283818f8539",
+        "Node name for S&R": "UltralyticsVisualization"
+      },
+      "widgets_values": [
+        3,
+        1,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        "class"
+      ]
+    },
+    {
+      "id": 85,
+      "type": "SaveImage",
+      "pos": [
+        1801.9392181168084,
+        55.09561188419528
+      ],
+      "size": [
+        270,
+        270
+      ],
+      "flags": {},
+      "order": 15,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 109
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.25.1",
+        "Node name for S&R": "SaveImage"
+      },
+      "widgets_values": [
+        "cars_and_peds_annotated"
+      ]
+    },
+    {
+      "id": 75,
+      "type": "PreviewImage",
+      "pos": [
+        1806.643713725201,
+        407.8955796040083
+      ],
+      "size": [
+        468.0893842488415,
+        576.3153983609475
+      ],
+      "flags": {},
+      "order": 14,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 97
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.25.1",
+        "Node name for S&R": "PreviewImage"
+      },
+      "widgets_values": []
+    }
+  ],
+  "links": [
+    [
+      12,
+      14,
+      1,
+      15,
+      1,
+      "IMAGE"
+    ],
+    [
+      14,
+      14,
+      0,
+      15,
+      0,
+      "ULTRALYTICS_RESULTS"
+    ],
+    [
+      39,
+      15,
+      0,
+      29,
+      0,
+      "IMAGE"
+    ],
+    [
+      49,
+      14,
+      2,
+      38,
+      0,
+      "BOXES"
+    ],
+    [
+      59,
+      18,
+      0,
+      14,
+      1,
+      "IMAGE"
+    ],
+    [
+      71,
+      51,
+      0,
+      52,
+      0,
+      "INT"
+    ],
+    [
+      72,
+      29,
+      0,
+      53,
+      0,
+      "IMAGE"
+    ],
+    [
+      73,
+      52,
+      0,
+      53,
+      1,
+      "INT"
+    ],
+    [
+      75,
+      51,
+      1,
+      54,
+      0,
+      "INT"
+    ],
+    [
+      76,
+      54,
+      0,
+      53,
+      2,
+      "INT"
+    ],
+    [
+      91,
+      38,
+      0,
+      59,
+      0,
+      "STRING"
+    ],
+    [
+      97,
+      53,
+      0,
+      75,
+      0,
+      "IMAGE"
+    ],
+    [
+      107,
+      84,
+      0,
+      18,
+      0,
+      "IMAGE"
+    ],
+    [
+      108,
+      84,
+      0,
+      51,
+      0,
+      "IMAGE"
+    ],
+    [
+      109,
+      53,
+      0,
+      85,
+      0,
+      "IMAGE"
+    ],
+    [
+      110,
+      86,
+      0,
+      14,
+      0,
+      "ULTRALYTICS_MODEL"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.7380841913232337,
+      "offset": [
+        -497.2100133447375,
+        954.2743336559845
+      ]
+    },
+    "frontendVersion": "1.45.15",
+    "VHS_MetadataImage": true,
+    "VHS_latentpreview": false,
+    "VHS_KeepIntermediate": true,
+    "VHS_latentpreviewrate": 0
+  },
+  "version": 0.4
+}

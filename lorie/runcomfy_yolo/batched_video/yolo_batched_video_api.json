@@ -1,0 +1,198 @@
+{
+  "14": {
+    "inputs": {
+      "conf": 0.25,
+      "iou": 0.7,
+      "height": 640,
+      "width": 640,
+      "device": "cuda:0",
+      "half": true,
+      "augment": true,
+      "agnostic_nms": true,
+      "classes": "None",
+      "model": [
+        "86",
+        0
+      ],
+      "image": [
+        "18",
+        0
+      ]
+    },
+    "class_type": "UltralyticsInference",
+    "_meta": {
+      "title": "Ultralytics Inference"
+    }
+  },
+  "15": {
+    "inputs": {
+      "line_width": 3,
+      "font_size": 1,
+      "sam": true,
+      "kpt_line": true,
+      "labels": true,
+      "boxes": true,
+      "masks": true,
+      "probs": true,
+      "color_mode": "class",
+      "results": [
+        "14",
+        0
+      ],
+      "image": [
+        "14",
+        1
+      ]
+    },
+    "class_type": "UltralyticsVisualization",
+    "_meta": {
+      "title": "Ultralytics Visualization"
+    }
+  },
+  "18": {
+    "inputs": {
+      "width": 1280,
+      "height": 736,
+      "interpolation": "nearest",
+      "method": "pad",
+      "condition": "always",
+      "multiple_of": 32,
+      "image": [
+        "21",
+        0
+      ]
+    },
+    "class_type": "ImageResizeAdvanced",
+    "_meta": {
+      "title": "Image Resize Advanced"
+    }
+  },
+  "21": {
+    "inputs": {
+      "video": "cars_and_pedestrians_1280x720_4_short.mp4",
+      "force_rate": 0,
+      "custom_width": 0,
+      "custom_height": 0,
+      "frame_load_cap": 0,
+      "skip_first_frames": 0,
+      "select_every_nth": 1,
+      "format": "AnimateDiff",
+      "meta_batch": [
+        "88",
+        0
+      ]
+    },
+    "class_type": "VHS_LoadVideo",
+    "_meta": {
+      "title": "Load Video (Upload) 🎥🅥🅗🅢"
+    }
+  },
+  "22": {
+    "inputs": {
+      "frame_rate": 30,
+      "loop_count": 0,
+      "filename_prefix": "cars_and pedestrians_annotated",
+      "format": "video/h264-mp4",
+      "pix_fmt": "yuv420p",
+      "crf": 19,
+      "save_metadata": true,
+      "trim_to_audio": false,
+      "pingpong": false,
+      "save_output": true,
+      "images": [
+        "53",
+        0
+      ],
+      "meta_batch": [
+        "88",
+        0
+      ]
+    },
+    "class_type": "VHS_VideoCombine",
+    "_meta": {
+      "title": "Video Combine 🎥🅥🅗🅢"
+    }
+  },
+  "29": {
+    "inputs": {
+      "red": "blue",
+      "green": "green",
+      "blue": "red",
+      "alpha": "none",
+      "image": [
+        "15",
+        0
+      ]
+    },
+    "class_type": "ShuffleChannels",
+    "_meta": {
+      "title": "Shuffle Channels"
+    }
+  },
+  "51": {
+    "inputs": {
+      "image": [
+        "21",
+        0
+      ]
+    },
+    "class_type": "GetImageSize",
+    "_meta": {
+      "title": "Get Image Size"
+    }
+  },
+  "53": {
+    "inputs": {
+      "width": [
+        "51",
+        0
+      ],
+      "height": [
+        "51",
+        1
+      ],
+      "position": "top-left",
+      "x_offset": 0,
+      "y_offset": 0,
+      "image": [
+        "29",
+        0
+      ]
+    },
+    "class_type": "ImageCrop+",
+    "_meta": {
+      "title": "🔧 Image Crop"
+    }
+  },
+  "75": {
+    "inputs": {
+      "images": [
+        "53",
+        0
+      ]
+    },
+    "class_type": "PreviewImage",
+    "_meta": {
+      "title": "Preview Image"
+    }
+  },
+  "86": {
+    "inputs": {
+      "model_name": "yolov5nu.pt"
+    },
+    "class_type": "UltralyticsModelLoader",
+    "_meta": {
+      "title": "Ultralytics Model Loader"
+    }
+  },
+  "88": {
+    "inputs": {
+      "frames_per_batch": 64,
+      "count": 1
+    },
+    "class_type": "VHS_BatchManager",
+    "_meta": {
+      "title": "Meta Batch Manager 🎥🅥🅗🅢"
+    }
+  }
+}

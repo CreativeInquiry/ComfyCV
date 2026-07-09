@@ -1,0 +1,192 @@
+{
+  "14": {
+    "inputs": {
+      "conf": 0.25,
+      "iou": 0.7,
+      "height": 640,
+      "width": 640,
+      "device": "cuda:0",
+      "half": true,
+      "augment": true,
+      "agnostic_nms": true,
+      "classes": "None",
+      "model": [
+        "86",
+        0
+      ],
+      "image": [
+        "18",
+        0
+      ]
+    },
+    "class_type": "UltralyticsInference",
+    "_meta": {
+      "title": "Ultralytics Inference"
+    }
+  },
+  "15": {
+    "inputs": {
+      "line_width": 3,
+      "font_size": 1,
+      "sam": true,
+      "kpt_line": true,
+      "labels": true,
+      "boxes": true,
+      "masks": true,
+      "probs": true,
+      "color_mode": "class",
+      "results": [
+        "14",
+        0
+      ],
+      "image": [
+        "14",
+        1
+      ]
+    },
+    "class_type": "UltralyticsVisualization",
+    "_meta": {
+      "title": "Ultralytics Visualization"
+    }
+  },
+  "18": {
+    "inputs": {
+      "width": 1280,
+      "height": 736,
+      "interpolation": "nearest",
+      "method": "pad",
+      "condition": "always",
+      "multiple_of": 32,
+      "image": [
+        "84",
+        0
+      ]
+    },
+    "class_type": "ImageResizeAdvanced",
+    "_meta": {
+      "title": "Image Resize Advanced"
+    }
+  },
+  "29": {
+    "inputs": {
+      "red": "blue",
+      "green": "green",
+      "blue": "red",
+      "alpha": "none",
+      "image": [
+        "15",
+        0
+      ]
+    },
+    "class_type": "ShuffleChannels",
+    "_meta": {
+      "title": "Shuffle Channels"
+    }
+  },
+  "38": {
+    "inputs": {
+      "text": "tensor([[ 478.1250,  537.1250,  183.7500,  221.7500],\n        [1156.0000,  432.5000,   40.0000,   84.0000],\n        [ 744.0000,  153.7188,  156.0000,  142.5625],\n        [ 395.5000,  218.7500,   24.0000,   67.5000],\n        [ 937.7500,  614.0000,  178.5000,  112.0000],\n        [1059.0000,  454.0000,   74.0000,  130.0000],\n        [ 575.0000,  394.5000,   48.0000,  116.0000],\n        [ 774.0000,  285.7500,   46.0000,   86.0000],\n        [ 503.5000,  288.7500,   29.0000,   75.5000],\n        [ 857.5000,  445.0000,   30.0000,   85.0000],\n        [ 541.5000,  317.5000,   26.0000,   74.0000],\n        [ 369.0000,  184.7500,   21.0000,   75.5000],\n        [ 661.0000,  440.0000,   42.0000,  106.0000],\n        [ 823.0000,  427.2500,   26.0000,   82.5000],\n        [1030.2500,  415.5000,   27.5000,   85.0000],\n        [1049.0000,  428.0000,   50.0000,   80.0000],\n        [ 627.0000,  446.7500,   30.0000,   82.5000],\n        [ 636.5000,   52.2812,  128.0000,   35.4375],\n        [ 654.5000,  195.1250,   43.0000,   55.7500],\n        [ 925.0000,  430.0000,   38.0000,   83.0000],\n        [ 357.5000,  129.0000,   21.0000,   63.0000],\n        [ 928.0000,  440.0000,   35.0000,   85.0000],\n        [ 389.2500,  173.0000,   24.0000,   60.0000],\n        [ 571.0000,  312.0000,   32.0000,   68.0000],\n        [ 426.7500,  375.7500,  177.5000,  185.0000],\n        [ 416.7500,  214.1250,   28.0000,   72.2500],\n        [ 641.0000,   62.8594,  124.0000,   58.2812],\n        [ 465.0000,  279.9375,   40.0000,   91.1250],\n        [ 929.0000,  435.2500,   30.0000,   66.5000],\n        [ 542.0000,  329.2500,   29.0000,   96.5000],\n        [ 801.0000,  444.0000,   22.0000,   67.0000],\n        [ 802.0000,  451.2500,   26.0000,   79.5000],\n        [1060.0000,  485.5000,   68.0000,   72.0000],\n        [ 566.5000,  313.2500,   22.0000,   66.0000],\n        [ 614.0000,  395.7500,   21.0000,   72.0000],\n        [ 463.0000,  271.4375,   34.0000,   76.6250],\n        [ 593.5000,  636.5000,  141.0000,   65.0000],\n        [ 420.0000,  224.8125,   30.5000,   86.3750],\n        [ 336.7500,  133.8750,   24.5000,   71.7500],\n        [1031.0000,  395.2500,   28.0000,   47.0000],\n        [1061.0000,   51.0000,  124.0000,   30.0000],\n        [ 397.5000,  225.6250,   29.0000,   88.2500],\n        [1033.2500,  420.2500,   35.5000,   92.0000],\n        [ 597.5000,  364.2500,   21.0000,   71.5000],\n        [ 374.0000,  187.5000,   29.5000,   79.7500],\n        [1054.0000,  427.0000,   36.0000,   73.0000],\n        [ 628.5000,  387.5000,   23.0000,   64.0000],\n        [ 503.0000,   55.9375,   20.0000,   42.5000]], device='cuda:0')",
+      "anything": [
+        "14",
+        2
+      ]
+    },
+    "class_type": "easy showAnything",
+    "_meta": {
+      "title": "Show Any"
+    }
+  },
+  "51": {
+    "inputs": {
+      "image": [
+        "84",
+        0
+      ]
+    },
+    "class_type": "GetImageSize",
+    "_meta": {
+      "title": "Get Image Size"
+    }
+  },
+  "53": {
+    "inputs": {
+      "width": [
+        "51",
+        0
+      ],
+      "height": [
+        "51",
+        1
+      ],
+      "position": "top-left",
+      "x_offset": 0,
+      "y_offset": 0,
+      "image": [
+        "29",
+        0
+      ]
+    },
+    "class_type": "ImageCrop+",
+    "_meta": {
+      "title": "🔧 Image Crop"
+    }
+  },
+  "59": {
+    "inputs": {
+      "filename_prefix": "piles_annotated",
+      "output_folder": "output",
+      "file_extension": ".txt",
+      "string": [
+        "38",
+        0
+      ]
+    },
+    "class_type": "SaveStringKJ",
+    "_meta": {
+      "title": "Save String KJ"
+    }
+  },
+  "75": {
+    "inputs": {
+      "images": [
+        "53",
+        0
+      ]
+    },
+    "class_type": "PreviewImage",
+    "_meta": {
+      "title": "Preview Image"
+    }
+  },
+  "84": {
+    "inputs": {
+      "image": "cars_and_people_ss.png"
+    },
+    "class_type": "LoadImage",
+    "_meta": {
+      "title": "Load Image"
+    }
+  },
+  "85": {
+    "inputs": {
+      "filename_prefix": "cars_and_peds_annotated",
+      "images": [
+        "53",
+        0
+      ]
+    },
+    "class_type": "SaveImage",
+    "_meta": {
+      "title": "Save Image"
+    }
+  },
+  "86": {
+    "inputs": {
+      "model_name": "yolov5nu.pt"
+    },
+    "class_type": "UltralyticsModelLoader",
+    "_meta": {
+      "title": "Ultralytics Model Loader"
+    }
+  }
+}
