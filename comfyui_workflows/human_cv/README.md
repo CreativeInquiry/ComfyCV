@@ -1,10 +1,8 @@
-# Human_CV Workflow
+# ComfyUI Vision Suite for Humans
 
-![example](images/humancv_results.jpg)<br />
+![example](images/humancv_results.jpg)<br />Work products from a custom ComfyUI workflow, a "vision suite for humans". It produces the following data streams, among others (clockwise from top left): 
 
-Work products from a custom "Human_CV" workflow. It produces the following data streams, among others (clockwise from top left): 
-
-1. Original image
+1. [Original image](3_people_walking_720x1280_1_4.jpg)
 2. Extracted people
 3. People masks
 4. Depth estimation
@@ -23,7 +21,7 @@ Work products from a custom "Human_CV" workflow. It produces the following data 
 
 <table>
 <tr>
-<td valign="top">Workflow for cloud.comfy.org<br/><img src="humancv_workflow_comfycloud.png"></td>
-<td valign="top">Workflow for runcomfy.com<img src="humancv_workflow_runcomfy.png"></td>
+<td valign="top"><a href="humancv_workflow_comfycloud.json">Workflow for cloud.comfy.org</a><br/><img src="humancv_workflow_comfycloud.png"></td>
+<td valign="top"><a href="humancv_workflow_runcomfy.json">Workflow for runcomfy.com</a><br/><img src="humancv_workflow_runcomfy.png"></td>
 </tr>
 </table>

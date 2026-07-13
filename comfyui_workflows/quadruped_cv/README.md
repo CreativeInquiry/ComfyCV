@@ -1,8 +1,8 @@
-# Quadruped_CV Workflow
+# ComfyUI Vision Suite for Quadrupeds
 
 ![example](images/quadrupedcv_results_wide.jpg)<br />
 
-Work products from a custom "Quadruped_CV" workflow. It produces the following data streams: 
+Work products from a custom ComfyUI workflow, a "vision suite for quadrupeds". It produces the following data streams: 
 
 1. [Original image](elephant.png)
 2. Depth estimation
@@ -18,7 +18,7 @@ Work products from a custom "Quadruped_CV" workflow. It produces the following d
 
 <table>
 <tr>
-<td valign="top">Workflow for cloud.comfy.org<br/><img src="quadrupedcv_workflow_comfycloud.png"></td>
-<td valign="top">Workflow for runcomfy.com<img src="quadrupedcv_workflow_runcomfy.png"></td>
+<td valign="top"><a href="quadrupedcv_workflow_comfycloud.json">Workflow for cloud.comfy.org</a><br/><img src="quadrupedcv_workflow_comfycloud.png"></td>
+<td valign="top"><a href="quadrupedcv_workflow_runcomfy.json">Workflow for runcomfy.com</a><br/><img src="quadrupedcv_workflow_runcomfy.png"></td>
 </tr>
 </table>

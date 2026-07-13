@@ -1,11 +1,45 @@
 # Computer Vision in ComfyUI
 
+Contents: 
+
+* EasyLabeler
+* EasyTrain (YOLO)
+* Additional ComfyUI Workflows for Computer Vision
+  * Locate Anything
+  * Segment Anything
+  * Vision Suite for Humans & Quadrupeds
+  * DAAM Concept Activation Heatmaps
+  * DINOv3 Image Similarity Heatmaps
 
 
 
 ---
 
-## ComfyUI Workflows
+## EasyLabeler
+
+**EasyLabeler** is a utility for labeling `.mp4` videos or folders of images with points, bounding boxes, and closed polygonal shapes. It works entirely locally; uses plain HTML, CSS, and JavaScript; and produces JSON annotation files.
+
+![easylabeler_screenshot.png](easylabeler/images/easylabeler_screenshot.png)
+
+
+--- 
+
+## EasyTrain (YOLO)
+
+*A command-line tool to train lightweight detectors for custom phenomena*
+
+This page describes a process for custom-training a YOLO computer vision model, in order to recognize and locate objects in images and video. 
+
+`easytrain-yolo` is a local command-line tool that trains a YOLO detector from [EasyLabeler](https://github.com/CreativeInquiry/ComfyCV/tree/main/easylabeler) annotations. It converts EasyLabeler JSON annotations into an Ultralytics YOLO dataset; trains a model; and then packages the resulting `.pt` model for ComfyUI-YOLO. You can then use this model in ComfyUI. Note that training is performed *locally* on your own computer, so some installation is required. As few as 50–200 labeled examples can be enough to build a reliable detector for a custom phenomenon.
+
+![piles_test_with_yolo_inference.gif](easytrain-yolo/images/piles_test_with_yolo_inference_cropped.gif)
+
+---
+
+## Additional ComfyUI Workflows for Computer Vision
+
+In addition to the *Easy* suite of tools and workflows for computer vision, we also offer these self-contained workflows for performing select computer vision tasks in ComfyUI.
+
 
 ### Locate Anything
 

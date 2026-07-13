@@ -1,10 +1,28 @@
-# easylabeler
+# EasyLabeler
 
-**easylabeler** *is a small local-first web app for labeling points, bounding boxes, and closed shapes on short `.mp4` videos or folders of images. It uses plain HTML, CSS, and JavaScript with no backend, build system, cloud services, or external dependencies.*
+**EasyLabeler** is a simple media annotator: a small local-first web app for labeling points, bounding boxes, and closed shapes on short `.mp4` videos or folders of images. It uses plain HTML, CSS, and JavaScript, and produces JSON annotation files. It has no backend, build system, cloud services, or external dependencies.
+
+![easylabeler_screenshot.png](images/easylabeler_screenshot.png)
+
+**Contents:**
+
+* [Run Locally](#run-locally)
+* [Load Media](#load-media)
+* [The Project JSON](#)
+* [Label Points, Boxes, and Shapes](#)
+* [Timeline Controls](#)
+* [Onion-Skinning](#)
+* [Export JSON](#)
+* [Render Point Overlays](#)
+* [Known Limitations](#)
+* [Code Layout](#)
+* [Notes for Agents](#)
+
+---
 
 ## Run Locally
 
-It's common for browsers to restrict local files. To launch easylabeler, therefore, you should open your Terminal app and run a tiny local server from this folder:
+It's common for browsers to restrict JavaScript applications from opening local files. To launch EasyLabeler, therefore, you should open your Terminal app and run a tiny local server from this folder:
 
 ```bash
 cd /path/to/easylabeler/
@@ -12,6 +30,9 @@ python3 -m http.server 8000
 ```
 
 Then open the URL `http://localhost:8000`.
+
+
+---
 
 ## Load Media
 
@@ -23,11 +44,17 @@ If a folder has multiple videos, the app uses a compatible project JSON to choos
 
 If the folder also contains a compatible annotation JSON, the app loads those annotations automatically. Video JSON is matched by metadata such as `source_filename` or `source_video_path`. Image JSON is matched when `images[].filename` entries match the image files in the selected folder.
 
-## Project JSON
 
-Compatible project JSON files are loaded automatically when they are in the selected media folder. The exported JSON includes `metadata.source_video_path` for video projects and grouped `images` entries for image projects.
+---
+
+## The Project JSON
+
+Compatible project JSON files are loaded automatically if/when they are in the selected media folder. The exported JSON includes `metadata.source_video_path` for video projects and grouped `images` entries for image projects.
 
 The JSON acts like a project file: choose the media folder that contains both the media and compatible JSON, and the app will restore the annotations it can match.
+
+
+---
 
 ## Label Points, Boxes, and Shapes
 
@@ -46,6 +73,9 @@ The annotation list shows only annotations on the current frame. Use **(X) Exclu
 
 Press **Z** to undo the most recent annotation change, including accidental point, box, or shape additions.
 
+
+---
+
 ## Timeline Controls
 
 - **Frame:** type a frame number and press Enter, or leave the field, to jump to that frame.
@@ -60,15 +90,21 @@ Press **Z** to undo the most recent annotation change, including accidental poin
 - For videos, the app tracks the requested frame number directly and seeks to the middle of that frame's time span. For image folders, each image is one frame. The FPS value is stored in exported project JSON.
 - Annotation mode and clear-frame controls are disabled during playback.
 
+
+---
+
 ## Onion-Skinning
 
 Enable **Onion skin** to show annotations from the previous frame as a faint reference.
 
 Onion-skin annotations are visual references only. They are not included in the current frame annotation list unless they actually belong to the current frame.
 
+
+---
+
 ## Export JSON
 
-Click **Export JSON** to download an annotation file.
+Click **Export JSON** to download an annotation/project JSON file.
 
 Video projects use a flat annotation list:
 
@@ -150,16 +186,6 @@ Annotations on video content include `time`. Image-batch annotations do not incl
 
 ---
 
-## Code Layout
-
-- `index.html` defines the static controls and media/canvas stack.
-- `style.css` handles the compact app layout, overlay cursor, progress bar, and annotation controls.
-- `app.js` owns all browser behavior: media loading, frame stepping, coordinate conversion, drawing, editing, import/export, and keyboard shortcuts.
-- `test/render_point_overlays.py` is an optional test helper for checking point annotations against decoded video frames.
-
-
----
-
 ## Render Point Overlays
 
 For a visual timing check, `test/render_point_overlays.py` loads a video and annotation JSON, draws circles for `point` annotations, and exports annotated PNG frames.
@@ -184,13 +210,26 @@ By default, it reads `media/video/piles_test/piles_test.mp4` and `media/video/pi
 
 ## Known Limitations
 
-- Video frame accuracy depends on browser video seeking and the project FPS value matching the media's intended frame rate.
-- Image folder loading uses browser directory selection support, commonly exposed as `webkitdirectory`.
-- Image folders are intended to contain frames with the same dimensions.
+- Image folders are expected to contain frames with the same dimensions. Consider using `ffmpeg` to regularize your image collection prior to annotation.
+- EasyLabeler is intended for short videos and lightweight classroom use. You may hit browser memory limitations with larger media.
 - No model training is implemented here; see the `easytrain-yolo` subproject. 
 - No automatic tracking is implemented here.
-- Intended for short videos and lightweight classroom use.
+- Video frame accuracy depends on browser video seeking and the project FPS value matching the media's intended frame rate.
+- Image folder loading uses browser directory selection support, commonly exposed as `webkitdirectory`.
 - Project JSON files can only auto-load MP4 paths the browser is allowed to reach; otherwise, choose the MP4 manually after opening the JSON.
+
+
+---
+
+## Code Layout
+
+- `index.html` defines the static controls and media/canvas stack.
+- `style.css` handles the compact app layout, overlay cursor, progress bar, and annotation controls.
+- `app.js` owns all browser behavior: media loading, frame stepping, coordinate conversion, drawing, editing, import/export, and keyboard shortcuts.
+- `test/render_point_overlays.py` is an optional test helper for checking point annotations against decoded video frames.
+
+
+---
 
 ## Notes for Agents
 
@@ -206,3 +245,5 @@ By default, it reads `media/video/piles_test/piles_test.mp4` and `media/video/pi
 - Onion skinning shows only the previous frame. It is a drawing aid and does not affect the current-frame annotation list or JSON export.
 - Image-folder projects use browser directory selection (`webkitdirectory`) and assume a flat image directory. If a compatible JSON is in the selected folder, the app auto-loads it.
 - Verification commands used during development: `node --check app.js`, `venv/bin/python -B -m py_compile test/render_point_overlays.py`, and `venv/bin/python test/render_point_overlays.py`.
+
+---
