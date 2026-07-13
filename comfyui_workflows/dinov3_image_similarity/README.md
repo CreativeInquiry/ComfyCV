@@ -1,4 +1,4 @@
-# DINOv3 Heatmaps
+# DINOv3 Image Similarity Heatmaps
 
 ![example](images/dinov3_image_similarity_results.jpg)<br/>*Input image (left); DINO heatmap produced by a "positive" point placed on one of the right-hand bananas (center); composite image (right).*
 

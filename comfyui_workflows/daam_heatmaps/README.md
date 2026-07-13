@@ -1,4 +1,4 @@
-# DAAM Heatmaps
+# DAAM Concept Activation Heatmaps
 
 ![example](images/elephant_result_example.jpg)<br />
 *Input image and heatmap produced by DAAM for the term `elephant`, showing which pixels were most activated by the SDXL model by that term.* 
@@ -41,9 +41,9 @@ Below is a simplified version of the above workflow, which is driven by tags tha
 
 ### Expected Outputs
 
-![family_argument_analyzed.jpg](images/family_argument_analyzed.jpg)
+![family_argument_analyzed.jpg](images/family_argument_analyzed.jpg)<br/>*Example: source image; "dinner", "angry", "home", "father".*
 
-For a given input image, and a set of activation terms, you should receive a set of heatmap images showing the activation for each term. The text caption burned into each heatmap can be disabled in the `DAAMAnalyzer` node. 
+For a given input image, and a set of activation terms, you should receive a set of heatmap images showing the activation for each term. The text caption watermarked into the bottom of each heatmap can be disabled in the `DAAMAnalyzer` node, if desired.
 
 
 ---
