@@ -13,7 +13,7 @@ Computer Vision tools for ComfyUI
 
 ---
 
-### Computer Vision for Humans & Quadrupeds
+### Vision Suite for Humans & Quadrupeds
 
 [A ComfyUI workflow](comfyui_workflows/human_cv/README.md) that computes a variety of analyses of media specifically featuring **people**, including (among others): segmentation of the body from the background; monocular depth estimation; normal map estimation; and pose estimation of the body, face, and hands. 
 
