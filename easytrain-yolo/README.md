@@ -8,7 +8,7 @@
 
 ## Overview 
 
-[**YOLO** (You Only Look Once)](https://en.wikipedia.org/wiki/You_Only_Look_Once) is a family of computer vision models for recognizing and locating objects in images and video. Because YOLO models can be fine-tuned from a pretrained network, they are well suited to creative applications where as few as 50–200 carefully labeled examples can be enough to build a reliable detector for a custom phenomenon.
+[**YOLO** (You Only Look Once)](https://en.wikipedia.org/wiki/You_Only_Look_Once) is a family of computer vision models for recognizing and locating objects in images and video. Standard YOLO models are trained on a fixed list of 80 common objects from a dataset called COCO. That list includes people, cars, dogs, cats, and similar everyday things. The thing *you* want to find is probably not on that list — but because YOLO models can be fine-tuned from a pretrained network, they are well suited to creative applications where as few as 50–200 carefully labeled examples can be enough to build a reliable detector for a custom phenomenon.
 
 `easytrain-yolo` is a local command-line tool that trains a YOLO detector from [EasyLabeler](https://github.com/CreativeInquiry/ComfyCV/tree/main/easylabeler) annotations. It converts EasyLabeler JSON annotations into an Ultralytics YOLO dataset; trains a model; and then packages the resulting `.pt` model for ComfyUI-YOLO. You can then use this model in ComfyUI. Note that training is performed *locally* on your own computer, so some installation is required.
 

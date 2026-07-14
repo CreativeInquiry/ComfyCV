@@ -35,6 +35,8 @@ Datasets annotated with EasyLabeler can be used to train custom detectors with [
 
 [![piles_test_with_yolo_inference.gif](easytrain-yolo/images/piles_test_with_yolo_inference_cropped.gif)](easytrain-yolo/README.md)
 
+[![easytrain-yolo_inference_workflow_for_runcomfy.png](easytrain-yolo/comfy_workflows/easytrain-yolo_inference_workflow_for_runcomfy.png)](easytrain-yolo/README.md#6-use-your-model-in-comfyui)
+
 
 ---
 
@@ -49,6 +51,7 @@ In addition to the *Easy* suite of tools and workflows for computer vision, we a
 
 [![locate_anything_people_droplets_ants.png](comfyui_workflows/locate_anything/images/locate_anything_people_droplets_ants2.png)](comfyui_workflows/locate_anything/README.md)
 
+![locate_anything_basic_workflowimg.png](comfyui_workflows/locate_anything/workflows/locate_anything_basic_workflowimg.png)
 
 ---
 
@@ -58,6 +61,7 @@ This [set of ComfyUI workflows](comfyui_workflows/segment_anything/README.md) de
 
 [![sam3_result.jpg](comfyui_workflows/segment_anything/sam3_result.jpg)](comfyui_workflows/segment_anything/README.md)
 
+![sam3.1_image_workflowimg.png](comfyui_workflows/segment_anything/workflows/sam3.1_image_workflow/sam3.1_image_workflowimg.png)
 
 ---
 
@@ -80,6 +84,7 @@ This [set of ComfyUI workflows](comfyui_workflows/segment_anything/README.md) de
 
 [![daam_example](comfyui_workflows/daam_heatmaps/images/daam_example.jpg)](comfyui_workflows/daam_heatmaps/README.md)
 
+![comfyui_daam_simple_workflow.png](comfyui_workflows/daam_heatmaps/daam_simple_workflow/comfyui_daam_simple_workflow.png)
 
 ---
 
@@ -88,3 +93,5 @@ This [set of ComfyUI workflows](comfyui_workflows/segment_anything/README.md) de
 [This ComfyUI workflow](comfyui_workflows/dinov3_image_similarity/README.md) provides heatmaps that show which parts of an image are similar to a provided query point.  
 
 [![dinov3_image_similarity_results](comfyui_workflows/dinov3_image_similarity/images/dinov3_image_similarity_results.jpg)](comfyui_workflows/dinov3_image_similarity/README.md)
+
+![dinov3_image_similarity_workflowimg.png](comfyui_workflows/dinov3_image_similarity/dinov3_image_similarity_workflowimg.png)
