@@ -1,5 +1,9 @@
 # Computer Vision in ComfyUI
 
+*Pedagogic computer vision resources prepared by Prof. [Golan Levin](https://github.com/golanlevin) and student research assistants, [Claire Vlases](https://github.com/cvlases) and [Lorie Chen](https://github.com/ylchen333). Developed at the Frank-Ratchye STUDIO for Creative Inquiry in June-July 2026 with support from the AI Toolmaking Residency of the CMU College of Fine Arts.*
+
+---
+
 **Contents:**
 
 * [EasyLabeler](#easylabeler)
@@ -27,7 +31,7 @@ Datasets annotated with EasyLabeler can be used to train custom detectors with [
 
 ## EasyTrain (YOLO)
 
-[**`easytrain-yolo`**](easytrain-yolo/README.md) is a command-line tool for custom-training an Ultralytics YOLO computer vision model, in order to recognize and locate objects in images and video. In order to train the detector, [EasyTrain](easytrain-yolo/README.md) consumes annotations created with [EasyLabeler](https://github.com/CreativeInquiry/ComfyCV/tree/main/easylabeler) (see above). EasyTrain [includes a ComfyUI workflow](easytrain-yolo/README.md#6-use-your-model-in-comfyui) that demonstrates the end-to-end use of the comfyui-ultralytics-yolo node with a custom-trained easytrain-yolo model.
+[**`easytrain-yolo`**](easytrain-yolo/README.md) is a command-line tool for custom-training an Ultralytics YOLO computer vision model, in order to recognize and locate objects in images and video. In order to train the detector, [EasyTrain](easytrain-yolo/README.md) consumes annotations created with [EasyLabeler](https://github.com/CreativeInquiry/ComfyCV/tree/main/easylabeler) (see above). EasyTrain [includes a ComfyUI workflow](easytrain-yolo/README.md#6-use-your-model-in-comfyui) that demonstrates the end-to-end use of the `comfyui-ultralytics-yolo` node with a custom-trained model.
 
 [![piles_test_with_yolo_inference.gif](easytrain-yolo/images/piles_test_with_yolo_inference_cropped.gif)](easytrain-yolo/README.md)
 
