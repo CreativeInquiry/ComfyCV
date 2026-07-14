@@ -1,4 +1,4 @@
-# p5 EasyTrack Viewer
+# EasyTrack Viewer
 
 <img src="images/easytrack_p5.gif" width="300">
 
@@ -29,6 +29,4 @@ Load the exported file (e.g. `bouncing_aftereffects_202606240226.jsx`) into Afte
 Clicking on the script asset in the Project asset panel will open it onto the timeline. You'll see individual tracks for all of the data streams you exported.
 
 ![sam3_easytrack_data_in_aftereffects.png](images/sam3_easytrack_data_in_aftereffects.png)
-
-
 

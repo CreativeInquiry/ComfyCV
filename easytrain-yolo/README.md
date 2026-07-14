@@ -2,6 +2,8 @@
 
 *A command-line tool to train lightweight detectors for custom phenomena*
 
+![piles_test_with_yolo_inference_cropped.gif](images/piles_test_with_yolo_inference_cropped.gif)
+
 ---
 
 ## Overview 
@@ -43,12 +45,12 @@ How does it work? Rather than training a neural network from scratch, `easytrain
 
 ## 1. Inputs: What `easytrain-yolo` Needs
 
-The `easytrain-yolo` tool expects you to provide a pair of things from [EasyLabeler](https://github.com/CreativeInquiry/ComfyCV/tree/main/easylabeler):
+`easytrain-yolo` consumes data that you have labeled with [EasyLabeler](../easylabeler/README.md). The `easytrain-yolo` tool expects you to provide a pair of things:
 
 1. The exported EasyLabeler `.json` annotation file.
 2. The original video or image folder that you annotated.
 
-An example of these can be found in `examples/piles_test/`. In this example, as shown below, a series of dirt piles have been annotated; the top of each dirt pile is labeled with a point called "peak". Our aim is to train a model which will be able to automatically detect and locate these peak-points:
+An example of these can be found in [`examples/piles_test/`](examples/piles_test). In this example, as shown below, a series of dirt piles have been annotated; the top of each dirt pile is labeled with a point called "peak" (a label that I defined). Our aim is to train a model which will be able to automatically detect and locate these peak-points:
 
 1. [`piles_test_annotations.json`](examples/piles_test/piles_test_annotations.json)
 2. [`piles_test.mp4`](examples/piles_test/piles_test.mp4) (2MB)
@@ -74,7 +76,8 @@ my_project/
     img_003.jpg
 ```
 
-For `easytrain-yolo`, the EasyLabeler `label` field (such as "peak", in the example shown here) becomes the YOLO class name by default.
+For `easytrain-yolo`, the EasyLabeler `label` field (such as "peak", in the example shown here) becomes the YOLO "class" name by default.
+
 
 ---
 
@@ -407,6 +410,7 @@ The following GIF, excerpted from the video output of the above workflow, shows 
 
 ![piles_test_with_yolo_inference](images/piles_test_with_yolo_inference.gif)
 
+
 ---
 
 ## 7. Use Your Exported Data
@@ -427,8 +431,6 @@ For example, in After Effects, you can then *File > Script > Run File...* to loa
 
 # Appendices
 
-
----
 
 ## Command Reference
 
@@ -582,3 +584,4 @@ source .venv/bin/activate
 - Adjacent video frames are often very similar, so 100 labels from one short clip are not the same as 100 diverse images.
 - YOLO segmentation from shapes is future work.
 - YOLO pose/keypoint training from points is future work.
+

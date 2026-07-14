@@ -1,28 +1,40 @@
 # EasyLabeler
 
-**EasyLabeler** is a simple media annotator: a small local-first web app for labeling points, bounding boxes, and closed shapes on short `.mp4` videos or folders of images. It uses plain HTML, CSS, and JavaScript, and produces JSON annotation files. It has no backend, build system, cloud services, or external dependencies.
+**EasyLabeler** is a simple media annotator: a small local-first web app for labeling points, bounding boxes, and closed shapes on short `.mp4` videos or folders of images. You can use its annotation files with the [EasyTrain](../easytrain-yolo/README.md) system in order to train a custom detector.
+
+EasyLabeler uses plain HTML, CSS, and JavaScript, and produces JSON annotation files. It has no backend, build system, cloud services, or external dependencies.
 
 ![easylabeler_screenshot.png](images/easylabeler_screenshot.png)
 
-**Contents:**
+### Contents:
 
-* [Run Locally](#run-locally)
-* [Load Media](#load-media)
-* [The Project JSON](#)
-* [Label Points, Boxes, and Shapes](#)
-* [Timeline Controls](#)
-* [Onion-Skinning](#)
-* [Export JSON](#)
-* [Render Point Overlays](#)
-* [Known Limitations](#)
-* [Code Layout](#)
-* [Notes for Agents](#)
+* **Instructions**
+ 1. [Run locally or on the Web](#1-run-locally-or-on-the-web)
+ 2. [Load Media](#2-load-media)
+ 3. [Label Points, Boxes, and Shapes](#3-label-points-boxes-and-shapes)
+ 4. [Interface Controls](#4-interface-controls)
+ 5. [Export JSON](#5-export-json)
+* [Validation Test: Render Point Overlays](#validation-test-render-point-overlays)
+* [Known Limitations](#known-limitations)
+* [About the Code](#about-the-code)
+ * [Code Layout](#code-layout)
+ * [Implementation Notes](#implementation-notes)
 
 ---
 
-## Run Locally
+## Instructions
 
-It's common for browsers to restrict JavaScript applications from opening local files. To launch EasyLabeler, therefore, you should open your Terminal app and run a tiny local server from this folder:
+### 1. Run locally or on the Web
+
+EasyLabeler is available in a browser, [online, here](https://golanlevin.github.io/easylabeler/index.html). All media are processed locally.
+
+Alternatively, you may wish to run EasyLabeler on your own machine. To do so, you'll need local copies of these files: 
+
+* [easylabeler.js](easylabeler.js)
+* [index.html](index.html)
+* [style.css](style.css)
+
+It's common for browsers to restrict JavaScript applications from opening local files; to launch EasyLabeler, therefore, you should open your Terminal app and run a tiny local server from the folder containing those files:
 
 ```bash
 cd /path/to/easylabeler/
@@ -34,7 +46,7 @@ Then open the URL `http://localhost:8000`.
 
 ---
 
-## Load Media
+### 2. Load Media
 
 Click **Open Media Folder** and choose a folder containing either one local video or a flat image sequence. Media stays on your computer and is loaded with browser object URLs.
 
@@ -44,10 +56,7 @@ If a folder has multiple videos, the app uses a compatible project JSON to choos
 
 If the folder also contains a compatible annotation JSON, the app loads those annotations automatically. Video JSON is matched by metadata such as `source_filename` or `source_video_path`. Image JSON is matched when `images[].filename` entries match the image files in the selected folder.
 
-
----
-
-## The Project JSON
+#### About the project JSON
 
 Compatible project JSON files are loaded automatically if/when they are in the selected media folder. The exported JSON includes `metadata.source_video_path` for video projects and grouped `images` entries for image projects.
 
@@ -56,7 +65,10 @@ The JSON acts like a project file: choose the media folder that contains both th
 
 ---
 
-## Label Points, Boxes, and Shapes
+### 3. Label Points, Boxes, and Shapes
+
+![easylabeler_screenshot_2.png](images/easylabeler_screenshot_2.png)
+
 
 - The app starts in **Edit mode** when it opens and after loading media, which helps prevent accidental new annotations.
 - **Point mode:** click and release on the media to create a point annotation.
@@ -76,7 +88,7 @@ Press **Z** to undo the most recent annotation change, including accidental poin
 
 ---
 
-## Timeline Controls
+### 4. Interface Controls
 
 - **Frame:** type a frame number and press Enter, or leave the field, to jump to that frame.
 - The progress bar under the media shows the current frame position across the loaded video or image sequence.
@@ -90,19 +102,15 @@ Press **Z** to undo the most recent annotation change, including accidental poin
 - For videos, the app tracks the requested frame number directly and seeks to the middle of that frame's time span. For image folders, each image is one frame. The FPS value is stored in exported project JSON.
 - Annotation mode and clear-frame controls are disabled during playback.
 
+#### Onion-Skinning
 
----
-
-## Onion-Skinning
-
-Enable **Onion skin** to show annotations from the previous frame as a faint reference.
-
-Onion-skin annotations are visual references only. They are not included in the current frame annotation list unless they actually belong to the current frame.
+* Enable **Onion skin** to show annotations from the previous frame as a faint reference.
+* Onion-skin annotations are visual references only. They are not included in the current frame annotation list unless they actually belong to the current frame.
 
 
 ---
 
-## Export JSON
+### 5. Export JSON
 
 Click **Export JSON** to download an annotation/project JSON file.
 
@@ -128,7 +136,7 @@ Video projects use a flat annotation list:
 }
 ```
 
-Image-folder projects group annotations by image:
+Image-folder projects have annotations grouped by image:
 
 ```json
 {
@@ -186,7 +194,7 @@ Annotations on video content include `time`. Image-batch annotations do not incl
 
 ---
 
-## Render Point Overlays
+## Validation Test: Render Point Overlays
 
 For a visual timing check, `test/render_point_overlays.py` loads a video and annotation JSON, draws circles for `point` annotations, and exports annotated PNG frames.
 
@@ -221,17 +229,17 @@ By default, it reads `media/video/piles_test/piles_test.mp4` and `media/video/pi
 
 ---
 
-## Code Layout
+
+## About the Code
+
+### Code Layout
 
 - `index.html` defines the static controls and media/canvas stack.
 - `style.css` handles the compact app layout, overlay cursor, progress bar, and annotation controls.
 - `app.js` owns all browser behavior: media loading, frame stepping, coordinate conversion, drawing, editing, import/export, and keyboard shortcuts.
 - `test/render_point_overlays.py` is an optional test helper for checking point annotations against decoded video frames.
 
-
----
-
-## Notes for Agents
+### Implementation Notes
 
 - This is intentionally a no-build, local-first app. Avoid adding a framework, backend, bundler, cloud dependency, or package manager unless the user explicitly changes that constraint.
 - Main UI files are `index.html`, `style.css`, and `app.js`. The Python code in `test/` is only for verification exports and should not be required to run the browser annotator.

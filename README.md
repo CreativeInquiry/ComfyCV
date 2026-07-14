@@ -1,15 +1,15 @@
 # Computer Vision in ComfyUI
 
-Contents: 
+**Contents:**
 
-* EasyLabeler
-* EasyTrain (YOLO)
-* Additional ComfyUI Workflows for Computer Vision
-  * Locate Anything
-  * Segment Anything
-  * Vision Suite for Humans & Quadrupeds
-  * DAAM Concept Activation Heatmaps
-  * DINOv3 Image Similarity Heatmaps
+* [EasyLabeler](#easylabeler)
+* [EasyTrain (YOLO)](#easytrain-yolo)
+* [Additional ComfyUI Workflows for Computer Vision](#additional-comfyui-workflows-for-computer-vision)
+  * [Locate Anything](#locate-anything)
+  * [Segment Anything](#segment-anything)
+  * [Vision Suite for Humans & Quadrupeds](#vision-suite-for-humans--quadrupeds)
+  * [DAAM Concept Activation Heatmaps](#daam-concept-activation-heatmaps)
+  * [DINOv3 Image Similarity Heatmaps](#dinov3-image-similarity-heatmaps)
 
 
 
