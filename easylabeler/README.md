@@ -1,8 +1,9 @@
 # EasyLabeler
 
-**EasyLabeler** is a simple media annotator: a small local-first web app for labeling points, bounding boxes, and closed shapes on short `.mp4` videos or folders of images. You can use its annotation files with the [EasyTrain](../easytrain-yolo/README.md) system in order to train a custom detector.
+**EasyLabeler** is a simple media annotator: a small local-first web app for labeling points, bounding boxes, and closed shapes on short `.mp4` videos or folders of images. You can use its annotation files with the [EasyTrain](../easytrain-yolo/README.md) system in order to train a custom detector. EasyLabeler and EasyTrain may be useful for making detectors when the thing you wish to detect is not easy to describe in words.
 
 EasyLabeler uses plain HTML, CSS, and JavaScript, and produces JSON annotation files. It has no backend, build system, cloud services, or external dependencies.
+
 
 ![easylabeler_screenshot.png](images/easylabeler_screenshot.png)
 
@@ -16,7 +17,7 @@ EasyLabeler uses plain HTML, CSS, and JavaScript, and produces JSON annotation f
  5. [Export JSON](#5-export-json)
 * [Validation Test: Render Point Overlays](#validation-test-render-point-overlays)
 * [Known Limitations](#known-limitations)
-* [About the Code](#about-the-code)
+* **About the Code**
  * [Code Layout](#code-layout)
  * [Implementation Notes](#implementation-notes)
 

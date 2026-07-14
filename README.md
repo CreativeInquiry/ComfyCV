@@ -4,7 +4,7 @@
 
 * [EasyLabeler](#easylabeler)
 * [EasyTrain (YOLO)](#easytrain-yolo)
-* [Additional ComfyUI Workflows for Computer Vision](#additional-comfyui-workflows-for-computer-vision)
+* [**Additional ComfyUI Workflows for Computer Vision**](#additional-comfyui-workflows-for-computer-vision)
   * [Locate Anything](#locate-anything)
   * [Segment Anything](#segment-anything)
   * [Vision Suite for Humans & Quadrupeds](#vision-suite-for-humans--quadrupeds)
@@ -12,27 +12,25 @@
   * [DINOv3 Image Similarity Heatmaps](#dinov3-image-similarity-heatmaps)
 
 
-
 ---
 
 ## EasyLabeler
 
-**EasyLabeler** is a utility for labeling `.mp4` videos or folders of images with points, bounding boxes, and closed polygonal shapes. It works entirely locally; uses plain HTML, CSS, and JavaScript; and produces JSON annotation files.
+[**EasyLabeler**](easylabeler/README.md) is a browser-based utility for annotating videos or image collections with points, bounding boxes, and closed polygonal shapes. It works entirely locally; uses plain HTML, CSS, and JavaScript; and produces JSON annotation files. 
 
-![easylabeler_screenshot.png](easylabeler/images/easylabeler_screenshot.png)
+Datasets annotated with EasyLabeler can be used to train custom detectors with [EasyTrain](easytrain-yolo/README.md) (see below). EasyLabeler and EasyTrain can be useful when the thing you wish to detect is not easy to describe in words.
+
+[![easylabeler_screenshot.png](easylabeler/images/easylabeler_screenshot.png)](easylabeler/README.md)
 
 
 --- 
 
 ## EasyTrain (YOLO)
 
-*A command-line tool to train lightweight detectors for custom phenomena*
+[**`easytrain-yolo`**](easytrain-yolo/README.md) is a command-line tool for custom-training an Ultralytics YOLO computer vision model, in order to recognize and locate objects in images and video. In order to train the detector, [EasyTrain](easytrain-yolo/README.md) consumes annotations created with [EasyLabeler](https://github.com/CreativeInquiry/ComfyCV/tree/main/easylabeler) (see above). EasyTrain [includes a ComfyUI workflow](easytrain-yolo/#6-use-your-model-in-comfyui) that demonstrates the end-to-end use of the comfyui-ultralytics-yolo node with a custom-trained easytrain-yolo model.
 
-This page describes a process for custom-training a YOLO computer vision model, in order to recognize and locate objects in images and video. 
+[![piles_test_with_yolo_inference.gif](easytrain-yolo/images/piles_test_with_yolo_inference_cropped.gif)](easytrain-yolo/README.md)
 
-`easytrain-yolo` is a local command-line tool that trains a YOLO detector from [EasyLabeler](https://github.com/CreativeInquiry/ComfyCV/tree/main/easylabeler) annotations. It converts EasyLabeler JSON annotations into an Ultralytics YOLO dataset; trains a model; and then packages the resulting `.pt` model for ComfyUI-YOLO. You can then use this model in ComfyUI. Note that training is performed *locally* on your own computer, so some installation is required. As few as 50–200 labeled examples can be enough to build a reliable detector for a custom phenomenon.
-
-![piles_test_with_yolo_inference.gif](easytrain-yolo/images/piles_test_with_yolo_inference_cropped.gif)
 
 ---
 
