@@ -6,7 +6,7 @@ This workflow expands [Segment Anything](../segment_anything/README.md) with cus
 
 * [sam3_with_tracks_export_workflow.json](workflow/sam3_with_tracks_export_workflow.json) (workflow)
 * [sam3_with_tracks_export_workflowimg.png](workflow/sam3_with_tracks_export_workflowimg.png) ("workflow image")
-* [bee.mp4]() (sample media, 770kb)
+* [bee.mp4](workflow/bee.mp4) (sample media, 770kb)
 
 [![sam3_with_tracks_export_workflowimg.png](workflow/sam3_with_tracks_export_workflowimg.png)](workflow/sam3_with_tracks_export_workflowimg.png)
 
