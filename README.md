@@ -1,6 +1,6 @@
 # EasyVision & ComfyCV
 
-*This is a collection of pedagogic computer vision tools and resources developed by Prof. [Golan Levin](https://github.com/golanlevin) and student research assistants, [Claire Vlases](https://github.com/cvlases) and [Lorie Chen](https://github.com/ylchen333). This work was developed at the Frank-Ratchye STUDIO for Creative Inquiry in June-July 2026 with support from the AI Toolmaking Residency of the Carnegie Mellon University College of Fine Arts.*
+*This is a collection of pedagogic computer vision tools and resources developed by Prof. [Golan Levin](https://github.com/golanlevin) and student research assistants, [Claire Vlases](https://github.com/cvlases) and [Lorie Chen](https://github.com/ylchen333). This work was developed as part of the Summer 2026 CFA GenAI Toolmaking for the Arts Residency at Carnegie Mellon University, supported by the College of Fine Arts and the Frank-Ratchye STUDIO for Creative Inquiry.*
 
 ---
 
@@ -108,7 +108,7 @@ This [ComfyUI workflow](comfyui_workflows/segment_anything_to_contours/README.md
 
 ### DAAM Concept Activation Heatmaps
 
-[This set of ComfyUI workflows](comfyui_workflows/daam_heatmaps/README.md) provide **heatmaps** that show which parts of an image correspond to specific words in a prompt, as measured by activations in a Stable Diffusion model. This can be even be used for adjectives like "angry" and "bald". 
+[This set of ComfyUI workflows](comfyui_workflows/daam_heatmaps/README.md) provide heatmaps that show which parts of an image correspond to specific words in a prompt, as measured by activations in a Stable Diffusion model. This can be even be used for adjectives like "angry" and "bald". 
 
 [![daam_example](comfyui_workflows/daam_heatmaps/images/daam_example.jpg)](comfyui_workflows/daam_heatmaps/README.md)
 
