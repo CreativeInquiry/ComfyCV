@@ -1,8 +1,8 @@
 # EasyTrack Viewer
 
-<img src="images/easytrack_p5.gif" width="300">
+![images/easytrack_p5.gif](images/easytrack_p5.gif)
 
-[This p5.js utility](p5_easytrack_viewer/) loads and previews JSON files produced by other EasyTracking apps. Additionally, it can convert your JSON data into formats for AfterEffects, Blender, and Maya. 
+[This p5.js utility](p5_easytrack_viewer/) loads and previews JSON files produced by other EasyTracking apps. Additionally, it can convert your JSON data into formats useful within AfterEffects, Blender, and Maya, as well as CSV, SVG, and GIF. 
 
 To run the program, it needs to be served from a local web server, because the sketch loads local files. To run it locally on a Mac:
 
@@ -20,7 +20,7 @@ To run the program, it needs to be served from a local web server, because the s
 ---
 
 
-## In After Effects 
+## Using this in Adobe After Effects 
 
 Load the exported file (e.g. `bouncing_aftereffects_202606240226.jsx`) into After Effects with: 
 

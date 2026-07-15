@@ -39,6 +39,8 @@
     addExportButton(parentElement, "Save as AfterEffects JSX", () => saveAfterEffectsJsx(getSequence(), currentFilters(getFilters)));
     addExportButton(parentElement, "Save as Blender Python", () => saveBlenderPython(getSequence(), currentFilters(getFilters)));
     addExportButton(parentElement, "Save as Maya Python", () => saveMayaPython(getSequence(), currentFilters(getFilters)));
+    addExportButton(parentElement, "Save Layered SVG", () => saveLayeredSvg(getSequence(), currentFilters(getFilters)));
+    addExportButton(parentElement, "Save as CSV", () => saveCsv(getSequence(), currentFilters(getFilters)));
   }
 
   /**
@@ -100,6 +102,34 @@
   }
 
   /**
+   * Exports one SVG file with one Inkscape layer per JSON frame.
+   *
+   * @param {?object} sequence Normalized tracking sequence.
+   * @param {object} filters Current layer filter state.
+   */
+  function saveLayeredSvg(sequence, filters) {
+    if (!hasExportableFrames(sequence)) {
+      return;
+    }
+
+    downloadTextFile(exportFilename(sequence, "layered_svg", "svg"), buildLayeredSvg(buildExportData(sequence, filters)));
+  }
+
+  /**
+   * Exports one tabular row per visible detection per frame.
+   *
+   * @param {?object} sequence Normalized tracking sequence.
+   * @param {object} filters Current layer filter state.
+   */
+  function saveCsv(sequence, filters) {
+    if (!hasExportableFrames(sequence)) {
+      return;
+    }
+
+    downloadTextFile(exportFilename(sequence, "csv", "csv"), buildCsv(sequence, filters));
+  }
+
+  /**
    * Checks whether a sequence has frames available for export.
    *
    * @param {?object} sequence Normalized tracking sequence.
@@ -130,18 +160,23 @@
   /**
    * Maps viewer checkbox keys to exporter-supported layer keys.
    *
-   * RLE masks, RLE contours, and track points are displayed in p5 but are not
-   * currently represented by the AE/Blender/Maya exporters.
+   * RLE masks/contours are represented in CSV, and RLE contours are represented
+   * in layered SVG. Track points are displayed in p5 but are not currently
+   * represented by exporters.
    *
    * @param {?object} filters Raw viewer filter map.
-   * @returns {{boxes:boolean, labels:boolean, points:boolean, contours:boolean}}
+   * @returns {{masks:boolean, boxes:boolean, labels:boolean, points:boolean, contours:boolean, rleContours:boolean, frameCounter:boolean, legend:boolean}}
    */
   function normalizeExportFilters(filters) {
     return {
+      masks: !filters || filters.masks !== false,
       boxes: !filters || filters.boxes !== false,
       labels: !filters || filters.labels !== false,
       points: !filters || filters.points !== false,
       contours: !filters || filters.contours !== false,
+      rleContours: !filters || filters.rleContours !== false,
+      frameCounter: !filters || filters.frameCounter !== false,
+      legend: !filters || filters.legend !== false,
     };
   }
 
@@ -191,6 +226,7 @@
             : null,
           point: include.points && detection.point ? [roundForExport(detection.point[0]), roundForExport(detection.point[1])] : null,
           contours,
+          rleSegments: include.rleContours ? rleSegmentsForDetection(detection) : [],
           score: Number.isFinite(detection.score) ? roundForExport(detection.score) : null,
           area: Number.isFinite(detection.area) ? roundForExport(detection.area) : null,
           visible: detection.visible !== false,
@@ -209,6 +245,287 @@
       frameCount: sequence.frames.length,
       tracks: Array.from(tracks.values()),
     };
+  }
+
+  /**
+   * Builds a CSV table with one row per visible detection per frame.
+   *
+   * RLE fields are deliberately the final columns so the tabular metadata stays
+   * easy to scan while the long contour strings sit at the far right.
+   *
+   * @param {object} sequence Normalized tracking sequence.
+   * @param {object} filters Current layer filter state.
+   * @returns {string}
+   */
+  function buildCsv(sequence, filters) {
+    const include = normalizeExportFilters(filters);
+    const rows = [[
+      "frame",
+      "id",
+      "label",
+      "visible",
+      "score",
+      "area",
+      "centroid_x",
+      "centroid_y",
+      "bbox_x",
+      "bbox_y",
+      "bbox_w",
+      "bbox_h",
+      "simplified_contours_json",
+      "rle_height",
+      "rle_width",
+      "rle_counts",
+    ]];
+
+    for (let frameIndex = 0; frameIndex < sequence.frames.length; frameIndex += 1) {
+      for (const detection of sequence.frames[frameIndex]) {
+        if (detection.visible === false) {
+          continue;
+        }
+        const point = include.points && detection.point ? detection.point : null;
+        const bbox = include.boxes && detection.bbox ? detection.bbox : null;
+        const simplifiedContours = include.contours
+          ? detection.contours
+              .filter((contour) => contour.length > 1)
+              .map((contour) => contour.map((point) => [roundForExport(point[0]), roundForExport(point[1])]))
+          : [];
+        const rle = include.masks || include.rleContours ? detection.rle : null;
+
+        rows.push([
+          frameIndex,
+          detection.id,
+          include.labels ? detection.label : "",
+          detection.visible !== false,
+          Number.isFinite(detection.score) ? roundForExport(detection.score) : "",
+          Number.isFinite(detection.area) ? roundForExport(detection.area) : "",
+          point ? roundForExport(point[0]) : "",
+          point ? roundForExport(point[1]) : "",
+          bbox ? roundForExport(bbox.x) : "",
+          bbox ? roundForExport(bbox.y) : "",
+          bbox ? roundForExport(bbox.w) : "",
+          bbox ? roundForExport(bbox.h) : "",
+          simplifiedContours.length ? JSON.stringify(simplifiedContours) : "",
+          rle ? rle.height : "",
+          rle ? rle.width : "",
+          rle ? rleCountsString(rle.counts) : "",
+        ]);
+      }
+    }
+
+    return rows.map((row) => row.map(csvCell).join(",")).join("\n") + "\n";
+  }
+
+  /**
+   * Builds an Inkscape-friendly SVG with one layer per frame.
+   *
+   * The legend is document-level metadata/annotation and is emitted once, not
+   * inside every frame layer.
+   *
+   * @param {object} data Export payload from buildExportData().
+   * @returns {string}
+   */
+  function buildLayeredSvg(data) {
+    const lines = [
+      '<?xml version="1.0" encoding="UTF-8"?>',
+      `<svg xmlns="http://www.w3.org/2000/svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="${numberAttr(data.width)}" height="${numberAttr(data.height)}" viewBox="0 0 ${numberAttr(data.width)} ${numberAttr(data.height)}">`,
+      "  <title>EasyTrack layered SVG</title>",
+      `  <desc>Source: ${escapeXml(data.sourceFileName || data.sourceBaseName || "unknown")} | Frames: ${data.frameCount} | FPS: ${numberAttr(data.fps)}</desc>`,
+    ];
+
+    if (data.include && data.include.legend) {
+      lines.push(...svgLegendLines(data));
+    }
+
+    const frameLookup = buildFrameLookup(data);
+    for (let frameIndex = 0; frameIndex < data.frameCount; frameIndex += 1) {
+      lines.push(`  <g id="frame_${padFrame(frameIndex + 1, data.frameCount)}" inkscape:groupmode="layer" inkscape:label="frame_${padFrame(frameIndex + 1, data.frameCount)}">`);
+      if (data.include.frameCounter) {
+        lines.push(svgFrameCounterLine(data, frameIndex, (frameLookup[frameIndex] || []).length));
+      }
+      for (const item of frameLookup[frameIndex] || []) {
+        lines.push(...svgDetectionGroupLines(data, item.track, item.frame, frameIndex));
+      }
+      lines.push("  </g>");
+    }
+
+    lines.push("</svg>", "");
+    return lines.join("\n");
+  }
+
+  /**
+   * Builds a per-frame lookup from per-track export data.
+   *
+   * @param {object} data Export payload.
+   * @returns {Array<Array<object>>}
+   */
+  function buildFrameLookup(data) {
+    const frames = Array.from({ length: data.frameCount }, () => []);
+    for (const track of data.tracks) {
+      for (const frame of track.frames) {
+        if (frame.visible && frame.frame >= 0 && frame.frame < frames.length) {
+          frames[frame.frame].push({ track, frame });
+        }
+      }
+    }
+    return frames;
+  }
+
+  /**
+   * Gets RLE contour boundary segments from a normalized detection.
+   *
+   * The viewer owns RLE decoding; this exporter reuses getBoundarySegments()
+   * when it is available, then serializes the result into SVG path data.
+   *
+   * @param {object} detection Normalized detection.
+   * @returns {Array<number[]>}
+   */
+  function rleSegmentsForDetection(detection) {
+    const segments = typeof global.getBoundarySegments === "function"
+      ? global.getBoundarySegments(detection)
+      : detection.boundarySegments;
+    if (!Array.isArray(segments)) {
+      return [];
+    }
+    return segments.map((segment) => segment.map(roundForExport));
+  }
+
+  /**
+   * Builds SVG lines for one object group inside one frame layer.
+   *
+   * @param {object} data Export payload.
+   * @param {object} track Track export data.
+   * @param {object} frame Frame export data.
+   * @param {number} frameIndex Zero-based frame index.
+   * @returns {string[]}
+   */
+  function svgDetectionGroupLines(data, track, frame, frameIndex) {
+    const color = rgbCss(track.color);
+    const groupId = `frame_${padFrame(frameIndex + 1, data.frameCount)}_track_${safeSvgId(track.id)}`;
+    const lines = [
+      `    <g id="${groupId}" data-track-id="${escapeXml(String(track.id))}" data-label="${escapeXml(String(track.label))}">`,
+    ];
+
+    if (data.include.contours) {
+      for (let i = 0; i < frame.contours.length; i += 1) {
+        const path = contourPathData(frame.contours[i]);
+        if (path) {
+          lines.push(`      <path d="${path}" fill="none" stroke="${color}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" data-kind="simplified_contour" data-contour-index="${i}"/>`);
+        }
+      }
+    }
+
+    if (data.include.rleContours && frame.rleSegments && frame.rleSegments.length) {
+      const path = segmentPathData(frame.rleSegments);
+      if (path) {
+        lines.push(`      <path d="${path}" fill="none" stroke="${color}" stroke-opacity="0.5" stroke-width="1" stroke-linecap="square" data-kind="rle_contour"/>`);
+      }
+    }
+
+    if (data.include.boxes && frame.bbox) {
+      lines.push(`      <rect x="${numberAttr(frame.bbox[0])}" y="${numberAttr(frame.bbox[1])}" width="${numberAttr(frame.bbox[2])}" height="${numberAttr(frame.bbox[3])}" fill="none" stroke="${color}" stroke-width="1.5" stroke-dasharray="7 5" data-kind="bbox"/>`);
+    }
+
+    if (data.include.points && frame.point) {
+      lines.push(`      <circle cx="${numberAttr(frame.point[0])}" cy="${numberAttr(frame.point[1])}" r="4" fill="${color}" fill-opacity="0.9" data-kind="centroid"/>`);
+    }
+
+    if (data.include.labels) {
+      const anchor = labelAnchor(frame);
+      if (anchor) {
+        const label = `${track.label} #${track.id}${formatScore(frame.score)}`;
+        lines.push(`      <text x="${numberAttr(anchor[0] + 3)}" y="${numberAttr(anchor[1])}" fill="${color}" font-family="monospace" font-size="14" data-kind="label">${escapeXml(label)}</text>`);
+      }
+    }
+
+    lines.push("    </g>");
+    return lines;
+  }
+
+  /**
+   * Builds document-level legend lines for source metadata.
+   *
+   * @param {object} data Export payload.
+   * @returns {string[]}
+   */
+  function svgLegendLines(data) {
+    const x = data.width - 20;
+    return [
+      '  <g id="legend" data-kind="legend">',
+      `    <text x="${numberAttr(x)}" y="29" text-anchor="end" fill="#737373" font-family="monospace" font-size="14">${escapeXml(data.sourceFileName || "")}</text>`,
+      `    <text x="${numberAttr(x)}" y="45" text-anchor="end" fill="#737373" font-family="monospace" font-size="14">${numberAttr(data.width)} x ${numberAttr(data.height)}</text>`,
+      "  </g>",
+    ];
+  }
+
+  /**
+   * Builds one per-layer frame counter line.
+   *
+   * @param {object} data Export payload.
+   * @param {number} frameIndex Zero-based frame index.
+   * @param {number} detectionCount Number of visible detections in the frame.
+   * @returns {string}
+   */
+  function svgFrameCounterLine(data, frameIndex, detectionCount) {
+    const label = `frame ${frameIndex + 1}/${data.frameCount}  objects ${detectionCount}`;
+    return `    <text x="20" y="29" fill="#d8d8d8" font-family="monospace" font-size="14" data-kind="frame_counter">${escapeXml(label)}</text>`;
+  }
+
+  /**
+   * Converts a contour point array to SVG path data.
+   *
+   * @param {Array<number[]>} contour Contour points.
+   * @returns {string}
+   */
+  function contourPathData(contour) {
+    if (!Array.isArray(contour) || contour.length < 2) {
+      return "";
+    }
+    const commands = [`M ${numberAttr(contour[0][0])} ${numberAttr(contour[0][1])}`];
+    for (let i = 1; i < contour.length; i += 1) {
+      commands.push(`L ${numberAttr(contour[i][0])} ${numberAttr(contour[i][1])}`);
+    }
+    commands.push("Z");
+    return commands.join(" ");
+  }
+
+  /**
+   * Converts boundary line segments to one SVG path.
+   *
+   * @param {Array<number[]>} segments Boundary segments as [x1, y1, x2, y2].
+   * @returns {string}
+   */
+  function segmentPathData(segments) {
+    return segments
+      .map((segment) => `M ${numberAttr(segment[0])} ${numberAttr(segment[1])} L ${numberAttr(segment[2])} ${numberAttr(segment[3])}`)
+      .join(" ");
+  }
+
+  /**
+   * Finds a reasonable label anchor for SVG text.
+   *
+   * @param {object} frame Frame export data.
+   * @returns {?number[]}
+   */
+  function labelAnchor(frame) {
+    if (frame.bbox) {
+      return [frame.bbox[0], Math.max(16, frame.bbox[1] - 7)];
+    }
+    if (frame.point) {
+      return [frame.point[0] + 10, frame.point[1] - 10];
+    }
+    const firstContour = frame.contours && frame.contours[0];
+    return firstContour && firstContour[0] ? firstContour[0] : null;
+  }
+
+  /**
+   * Formats a score suffix for labels.
+   *
+   * @param {?number} score Detection score.
+   * @returns {string}
+   */
+  function formatScore(score) {
+    return Number.isFinite(score) ? ` ${roundForExport(score)}` : "";
   }
 
   /**
@@ -937,6 +1254,90 @@ def import_easytrack(data):
   }
 
   /**
+   * Escapes one CSV cell.
+   *
+   * @param {*} value Cell value.
+   * @returns {string}
+   */
+  function csvCell(value) {
+    const text = String(value ?? "");
+    return /[",\n\r]/.test(text) ? `"${text.replace(/"/g, '""')}"` : text;
+  }
+
+  /**
+   * Converts RLE counts into a CSV-friendly string.
+   *
+   * Compressed RLE strings are preserved. Uncompressed numeric counts are joined
+   * into a space-delimited string so the CSV still has a single RLE cell.
+   *
+   * @param {string|number[]} counts RLE counts.
+   * @returns {string}
+   */
+  function rleCountsString(counts) {
+    if (Array.isArray(counts)) {
+      return counts.join(" ");
+    }
+    return counts == null ? "" : String(counts);
+  }
+
+  /**
+   * Escapes text for XML attributes and text nodes.
+   *
+   * @param {string} value Raw text.
+   * @returns {string}
+   */
+  function escapeXml(value) {
+    return String(value)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&apos;");
+  }
+
+  /**
+   * Converts an RGB triplet to a CSS rgb() color.
+   *
+   * @param {number[]} color RGB color triplet.
+   * @returns {string}
+   */
+  function rgbCss(color) {
+    return `rgb(${color[0]},${color[1]},${color[2]})`;
+  }
+
+  /**
+   * Formats an SVG numeric attribute compactly.
+   *
+   * @param {number} value Raw value.
+   * @returns {string}
+   */
+  function numberAttr(value) {
+    return String(roundForExport(Number(value) || 0));
+  }
+
+  /**
+   * Pads a 1-based frame number based on total frame count.
+   *
+   * @param {number} frameNumber One-based frame number.
+   * @param {number} frameCount Total frame count.
+   * @returns {string}
+   */
+  function padFrame(frameNumber, frameCount) {
+    return String(frameNumber).padStart(String(frameCount).length, "0");
+  }
+
+  /**
+   * Converts arbitrary track IDs into SVG-id-safe suffixes.
+   *
+   * @param {number|string} value Raw ID.
+   * @returns {string}
+   */
+  function safeSvgId(value) {
+    const text = sanitizeFilenameBase(value);
+    return text || `id_${Math.abs(hashString(String(value)))}`;
+  }
+
+  /**
    * Rounds exported numeric values to keep generated scripts reasonably small.
    *
    * @param {number} value Raw numeric value.
@@ -1049,6 +1450,8 @@ def import_easytrack(data):
   global.EasyTrackExporter = {
     createControls,
     buildExportData,
+    buildCsv,
+    buildLayeredSvg,
     buildAfterEffectsJsx,
     buildBlenderPython,
     buildMayaPython,

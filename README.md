@@ -1,6 +1,6 @@
 # Computer Vision in ComfyUI
 
-*Pedagogic computer vision resources prepared by Prof. [Golan Levin](https://github.com/golanlevin) and student research assistants, [Claire Vlases](https://github.com/cvlases) and [Lorie Chen](https://github.com/ylchen333). Developed at the Frank-Ratchye STUDIO for Creative Inquiry in June-July 2026 with support from the AI Toolmaking Residency of the CMU College of Fine Arts.*
+*Pedagogic computer vision resources developed by Prof. [Golan Levin](https://github.com/golanlevin) and student research assistants, [Claire Vlases](https://github.com/cvlases) and [Lorie Chen](https://github.com/ylchen333). Developed at the Frank-Ratchye STUDIO for Creative Inquiry in June-July 2026 with support from the AI Toolmaking Residency of the Carnegie Mellon University College of Fine Arts.*
 
 ---
 
@@ -11,6 +11,7 @@
 * [**Additional ComfyUI Workflows for Computer Vision**](#additional-comfyui-workflows-for-computer-vision)
   * [Locate Anything](#locate-anything)
   * [Segment Anything](#segment-anything)
+  * [Segment Anything to Contours](#segment-anything-to-contours)
   * [Vision Suite for Humans & Quadrupeds](#vision-suite-for-humans--quadrupeds)
   * [DAAM Concept Activation Heatmaps](#daam-concept-activation-heatmaps)
   * [DINOv3 Image Similarity Heatmaps](#dinov3-image-similarity-heatmaps)
@@ -47,7 +48,7 @@ In addition to the *Easy* suite of tools and workflows for computer vision, we a
 
 ### Locate Anything
 
-[A ComfyUI workflow](comfyui_workflows/locate_anything/README.md) for nVidia's *LocateAnything* model, which uses text prompts to perform precise object localization, dense detection, and point-based localization across a wide range of domains.
+[A ComfyUI workflow](comfyui_workflows/locate_anything/README.md) for nVidia's *LocateAnything* powerful model, which uses text prompts to perform precise object localization, dense detection, and point-based localization across a wide range of domains.
 
 [![locate_anything_people_droplets_ants.png](comfyui_workflows/locate_anything/images/locate_anything_people_droplets_ants2.png)](comfyui_workflows/locate_anything/README.md)
 
@@ -63,6 +64,18 @@ This [set of ComfyUI workflows](comfyui_workflows/segment_anything/README.md) de
 
 ![sam3.1_image_workflowimg.png](comfyui_workflows/segment_anything/workflows/sam3.1_image_workflow/sam3.1_image_workflowimg.png)
 
+
+---
+
+### Segment Anything to Contours
+
+This [ComfyUI workflow](comfyui_workflows/segment_anything_to_contours/README.md) extends Segment Anything with custom nodes that allow you to export sequences of vector-based contours of tracked objects.
+
+![bee_video_and_contours.gif](comfyui_workflows/segment_anything_to_contours/bee_video_and_contours.gif)
+
+![sam3_with_tracks_export_workflowimg.png](comfyui_workflows/segment_anything_to_contours/workflow/sam3_with_tracks_export_workflowimg.png)
+
+
 ---
 
 ### Vision Suite for Humans & Quadrupeds
@@ -70,6 +83,8 @@ This [set of ComfyUI workflows](comfyui_workflows/segment_anything/README.md) de
 [A ComfyUI workflow](comfyui_workflows/human_cv/README.md) that demonstrates the use of a variety of analyses of media containing **people**, including (among others): segmentation of the body from the background; monocular depth estimation; scene segmentation; normal map estimation; and pose estimation of the body, face, and hands. 
 
 [![humancv_results](comfyui_workflows/human_cv/images/humancv_results_wide.jpg)](comfyui_workflows/human_cv/README.md)
+
+![humancv_workflow_runcomfy_horiz.png](comfyui_workflows/human_cv/humancv_workflow_runcomfy_horiz.png)
 
 [A ComfyUI workflow](comfyui_workflows/quadruped_cv/README.md) that computes similar analyses of media featuring quadruped **animals**:
 

@@ -26,6 +26,14 @@ canvas {
   gap: 5px;
 }
 
+.controls-section--actions {
+  gap: 5px;
+}
+
+.controls-section--usage {
+  max-width: 250px;
+}
+
 .layer-controls__title {
   font-size: 13px;
   font-weight: 700;
@@ -45,9 +53,15 @@ canvas {
 .export-button {
   cursor: pointer;
   font: inherit;
-  padding: 6px 10px;
+  padding: 4px 9px;
 }
 
 .json-file-input {
   display: none;
+}
+
+.usage-notes {
+  color: #4f4f4f;
+  font-size: 12px;
+  line-height: 1.35;
 }

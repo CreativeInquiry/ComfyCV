@@ -12,6 +12,8 @@ const DEFAULT_SOURCE_HEIGHT = 540;
 const MAX_DISPLAY_DIMENSION = 1280;
 let sourceFileName = DEFAULT_INPUT_FILENAME;
 let displayScale = 1;
+let gifCapture = null;
+let gifButton = null;
 
 // Each layer key maps to a p5 DOM checkbox. The same keys gate drawing in drawDetection().
 const layerDefinitions = [
@@ -23,6 +25,7 @@ const layerDefinitions = [
   ["points", "Centroid points"],
   ["trackPoints", "Track points"],
   ["frameCounter", "Frame counter"],
+  ["legend", "Legend"],
 ];
 
 const palette = [
@@ -75,7 +78,9 @@ function setup() {
  */
 function draw() {
   background(0);
-  drawSourceFilename();
+  if (layerEnabled("legend")) {
+    drawSourceFilename();
+  }
 
   if (loadError) {
     drawStatus(loadError);
@@ -100,6 +105,8 @@ function draw() {
   if (layerEnabled("frameCounter")) {
     drawOverlay(frameIndex, detections.length);
   }
+
+  advanceGifCaptureFrame();
 }
 
 /**
@@ -137,6 +144,9 @@ function createLayerControls() {
   if (window.EasyTrackExporter) {
     window.EasyTrackExporter.createControls(actionSection, () => sequence, getLayerExportFilters);
   }
+
+  createGifExportControl(actionSection);
+  createUsageSection(panel);
 }
 
 /**
@@ -170,6 +180,99 @@ function createImportControls(parent) {
   parent.elt.appendChild(input);
 
   button.mousePressed(() => input.click());
+}
+
+/**
+ * Builds the p5 canvas GIF export button.
+ *
+ * @param {object} parent p5.Element that should contain the GIF control.
+ */
+function createGifExportControl(parent) {
+  gifButton = createButton("Save as GIF");
+  gifButton.class("export-button");
+  gifButton.parent(parent);
+  gifButton.mousePressed(saveCanvasGif);
+}
+
+/**
+ * Adds compact usage notes to the controls area.
+ *
+ * @param {object} parent p5.Element that should contain the usage notes.
+ */
+function createUsageSection(parent) {
+  const section = createDiv();
+  section.class("controls-section controls-section--usage");
+  section.parent(parent);
+
+  const title = createDiv("Usage");
+  title.class("layer-controls__title");
+  title.parent(section);
+
+  const notes = createDiv();
+  notes.class("usage-notes");
+  notes.html([
+    "Launch local server using:",
+    "`python3 -m http.server 8000`",
+    "Then visit: http://127.0.0.1:8000/",
+    "Filters control canvas view and exports.",
+    "Space pauses; step with L/R arrow keys.",
+  ].join("<br>"));
+  notes.parent(section);
+}
+
+/**
+ * Restarts playback and captures one rendered source frame per GIF frame.
+ *
+ * During GIF export, getPlaybackFrameIndex() reads gifCapture.frameIndex rather
+ * than wall-clock time. That avoids duplicate JSON frames when GIF encoding is
+ * slower than the source FPS.
+ */
+function saveCanvasGif() {
+  if (!sequence || !sequence.frames.length || typeof saveGif !== "function") {
+    console.warn("p5 saveGif() is not available.");
+    return;
+  }
+
+  const fps = positiveNumber(sequence.fps, 24);
+  const capture = {
+    fps,
+    frameCount: sequence.frames.length,
+    frameIndex: 0,
+    wasPaused: isPaused,
+    previousPausedFrameIndex: pausedFrameIndex,
+    previousStartedAt: startedAt,
+  };
+
+  // Stop the live animation before enabling gifCapture. This prevents a queued
+  // normal draw from consuming frame 0 before saveGif() starts its own redraw
+  // loop.
+  noLoop();
+  setTimeout(() => startGifCapture(capture), 0);
+}
+
+/**
+ * Starts p5's GIF capture loop after normal playback has been stopped.
+ *
+ * @param {object} capture GIF capture state.
+ */
+function startGifCapture(capture) {
+  gifCapture = capture;
+
+  frameRate(capture.fps);
+  pausedFrameIndex = 0;
+  isPaused = false;
+  if (gifButton) {
+    gifButton.attribute("disabled", "disabled");
+    gifButton.html("Saving GIF...");
+  }
+
+  Promise.resolve(saveGif(gifExportFilename(), gifCapture.frameCount, {
+    delay: 0,
+    units: "frames",
+    silent: false,
+  }))
+    .catch((error) => console.error(error))
+    .finally(() => finishGifCapture(capture));
 }
 
 /**
@@ -296,9 +399,9 @@ function keyPressed() {
 /**
  * Computes the frame index currently shown by the animation.
  *
- * When playback is paused this returns the stored paused frame. When playing it
- * derives frame index from elapsed wall-clock time so animation rate follows the
- * source FPS rather than p5's actual render cadence.
+ * GIF capture is frame-indexed so every captured GIF frame maps to exactly one
+ * JSON frame. Normal playback derives frame index from elapsed wall-clock time
+ * so animation rate follows the source FPS rather than p5's render cadence.
  *
  * @returns {number}
  */
@@ -306,12 +409,47 @@ function getPlaybackFrameIndex() {
   if (!sequence || !sequence.frames.length) {
     return 0;
   }
+  if (gifCapture) {
+    return min(sequence.frames.length - 1, gifCapture.frameIndex);
+  }
   if (isPaused) {
     return pausedFrameIndex % sequence.frames.length;
   }
 
   const fps = positiveNumber(sequence.fps, 24);
   return floor(((millis() - startedAt) / 1000) * fps) % sequence.frames.length;
+}
+
+/**
+ * Advances deterministic GIF capture by one source frame after each draw.
+ */
+function advanceGifCaptureFrame() {
+  if (!gifCapture) {
+    return;
+  }
+
+  gifCapture.frameIndex = min(gifCapture.frameIndex + 1, gifCapture.frameCount);
+}
+
+/**
+ * Restores normal playback state after saveGif() has finished capturing.
+ *
+ * @param {object} capture GIF capture state to restore from.
+ */
+function finishGifCapture(capture) {
+  if (gifCapture !== capture) {
+    return;
+  }
+  gifCapture = null;
+  isPaused = capture.wasPaused;
+  pausedFrameIndex = capture.previousPausedFrameIndex;
+  startedAt = capture.wasPaused ? capture.previousStartedAt : millis();
+  frameRate(positiveNumber(sequence && sequence.fps, capture.fps));
+
+  if (gifButton) {
+    gifButton.elt.removeAttribute("disabled");
+    gifButton.html("Save as GIF");
+  }
 }
 
 /**
@@ -1323,6 +1461,54 @@ function hashString(value) {
 function baseNameWithoutExtension(filename) {
   const name = String(filename || DEFAULT_INPUT_FILENAME).split(/[\\/]/).pop();
   return name.replace(/\.[^/.\\]+$/, "") || "input";
+}
+
+/**
+ * Builds a GIF export filename using the current JSON source name.
+ *
+ * @returns {string}
+ */
+function gifExportFilename() {
+  return `${sanitizeFilenameBase(baseNameWithoutExtension(sourceFileName))}_gif_${timestampForFilename(new Date())}.gif`;
+}
+
+/**
+ * Converts arbitrary source names into safe export filename prefixes.
+ *
+ * @param {string} value Raw filename base.
+ * @returns {string}
+ */
+function sanitizeFilenameBase(value) {
+  return String(value)
+    .trim()
+    .replace(/[^A-Za-z0-9._-]+/g, "_")
+    .replace(/^_+|_+$/g, "") || "input";
+}
+
+/**
+ * Formats a local timestamp as YYYYMMDDHHMM for export filenames.
+ *
+ * @param {Date} date Timestamp to format.
+ * @returns {string}
+ */
+function timestampForFilename(date) {
+  return [
+    date.getFullYear(),
+    pad2(date.getMonth() + 1),
+    pad2(date.getDate()),
+    pad2(date.getHours()),
+    pad2(date.getMinutes()),
+  ].join("");
+}
+
+/**
+ * Pads a number to two digits.
+ *
+ * @param {number} value Number to format.
+ * @returns {string}
+ */
+function pad2(value) {
+  return String(value).padStart(2, "0");
 }
 
 /**
