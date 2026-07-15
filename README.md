@@ -71,7 +71,7 @@ This [set of ComfyUI workflows](comfyui_workflows/segment_anything/README.md) de
 
 This [ComfyUI workflow](comfyui_workflows/segment_anything_to_contours/README.md) extends Segment Anything with custom nodes that allow you to export sequences of vector-based contours of tracked objects.
 
-![bee_video_and_contours.gif](comfyui_workflows/segment_anything_to_contours/bee_video_and_contours.gif)
+![bee_video_and_contours.gif](comfyui_workflows/segment_anything_to_contours/images/bee_video_and_contours.gif)
 
 ![sam3_with_tracks_export_workflowimg.png](comfyui_workflows/segment_anything_to_contours/workflow/sam3_with_tracks_export_workflowimg.png)
 

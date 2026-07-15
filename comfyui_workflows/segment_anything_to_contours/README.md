@@ -1,6 +1,6 @@
 # Segment-Anything to Contours
 
-![bee_video_and_contours.gif](bee_video_and_contours.gif)
+![bee_video_and_contours.gif](images/bee_video_and_contours.gif)
 
 This workflow expands [Segment Anything](../segment_anything/README.md) with custom nodes that allow you to export sequences of **vector-based contours of tracked objects**. The workflow is provided here: 
 
@@ -52,6 +52,8 @@ If for some reason *Install via Git URL* does not work, you can instead do the f
 * **Upload** the unzipped folder
 * **Restart** the ComfyUI server and **refresh** the browser page. 
 
+---
 
+![tracks_bee.png](images/tracks_bee.png)
 
 
