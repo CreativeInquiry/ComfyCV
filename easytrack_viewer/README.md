@@ -20,7 +20,7 @@ To run the program, it needs to be served from a local web server, because the s
 ---
 
 
-## Using this in Adobe After Effects 
+## Using Exported Files in Adobe After Effects 
 
 Load the exported file (e.g. `bouncing_aftereffects_202606240226.jsx`) into After Effects with: 
 

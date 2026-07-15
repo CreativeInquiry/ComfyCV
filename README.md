@@ -1,14 +1,16 @@
-# Computer Vision in ComfyUI
+# EasyVision & ComfyCV
 
-*Pedagogic computer vision resources developed by Prof. [Golan Levin](https://github.com/golanlevin) and student research assistants, [Claire Vlases](https://github.com/cvlases) and [Lorie Chen](https://github.com/ylchen333). Developed at the Frank-Ratchye STUDIO for Creative Inquiry in June-July 2026 with support from the AI Toolmaking Residency of the Carnegie Mellon University College of Fine Arts.*
+*This is a collection of pedagogic computer vision tools and resources developed by Prof. [Golan Levin](https://github.com/golanlevin) and student research assistants, [Claire Vlases](https://github.com/cvlases) and [Lorie Chen](https://github.com/ylchen333). This work was developed at the Frank-Ratchye STUDIO for Creative Inquiry in June-July 2026 with support from the AI Toolmaking Residency of the Carnegie Mellon University College of Fine Arts.*
 
 ---
 
 **Contents:**
 
-* [EasyLabeler](#easylabeler)
-* [EasyTrain (YOLO)](#easytrain-yolo)
-* [**Additional ComfyUI Workflows for Computer Vision**](#additional-comfyui-workflows-for-computer-vision)
+* **EasyVision Software Tools**
+  * [EasyLabeler](#easylabeler)
+  * [EasyTrain (YOLO)](#easytrain-yolo)
+  * [EasyTrack Viewer](#easytrack-viewer)
+* [**Additional ComfyUI Workflows for Computer Vision**](#additional-comfyui-workflows-for-computer-vision)<br/>A collection of workflows for visual detection, localization, segmentation, and analysis. 
   * [Locate Anything](#locate-anything)
   * [Segment Anything](#segment-anything)
   * [Segment Anything to Contours](#segment-anything-to-contours)
@@ -16,10 +18,13 @@
   * [DAAM Concept Activation Heatmaps](#daam-concept-activation-heatmaps)
   * [DINOv3 Image Similarity Heatmaps](#dinov3-image-similarity-heatmaps)
 
+---
+
+## EasyVision Software Tools
 
 ---
 
-## EasyLabeler
+### EasyLabeler
 
 [**EasyLabeler**](easylabeler/README.md) is a browser-based utility for annotating videos or image collections with points, bounding boxes, and closed polygonal shapes. It works entirely locally; uses plain HTML, CSS, and JavaScript; and produces JSON annotation files. 
 
@@ -30,13 +35,21 @@ Datasets annotated with EasyLabeler can be used to train custom detectors with [
 
 --- 
 
-## EasyTrain (YOLO)
+### EasyTrain (YOLO)
 
 [**`easytrain-yolo`**](easytrain-yolo/README.md) is a command-line tool for custom-training an Ultralytics YOLO computer vision model, in order to recognize and locate objects in images and video. In order to train the detector, [EasyTrain](easytrain-yolo/README.md) consumes annotations created with [EasyLabeler](https://github.com/CreativeInquiry/ComfyCV/tree/main/easylabeler) (see above). EasyTrain [includes a ComfyUI workflow](easytrain-yolo/README.md#6-use-your-model-in-comfyui) that demonstrates the end-to-end use of the `comfyui-ultralytics-yolo` node with a custom-trained model.
 
 [![piles_test_with_yolo_inference.gif](easytrain-yolo/images/piles_test_with_yolo_inference_cropped.gif)](easytrain-yolo/README.md)
 
 [![easytrain-yolo_inference_workflow_for_runcomfy.png](easytrain-yolo/comfy_workflows/easytrain-yolo_inference_workflow_for_runcomfy.png)](easytrain-yolo/README.md#6-use-your-model-in-comfyui)
+
+---
+
+### EasyTrack Viewer
+
+[![images/easytrack_p5.gif](easytrack_viewer/images/easytrack_p5.gif)](easytrack_viewer/README.md) 
+
+[**EasyTrack Viewer**](easytrack_viewer/README.md) is a browser-based tool for previewing the JSON files produced by other EasyTracking apps (such as [Segment Anything to Contours](#segment-anything-to-contours), below). Additionally, it can convert these JSON data into numerous other formats, such as CSV, SVG, GIF, and specialized animation formats for use with AfterEffects, Blender, and Maya.
 
 
 ---
@@ -48,7 +61,7 @@ In addition to the *Easy* suite of tools and workflows for computer vision, we a
 
 ### Locate Anything
 
-[A ComfyUI workflow](comfyui_workflows/locate_anything/README.md) for nVidia's *LocateAnything* powerful model, which uses text prompts to perform precise object localization, dense detection, and point-based localization across a wide range of domains.
+[A ComfyUI workflow](comfyui_workflows/locate_anything/README.md) for nVidia's powerful *LocateAnything* model, which uses text prompts to perform precise object localization, dense detection, and point-based localization across a wide range of domains.
 
 [![locate_anything_people_droplets_ants.png](comfyui_workflows/locate_anything/images/locate_anything_people_droplets_ants2.png)](comfyui_workflows/locate_anything/README.md)
 
@@ -69,7 +82,7 @@ This [set of ComfyUI workflows](comfyui_workflows/segment_anything/README.md) de
 
 ### Segment Anything to Contours
 
-This [ComfyUI workflow](comfyui_workflows/segment_anything_to_contours/README.md) extends Segment Anything with custom nodes that allow you to export sequences of vector-based contours of tracked objects.
+This [ComfyUI workflow](comfyui_workflows/segment_anything_to_contours/README.md) extends Segment Anything with custom nodes that allow you to export sequences of vector-based contours of tracked objects. These sequences may than be viewed and transcoded using [EasyTrack Viewer](#easytrack-viewer) (see above). 
 
 ![bee_video_and_contours.gif](comfyui_workflows/segment_anything_to_contours/images/bee_video_and_contours.gif)
 
@@ -86,7 +99,7 @@ This [ComfyUI workflow](comfyui_workflows/segment_anything_to_contours/README.md
 
 ![humancv_workflow_runcomfy_horiz.png](comfyui_workflows/human_cv/humancv_workflow_runcomfy_horiz.png)
 
-[A ComfyUI workflow](comfyui_workflows/quadruped_cv/README.md) that computes similar analyses of media featuring quadruped **animals**:
+[A related ComfyUI workflow](comfyui_workflows/quadruped_cv/README.md) computes similar analyses of media featuring quadruped **animals**:
 
 [![quadrupedcv_results](comfyui_workflows/quadruped_cv/images/quadrupedcv_results_wide.jpg)](comfyui_workflows/quadruped_cv/README.md)
 
