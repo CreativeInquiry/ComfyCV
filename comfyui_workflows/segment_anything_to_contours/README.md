@@ -54,6 +54,10 @@ If for some reason *Install via Git URL* does not work, you can instead do the f
 
 ---
 
-![tracks_bee.png](images/tracks_bee.png)
+## Example SVG
+
+This is an [example of an SVG](images/tracks_bee.svg) exported by the *EasyTracksExport* node.
+
+[![tracks_bee.png](images/tracks_bee.png)](images/tracks_bee.svg)
 
 
