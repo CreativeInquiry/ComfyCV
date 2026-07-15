@@ -4,7 +4,7 @@
 
 [This p5.js utility](p5_easytrack_viewer/) loads and previews JSON files produced by other EasyTracking apps. Additionally, it can convert your JSON data into formats useful within AfterEffects, Blender, and Maya, as well as CSV, SVG, and GIF. 
 
-To run the program, it needs to be served from a local web server, because the sketch loads local files. To run it locally on a Mac:
+A [live version of the EasyTrack Viewer](https://golanlevin.github.io/easyvision/easytrack_viewer/p5_easytrack_viewer/index.html) can be found [**here**](https://golanlevin.github.io/easyvision/easytrack_viewer/p5_easytrack_viewer/index.html). On the other hand, to run the program locally, it needs to be served from a local web server, because the sketch loads local files. To run it locally on a Mac:
 
 1. Download or clone this repository.
 2. Open Terminal.

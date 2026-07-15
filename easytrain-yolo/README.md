@@ -21,7 +21,8 @@ How does it work? Rather than training a neural network from scratch, `easytrain
 2. **Label** your media with [EasyLabeler](https://github.com/CreativeInquiry/ComfyCV/tree/main/easylabeler). Export the JSON annotations, and keep them with the original video or image folder.
 3. [**Convert**](#5-2-convert) the EasyLabeler annotations into a YOLO dataset, with the command `easytrain-yolo convert my_project/my_project_annotations.json`. By default, this creates `runs/my_project/`, using the media name from the EasyLabeler JSON.
 4. [**Train**](#5-4-train) the model: `easytrain-yolo train runs/my_project`. (Optional quality check: preview before training with the `preview` option.) You should now have a `.pt` model, with a name similar to `runs/my_project/exported_model/my_project_YYYYMMDDHHMM_yolo_model_100e.pt`. 
-5. [**Upload**](#6-use-your-model-in-comfyui) the model into ComfyUI and use it with the [ComfyUI Ultralytics YOLO](https://www.runcomfy.com/comfyui-nodes/comfyui-ultralytics-yolo) detection node.
+5. [**Upload**](#6-use-your-model-in-comfyui) the model into ComfyUI using a [provided inference workflow](comfy_workflows/easytrain-yolo_inference_workflow_for_runcomfy.json) that incorporates the [ComfyUI Ultralytics YOLO](https://www.runcomfy.com/comfyui-nodes/comfyui-ultralytics-yolo) detection node.
+6. **Process** your footage with the inference workflow, and view the text annotation it generates using this browser-based [easytrain_yolo_viewer](https://golanlevin.github.io/easyvision/easytrain_yolo_viewer/index.html).
 
 
 ### Contents
@@ -417,7 +418,7 @@ The following GIF, excerpted from the video output of the above workflow, shows 
 
 The ComfyUI workflow shown here can export text-format numeric data containing the tracked points detected by the comfyui-ultralytics-yolo operators. (This happens in the `Save String KJ` node.) You can then: 
 
-* **visualize** this data in the included p5.js viewer, [p5_easytrain_yolo_viewer](p5_easytrain_yolo_viewer/sketch.js), as shown below;
+* **visualize** this data in the included p5.js viewer, [p5_easytrain_yolo_viewer](p5_easytrain_yolo_viewer/sketch.js), as shown below, or [available here online](https://golanlevin.github.io/easyvision/easytrain_yolo_viewer/index.html);
 * **export** this data for AfterEffects, Blender, or Maya using [p5_easytrain_yolo_viewer](p5_easytrain_yolo_viewer/sketch.js)
 
 ![p5_easytrain_yolo_viewer_screenshot.png](images/p5_easytrain_yolo_viewer_screenshot.png)

@@ -27,7 +27,7 @@ EasyLabeler uses plain HTML, CSS, and JavaScript, and produces JSON annotation f
 
 ### 1. Run locally or on the Web
 
-EasyLabeler is available in a browser, [online, here](https://golanlevin.github.io/easylabeler/index.html). All media are processed locally.
+EasyLabeler is available in a browser, [online, here](https://golanlevin.github.io/easyvision/easylabeler/index.html). All media are processed locally.
 
 Alternatively, you may wish to run EasyLabeler on your own machine. To do so, you'll need local copies of these files: 
 
