@@ -10,11 +10,13 @@
 
 Key links: 
 
-* [DINOv3 offical repo](https://github.com/facebookresearch/dinov3) 
+* [DINOv3 offical repo](https://github.com/facebookresearch/dinov3)
+* [DINOv3 model card](https://github.com/facebookresearch/dinov3/blob/main/MODEL_CARD.md)
 * [ComfyUI node GitHub](https://github.com/xuheyao/comfyui-dinov3-point-prompt)
 * [Model download source](https://huggingface.co/jaychempan/dinov3/blob/main/dinov3_vitb16_pretrain_lvd1689m-73cec8be.pth)
 * [Explanation video on Instagram](https://www.instagram.com/reels/DaiDslIORv-/)
 * [Paper](https://arxiv.org/abs/2508.10104)
+
 
 
 ---

@@ -1,22 +1,56 @@
 # EasyVision & ComfyCV
 
-*This is a collection of pedagogic computer vision tools and resources developed by Prof. [Golan Levin](https://github.com/golanlevin) and student research assistants, [Claire Vlases](https://github.com/cvlases) and [Lorie Chen](https://github.com/ylchen333). This work was developed as part of the Summer 2026 CFA GenAI Toolmaking for the Arts Residency at Carnegie Mellon University, supported by the College of Fine Arts and the Frank-Ratchye STUDIO for Creative Inquiry.*
+> *A Modular AI Toolkit for Computational Perception in the Arts*
+
+This is a collection of pedagogic computer vision tools and resources developed by Prof. [Golan Levin](https://github.com/golanlevin) and student research assistants, [Claire Vlases](https://github.com/cvlases) and [Lorie Chen](https://github.com/ylchen333). This work was developed as part of the Summer 2026 CFA GenAI Toolmaking for the Arts Residency at Carnegie Mellon University, supported by the College of Fine Arts and the Frank-Ratchye STUDIO for Creative Inquiry.
+
 
 ---
 
-**Contents:**
+## Contents
 
+* **Overview**
 * **EasyVision Software Tools**
   * [EasyLabeler](#easylabeler)
   * [EasyTrain (YOLO)](#easytrain-yolo)
   * [EasyTrack Viewer](#easytrack-viewer)
-* [**Additional ComfyUI Workflows for Computer Vision**](#additional-comfyui-workflows-for-computer-vision)<br/>A collection of workflows for visual detection, localization, segmentation, and analysis. 
+* [**ComfyCV: ComfyUI Workflows for Computer Vision**](#comfycv-comfyui-workflows-for-computer-vision)<br/>A collection of workflows for visual detection, localization, segmentation, and analysis. 
   * [Locate Anything](#locate-anything)
   * [Segment Anything](#segment-anything)
   * [Segment Anything to Contours](#segment-anything-to-contours)
   * [Vision Suite for Humans & Quadrupeds](#vision-suite-for-humans--quadrupeds)
   * [DAAM Concept Activation Heatmaps](#daam-concept-activation-heatmaps)
   * [DINOv3 Image Similarity Heatmaps](#dinov3-image-similarity-heatmaps)
+
+
+---
+
+## Overview
+
+*[This needs to be completed]*
+
+* **EasyLabeler**, a browser-based tool for annotating visual media
+* **EasyTrain**, for training custom YOLO detectors using EasyLabeler annotations
+* **EasyDetect**, a ComfyUI workflow for detecting items of interest, using a combination of custom-trained YOLO detectors and state-of-the art models like *Locate Anything* and *Segment Anything*.
+* **EasyTrack**, a ComfyUI workflow for tracking EasyDetected items using models like e.g. CoTrack. 
+
+In addition, we present **ComfyCV**, a loose collection of workflows for the ComfyUI generative-AI programming environment. ComfyCV provides r
+
+### Educational Context
+
+*[This needs to be completed]*
+
+* Experimental Capture
+* Typology Machine Assignment
+
+### Use and Installation Requirements
+
+Interested persons should anticipate using the following tools: 
+
+* **ComfyUI**. Workflows are provided specifically for the RunComfy.com cloud-computing service. It is recommended you obtain an account there. 
+* **Python**. Some of the tooling presented here expects you to have a local installation of Python 3.10+. To preserve the integrity of your machine, it is recommended you always create a virtual environment ("venv") for all Python work.
+* **ffmpeg**. This is a powerful command-line tool for processing image and video media, especially in large batches.
+* Comfort using the macOS **Terminal** application will also be very handy. 
 
 ---
 
@@ -54,9 +88,9 @@ Datasets annotated with EasyLabeler can be used to train custom detectors with [
 
 ---
 
-## Additional ComfyUI Workflows for Computer Vision
+## ComfyCV: ComfyUI Workflows for Computer Vision
 
-In addition to the *Easy* suite of tools and workflows for computer vision, we also offer these self-contained workflows for performing select computer vision tasks in ComfyUI.
+In addition to the *EasyVision* suite of tools and workflows for computer vision, we also offer these self-contained workflows for performing select computer vision tasks in ComfyUI.
 
 
 ### Locate Anything
@@ -71,7 +105,7 @@ In addition to the *Easy* suite of tools and workflows for computer vision, we a
 
 ### Segment Anything
 
-This [set of ComfyUI workflows](comfyui_workflows/segment_anything/README.md) demonstrates Meta's *Segment Anything 3.1* model, which produces accurate pixel-level masks for objects specified by natural language text prompts, points, and/or bounding boxes. 
+This [set of ComfyUI workflows](comfyui_workflows/segment_anything/README.md) demonstrates Meta's *Segment Anything 3.1* model, which produces accurate pixel-level masks for objects specified by natural language text prompts, points, and/or bounding boxes. Workflows are provided for images, video, and image batches.
 
 [![sam3_result.jpg](comfyui_workflows/segment_anything/sam3_result.jpg)](comfyui_workflows/segment_anything/README.md)
 

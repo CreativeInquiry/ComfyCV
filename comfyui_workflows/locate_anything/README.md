@@ -8,7 +8,7 @@
 
 This page presents a (RunComfy.com) ComfyUI workflow for nVidia's [**LocateAnything**](https://huggingface.co/nvidia/LocateAnything-3B) (2026), a vision-language model for fast and high-quality visual grounding. It enables "precise object localization, dense detection, and point-based localization across diverse domains. The model adopts a generalist design, supporting tasks such as referring expression grounding, multi-object detection, GUI element grounding, and text localization, with strong performance in complex and cluttered scenes."
 
-* nVidia's [models and downloads](https://huggingface.co/nvidia/LocateAnything-3B)
+* nVidia's [models, model card, and downloads](https://huggingface.co/nvidia/LocateAnything-3B)
 * nVidia's [LocateAnything GitHub](https://github.com/NVlabs/Eagle/tree/main/Embodied)
 * [ComfyUI-LocateAnything](https://github.com/alisson-anjos/ComfyUI-LocateAnything) ComfyUI node
 

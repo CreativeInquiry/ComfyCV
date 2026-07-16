@@ -13,7 +13,7 @@ SAM 3 accepts text prompts as well as points, bounding boxes, masks, and image e
 * Meta's SAM 3 [main landing page](https://ai.meta.com/research/sam3/) and [YouTube intro](https://www.youtube.com/watch?v=G4OLPDjwncw)
 * Meta's SAM 3 [interactive demo online](https://aidemos.meta.com/segment-anything)
 * Meta's SAM 3 [GitHub repository](https://github.com/facebookresearch/sam3)
-* Huggingface SAM 3.1 [models and downloads](https://huggingface.co/facebook/sam3.1)
+* Huggingface SAM 3.1 [models, model card, and downloads](https://huggingface.co/facebook/sam3.1)
 
 ---
 
