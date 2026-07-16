@@ -2,19 +2,32 @@
 
 > *A Modular AI Toolkit for Computational Perception in the Arts*
 
-This is a collection of pedagogic computer vision tools and resources developed by Prof. [Golan Levin](https://github.com/golanlevin) and student research assistants, [Claire Vlases](https://github.com/cvlases) and [Lorie Chen](https://github.com/ylchen333). This work was developed as part of the Summer 2026 CFA GenAI Toolmaking for the Arts Residency at Carnegie Mellon University, supported by the College of Fine Arts and the Frank-Ratchye STUDIO for Creative Inquiry.
+This repository collects a suite of open-source pedagogical tools for
+computer vision and computational perception, developed by Prof. [Golan
+Levin](https://github.com/golanlevin) and student research assistants
+[Claire Vlases](https://github.com/cvlases) and [Lorie
+Chen](https://github.com/ylchen333). The project was created during the
+Summer 2026 CFA GenAI Toolmaking for the Arts Residency at Carnegie
+Mellon University, supported by the College of Fine Arts and the
+Frank-Ratchye STUDIO for Creative Inquiry.
 
+Rather than treating AI primarily as a system for image generation,
+**EasyVision** and **ComfyCV** use contemporary computer vision models
+as instruments for observation, measurement, and analysis. The toolkit
+is intended for artists, designers, educators, and students who wish to
+build their own workflows for computational perception using open,
+modifiable software. For more information, see [About EasyVision & ComfyCV](about.md).
 
 ---
 
 ## Contents
 
-* **Overview**
-* **EasyVision Software Tools**
+* [**Overview**](#overview)
+* [**EasyVision Software Tools**](#easyvision-software-tools)<br />An end-to-end toolkit for annotation, training, detection, tracking, and export.
   * [EasyLabeler](#easylabeler)
   * [EasyTrain (YOLO)](#easytrain-yolo)
   * [EasyTrack Viewer](#easytrack-viewer)
-* [**ComfyCV: ComfyUI Workflows for Computer Vision**](#comfycv-comfyui-workflows-for-computer-vision)<br/>A collection of workflows for visual detection, localization, segmentation, and analysis. 
+* [**ComfyCV: ComfyUI Workflows for Computer Vision**](#comfycv-comfyui-workflows-for-computer-vision)<br/>Curated workflows for state-of-the-art computer vision models and techniques.. 
   * [Locate Anything](#locate-anything)
   * [Segment Anything](#segment-anything)
   * [Segment Anything to Contours](#segment-anything-to-contours)
@@ -27,34 +40,90 @@ This is a collection of pedagogic computer vision tools and resources developed 
 
 ## Overview
 
-*[This needs to be completed]*
+[**EasyVision**](#easyvision-software-tools) and [**ComfyCV**](#comfycv-comfyui-workflows-for-computer-vision) provide an end-to-end workflow for building
+custom computer vision systems without requiring extensive
+machine-learning infrastructure. Together, the tools support a complete
+pipeline:
 
-* **EasyLabeler**, a browser-based tool for annotating visual media
-* **EasyTrain**, for training custom YOLO detectors using EasyLabeler annotations
-* **EasyDetect**, a ComfyUI workflow for detecting items of interest, using a combination of custom-trained YOLO detectors and state-of-the art models like *Locate Anything* and *Segment Anything*.
-* **EasyTrack**, a ComfyUI workflow for tracking EasyDetected items using models like e.g. CoTrack. 
+-   [**EasyLabeler**](#easylabeler) — annotate images and video with points, boxes,
+    and polygons.
+-   [**EasyTrain**](#easytrain-yolo) — train custom YOLO detectors from EasyLabeler
+    annotations.
+-   **EasyDetect** — detect objects using custom YOLO models or
+    foundation models such as LocateAnything and Segment Anything.
+-   **EasyTrack** — convert detections into a unified `TRACKS`
+    representation, enrich them with temporal tracking, and export the
+    results for creative software.
 
-In addition, we present **ComfyCV**, a loose collection of workflows for the ComfyUI generative-AI programming environment. ComfyCV provides r
+Alongside this pipeline, [**ComfyCV**](#comfycv-comfyui-workflows-for-computer-vision) provides a curated collection of
+documented ComfyUI workflows demonstrating state-of-the-art computer
+vision techniques including open-vocabulary detection, segmentation,
+contour extraction, pose estimation, monocular depth estimation,
+semantic saliency, concept activation heatmaps, and image similarity
+analysis.
+
+A central design goal is interoperability. Rather than presenting
+isolated demonstrations of individual AI models, the toolkit emphasizes
+reusable workflows, common data formats, and modular components that
+students can inspect, modify, and recombine into systems of their own
+design.
 
 ### Educational Context
 
-*[This needs to be completed]*
+This project was developed to support [**Experimental Capture**](https://github.com/golanlevin/ExperimentalCapture), an
+interdisciplinary studio course at Carnegie Mellon University in which
+students create systems for sensing and representing phenomena beyond
+ordinary human perception. A recurring assignment in the course,
+[**Typology Machine**](https://courses.ideate.cmu.edu/60-461/f2024/deliverables/typology-machine/index.html), asks students to build computational systems that
+collect, regularize, analyze, and compare observations in order to
+investigate a research question.
 
-* Experimental Capture
-* Typology Machine Assignment
+The toolkit treats AI as a framework for **computational perception**,
+not simply image generation. Students use these tools to build workflows
+that detect, segment, track, measure, classify, and visualize the world,
+turning contemporary computer vision research into practical instruments
+for artistic inquiry. By packaging research-grade models into
+approachable, well-documented ComfyUI workflows, EasyVision and ComfyCV
+substantially reduce the software engineering overhead traditionally
+required to use these techniques in the classroom. 
 
-### Use and Installation Requirements
+For more information, please see [About EasyVision & ComfyCV](about.md).
 
-Interested persons should anticipate using the following tools: 
+### Use / Installation Requirements
 
-* **ComfyUI**. Workflows are provided specifically for the RunComfy.com cloud-computing service. It is recommended you obtain an account there. 
-* **Python**. Some of the tooling presented here expects you to have a local installation of Python 3.10+. To preserve the integrity of your machine, it is recommended you always create a virtual environment ("venv") for all Python work.
-* **ffmpeg**. This is a powerful command-line tool for processing image and video media, especially in large batches.
-* Comfort using the macOS **Terminal** application will also be very handy. 
+Most projects in this repository assume familiarity with a small
+collection of open-source tools:
+
+-   **ComfyUI.** Workflows are primarily developed and tested for the
+    [RunComfy.com](https://www.runcomfy.com/) cloud platform, though many can be adapted to local ComfyUI installations.
+-   **Python 3.10+.** Several utilities are local command-line
+    applications. A dedicated Python virtual environment (`venv`) is
+    strongly recommended.
+-   **ffmpeg.** Many workflows assume the ability to batch-process,
+    resize, crop, or transcode image and video media.
+-   **Terminal.** Basic familiarity with the macOS (or Linux) command
+    line is helpful for installation, model management, and
+    troubleshooting.
+
+Where additional dependencies, custom nodes, or model downloads are
+required, detailed installation instructions are provided in the
+documentation for each individual tool.
 
 ---
 
 ## EasyVision Software Tools
+
+**EasyVision** is a collection of interoperable software tools for computational perception. Together, they support the complete lifecycle of a custom computer vision project: annotating media, training detectors, detecting and tracking phenomena, and exporting structured observations for visualization, creative coding, animation, and further analysis.
+
+Unlike many computer vision libraries, EasyVision is designed for artists, designers, and educators. It combines lightweight browser applications, local Python utilities, and ComfyUI workflows into a coherent pipeline, allowing students to construct custom vision systems without needing to build machine learning infrastructure from scratch.
+
+The principal components are:
+
+* **EasyLabeler** — a browser-based tool for annotating images and video with points, bounding boxes, and polygons.
+* **EasyTrain** — a local Python utility that trains custom YOLO detectors from EasyLabeler annotations.
+* **EasyDetect** *(in development)* — a family of ComfyUI workflows for detecting phenomena using custom-trained YOLO models together with foundation models such as *LocateAnything* and *Segment Anything*.
+* **EasyTrack** *(in development)* — a collection of ComfyUI workflows and custom nodes that transform detections into a unified `TRACKS` representation, optionally enrich them with dense temporal tracking, and export the results for downstream creative tools such as p5.js, Blender, Maya, and After Effects.
+
 
 ---
 
@@ -90,7 +159,9 @@ Datasets annotated with EasyLabeler can be used to train custom detectors with [
 
 ## ComfyCV: ComfyUI Workflows for Computer Vision
 
-In addition to the *EasyVision* suite of tools and workflows for computer vision, we also offer these self-contained workflows for performing select computer vision tasks in ComfyUI.
+In addition to the *EasyVision* suite of tools and workflows, we also provide a collection of self-contained ComfyUI workflows for contemporary computer vision.
+
+Although ComfyUI is best known as a platform for generative AI, we use it here as a **computer vision workbench**: a modular environment for assembling workflows that detect, segment, track, measure, and analyze visual phenomena. Rather than generating images, these workflows transform images and video into new forms of information—bounding boxes, masks, contours, poses, depth maps, motion tracks, heatmaps, and other computational representations that can be visualized, measured, or incorporated into downstream creative tools.
 
 
 ### Locate Anything
